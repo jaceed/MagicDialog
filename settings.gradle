@@ -1,0 +1,3 @@
+include ':MagicDialog'
+include ':app'
+rootProject.name = "Magics"

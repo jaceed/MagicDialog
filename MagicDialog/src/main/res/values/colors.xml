@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="magicBackground">#FFFFFF</color>
+    <color name="magicTextColor">#0E0C19</color>
+    <color name="magicDivider">#33E0DFE5</color>
+
+</resources>

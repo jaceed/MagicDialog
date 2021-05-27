@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DialogThemeCommon" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="magicDivider">@color/magicDivider</item>
+        <item name="magicTitleColor">@color/magicTextColor</item>
+        <item name="magicMessageColor">@color/magicTextColor</item>
+    </style>
+
+</resources>

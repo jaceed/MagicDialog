@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="magicBackground" format="color|reference" />
+    <attr name="magicTitleColor" format="color|reference" />
+    <attr name="magicMessageColor" format="color|reference" />
+    <attr name="magicTextNormalColor" format="color|reference" />
+    <attr name="magicTextAlertColor" format="color|reference" />
+    <attr name="magicTextWarningColor" format="color|reference" />
+    <attr name="magicDivider" format="color|reference" />
+
+</resources>
