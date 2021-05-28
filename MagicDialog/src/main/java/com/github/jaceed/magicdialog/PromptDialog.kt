@@ -45,6 +45,11 @@ class PromptDialog : BaseCommonDialog() {
         } ?: action
     }
 
+    override fun onLocation(): Int {
+        val sp = super.onLocation()
+        return arguments?.getInt(ARG_LOCATION, sp) ?: sp
+    }
+
     class Builder(private val context: Context) {
 
         private val arguments = Bundle()
@@ -79,6 +84,14 @@ class PromptDialog : BaseCommonDialog() {
             return this
         }
 
+        fun location(location: Int): Builder {
+            if (location and Location.Expanded == 0 && location and Location.Full == 0) {
+                throw RuntimeException("Prompt dialog has to be expanded or full")
+            }
+            arguments.putInt(ARG_LOCATION, location)
+            return this
+        }
+
         fun build(): PromptDialog {
             val config = (arguments.getSerializable(ARG_BUTTON_CONFIG) as? Config) ?: Config.of(context)
             val neg = arguments.getSerializable(ARG_BUTTON_CONFIG_NEGATIVE) as? Config
@@ -103,6 +116,7 @@ class PromptDialog : BaseCommonDialog() {
         private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
         private const val ARG_BUTTON_TYPE = "button_type"
         private const val ARG_CANCELLABLE = "cancellable"
+        private const val ARG_LOCATION = "location"
 
         private fun newDialog(args: Bundle) = PromptDialog().apply {
             arguments = args

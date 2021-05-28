@@ -11,19 +11,12 @@ import com.github.jaceed.magicdialog.utils.colorOf
  */
 abstract class BaseDialog : BaseDialogFragment() {
 
-    enum class Location {
-        CENTER,
-        CENTER_EXPANDED,
-        BOTTOM,
-        BOTTOM_FULL
-    }
-
     private val insetSize: Int by lazy {
         resources.getDimensionPixelSize(R.dimen.dialog_content_border_margin)
     }
 
     protected val magicBackgroundColorDefault by lazy {
-        requireActivity().colorOf(R.attr.magicBackground, ResourcesCompat.getColor(resources, R.color.magicBackground, null))
+        colorOf(R.attr.magicBackground, ResourcesCompat.getColor(resources, R.color.magicBackground, null))
     }
 
     private val backgroundDrawable by lazy {
@@ -32,43 +25,37 @@ abstract class BaseDialog : BaseDialogFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setBackgroundDrawable(backgroundDrawable)
-        when (onLocation()) {
-            Location.BOTTOM -> {
-                val params = dialog?.window?.attributes
-                dialog?.window?.attributes = params?.also {
-                    it.gravity = Gravity.BOTTOM
-                    it.width = ViewGroup.LayoutParams.MATCH_PARENT
-                    it.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                }
-            }
-            Location.BOTTOM_FULL -> {
-                val params = dialog?.window?.attributes
-                dialog?.window?.attributes = params?.also {
-                    it.gravity = Gravity.BOTTOM
-                    it.width = ViewGroup.LayoutParams.MATCH_PARENT
-                    it.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                }
-            }
-            Location.CENTER_EXPANDED -> {
-                // Center alert type, force to not cancelable
-                isCancelable = false
-
-                val params = dialog?.window?.attributes
-                dialog?.window?.attributes = params?.also {
-                    it.width = ViewGroup.LayoutParams.MATCH_PARENT
-                    it.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                }
-            }
-            Location.CENTER -> {
-                // Center alert type, force to not cancelable
-                isCancelable = false
-            }
+    private val backgroundDrawableFull by lazy {
+        ResourcesCompat.getDrawable(resources, R.drawable.bg_common_dialog, null)?.apply {
+            setTint(magicBackgroundColorDefault)
         }
     }
 
-    protected open fun onLocation(): Location = Location.CENTER_EXPANDED
+    override fun onStart() {
+        super.onStart()
+        val window = dialog?.window ?: return
+        val attrs = window.attributes
+        val location = onLocation()
+
+        var bg = backgroundDrawable
+        var w = ViewGroup.LayoutParams.WRAP_CONTENT
+        if (location and Location.Expanded == Location.Expanded) {
+            w = ViewGroup.LayoutParams.MATCH_PARENT
+        } else if (location and Location.Full == Location.Full) {
+            w = ViewGroup.LayoutParams.MATCH_PARENT
+            bg = backgroundDrawableFull
+        }
+
+        if (location and Location.Bottom == Location.Bottom) {
+            attrs.gravity = Gravity.BOTTOM
+        }
+
+        attrs.width = w
+        attrs.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        window.attributes = attrs
+        window.setBackgroundDrawable(bg)
+    }
+
+    protected open fun onLocation(): Int = Location.Center or Location.Expanded
 
 }
