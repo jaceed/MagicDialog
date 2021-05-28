@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MagicDialog">
+        <activity
+            android:name=".CustomThemeActivity"
+            android:label="Custom"
+            android:theme="@style/Theme.MagicDialog.Custom" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

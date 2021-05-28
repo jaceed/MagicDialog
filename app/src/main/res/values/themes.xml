@@ -13,13 +13,16 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-<!--        <item name="magicBackground">#888</item>-->
-<!--        <item name="magicTextNormalColor">#F00</item>-->
-<!--        <item name="magicTextAlertColor">#0F0</item>-->
-<!--        <item name="magicTextWarningColor">#00F</item>-->
-<!--        <item name="magicTitleColor">#FF0</item>-->
-<!--        <item name="magicMessageColor">#0FF</item>-->
-<!--        <item name="magicDivider">#F0F</item>-->
-
     </style>
+
+    <style name="Theme.MagicDialog.Custom">
+        <item name="magicBackground">#888</item>
+        <item name="magicTextNormalColor">#F00</item>
+        <item name="magicTextAlertColor">#0F0</item>
+        <item name="magicTextWarningColor">#00F</item>
+        <item name="magicTitleColor">#FF0</item>
+        <item name="magicMessageColor">#0FF</item>
+        <item name="magicDivider">#F0F</item>
+    </style>
+
 </resources>

@@ -1,0 +1,35 @@
+package com.jacee.magicdialog
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import com.github.jaceed.magicdialog.OnDialogFragmentInteraction
+import com.github.jaceed.magicdialog.PromptDialog
+import com.github.jaceed.magicdialog.utils.show
+import com.jacee.magicdialog.databinding.ActivityCustomBinding
+
+class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        ActivityCustomBinding.inflate(layoutInflater).let {
+            setContentView(it.root)
+            it.custom.setOnClickListener {
+                show(
+                    PromptDialog.Builder(this)
+                        .title("自定义")
+                        .message("所有颜色都自定义").build(), "custom"
+                )
+            }
+        }
+    }
+
+    override fun onDialogNegativeClick(v: View) {
+        Toast.makeText(this, "取消", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDialogPositiveClick(v: View) {
+        Toast.makeText(this, "确定", Toast.LENGTH_LONG).show()
+    }
+}
