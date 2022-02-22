@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
                 PromptDialog.Builder(this)
                     .title("标题")
                     .message("测试一下")
-                    .negative("Cancel掉", Action.ALERT)
-                    .positive("O了", Action.WARNING)
+                    .negative("Cancel掉")
+                    .positive("O了")
                     .cancellable(true)
                     .build()
                     .setOnDialogFragmentInteraction(object : OnDialogFragmentInteraction {
@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.add(0, 0, 0, "主题")
+        menu?.add(0, 1, 0, "选项")
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -120,6 +121,9 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             0 -> {
                 startActivity(Intent(this, CustomThemeActivity::class.java))
+            }
+            1 -> {
+                startActivity(Intent(this, OptionsActivity::class.java))
             }
             else -> {
                 return false

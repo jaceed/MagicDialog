@@ -15,14 +15,36 @@
 
     </style>
 
+    <style name="Negative" parent="TextAppearance.AppCompat.Widget.Button">
+        <item name="android:background">@android:color/holo_blue_bright</item>
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+    </style>
+
+    <style name="Positive">
+        <item name="android:background">@drawable/bg_custom_positive</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Options">
+        <item name="magicOptionTitleColor">#F00</item>
+        <item name="magicOptionTitleSize">32dp</item>
+        <item name="magicOptionItemColor">#0ff</item>
+        <item name="magicOptionItemCheckColor">#ff0</item>
+    </style>
+
+    <style name="Prompt">
+        <item name="magicTitleColor">#FF0</item>
+        <item name="magicTitleSize">10dp</item>
+        <item name="magicMessageColor">#0FF</item>
+        <item name="magicMessageSize">40dp</item>
+    </style>
+
     <style name="Theme.MagicDialog.Custom">
         <item name="magicBackground">#888</item>
-        <item name="magicTextNormalColor">#F00</item>
-        <item name="magicTextAlertColor">#0F0</item>
-        <item name="magicTextWarningColor">#00F</item>
-        <item name="magicTitleColor">#FF0</item>
-        <item name="magicMessageColor">#0FF</item>
-        <item name="magicDivider">#F0F</item>
+        <item name="magicNegativeStyle">@style/Negative</item>
+        <item name="magicPositiveStyle">@style/Positive</item>
+        <item name="magicOptionStyle">@style/Options</item>
+        <item name="magicPromptStyle">@style/Prompt</item>
     </style>
 
 </resources>
