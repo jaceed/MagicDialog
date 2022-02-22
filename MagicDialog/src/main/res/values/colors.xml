@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Theme colors-->
+    <color name="primary_blue">#124EE6</color>
+    <color name="primary_orange">#FF5724</color>
+    <color name="primary_green">#26C676</color>
+    <color name="primary_red">#F23E3E</color>
+    <color name="primary_white">#FFFFFF</color>
+    <color name="primary_black">#000000</color>
+
+    <color name="primary_blue_variant_100">#E7EDFC</color>
+    <color name="primary_blue_variant_200">#B2C5F7</color>
+    <color name="primary_blue_variant_300">#7D9EF1</color>
+    <color name="primary_blue_variant_400">#4776EC</color>
+    <color name="primary_blue_variant_600">#0F40BE</color>
+    <color name="primary_blue_variant_700">#0C3396</color>
+    <color name="primary_blue_variant_800">#09256D</color>
+    <color name="primary_blue_variant_900">#051745</color>
+
+    <color name="primary_blue_8">#14124EE6</color>
+    <color name="primary_blue_16">#28124EE6</color>
+    <color name="primary_blue_24">#3D124EE6</color>
+    <color name="primary_blue_32">#51124EE6</color>
+    <color name="primary_blue_40">#66124EE6</color>
+    <color name="primary_blue_48">#7A124EE6</color>
+
+    <color name="primary_orange_variant_100">#FFEEE9</color>
+    <color name="primary_orange_variant_200">#FFC8B8</color>
+    <color name="primary_orange_variant_300">#FFA387</color>
+    <color name="primary_orange_variant_400">#FF7D55</color>
+    <color name="primary_orange_variant_600">#D2481E</color>
+    <color name="primary_orange_variant_700">#A63917</color>
+    <color name="primary_orange_variant_800">#792911</color>
+    <color name="primary_orange_variant_900">#4D1A0B</color>
+
+    <color name="primary_orange_8">#14FF5724</color>
+    <color name="primary_orange_16">#28FF5724</color>
+    <color name="primary_orange_24">#3DFF5724</color>
+    <color name="primary_orange_32">#51FF5724</color>
+    <color name="primary_orange_40">#66FF5724</color>
+    <color name="primary_orange_48">#7AFF5724</color>
+
+    <color name="auxiliary_orange">#FF9500</color>
+    <color name="auxiliary_lemon">#FFdA2C</color>
+    <color name="auxiliary_mint">#02D5C9</color>
+    <color name="auxiliary_sky">#5AC8FA</color>
+    <color name="auxiliary_lake">#007AFF</color>
+    <color name="auxiliary_purple">#5856D6</color>
+    <color name="auxiliary_flower">#FF2D55</color>
+    <color name="auxiliary_smog">#90949B</color>
+
+    <color name="gray_01">#141822</color>
+    <color name="gray_02">#283044</color>
+    <color name="gray_03">#606A7E</color>
+    <color name="gray_04">#9CA6B8</color>
+    <color name="gray_05">#C0C8D4</color>
+    <color name="gray_06">#E6E9EE</color>
+    <color name="gray_07">#F8F8F9</color>
+
+    <color name="gray_05_60">#99C0C8D4</color>
+    <color name="gray_06_40">#66E6E9EE</color>
+    <color name="gray_06_60">#99E6E9EE</color>
+    <color name="gray_06_80">#CCE6E9EE</color>
+
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+
+    <!--Ui colors-->
+    <color name="colorPrimary">@color/primary_blue</color>
+    <color name="colorOnPrimary">@color/primary_white</color>
+    <color name="colorPrimaryVariant">@color/primary_blue_variant_700</color>
+    <color name="colorPrimaryPressed">#146653DB</color>
+    <color name="colorAccent">@color/primary_orange</color>
+    <color name="colorError">#FF2D55</color>
+    <color name="colorErrorVariant">#14FF2D55</color>
+    <color name="colorSecondary">@color/primary_white</color>
+    <color name="colorOnSecondary">@color/gray_01</color>
+
+    <color name="colorGrayMedium">#66E0DFE5</color>
+
+    <color name="colorBackground">@color/colorSecondary</color>
+
     <color name="magicBackground">#FFFFFF</color>
     <color name="magicTextColor">#0E0C19</color>
     <color name="magicDivider">#33E0DFE5</color>

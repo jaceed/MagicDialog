@@ -2,11 +2,24 @@
 <resources>
 
     <attr name="magicBackground" format="color|reference" />
-    <attr name="magicTitleColor" format="color|reference" />
-    <attr name="magicMessageColor" format="color|reference" />
-    <attr name="magicTextNormalColor" format="color|reference" />
-    <attr name="magicTextAlertColor" format="color|reference" />
-    <attr name="magicTextWarningColor" format="color|reference" />
-    <attr name="magicDivider" format="color|reference" />
+    <attr name="magicNegativeStyle" format="reference" />
+    <attr name="magicPositiveStyle" format="reference" />
+
+    <declare-styleable name="MagicPrompt">
+        <attr name="magicTitleColor" format="color|reference" />
+        <attr name="magicTitleSize" format="dimension|reference" />
+        <attr name="magicMessageColor" format="color|reference" />
+        <attr name="magicMessageSize" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MagicOptionChecked">
+        <attr name="magicOptionTitleColor" format="color|reference" />
+        <attr name="magicOptionTitleSize" format="dimension|reference" />
+        <attr name="magicOptionItemColor" format="color|reference" />
+        <attr name="magicOptionItemCheckColor" format="color|reference" />
+    </declare-styleable>
+
+    <attr name="magicPromptStyle" format="reference" />
+    <attr name="magicOptionStyle" format="reference" />
 
 </resources>

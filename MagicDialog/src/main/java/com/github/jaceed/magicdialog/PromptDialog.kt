@@ -1,8 +1,14 @@
 package com.github.jaceed.magicdialog
 
 import android.content.Context
-import android.os.Bundle
-import android.widget.TextView
+import android.graphics.Bitmap
+import android.net.Uri
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
+import com.github.jaceed.extender.view.content
+import com.github.jaceed.extender.view.visible
+import com.github.jaceed.magicdialog.databinding.FragmentDialogPromptBinding
 
 /**
  * Created by Jacee.
@@ -10,49 +16,53 @@ import android.widget.TextView
  */
 class PromptDialog : BaseCommonDialog() {
 
-    override fun onStart() {
-        super.onStart()
-        isCancelable = (arguments?.getSerializable(ARG_CANCELLABLE) as? Boolean) ?: false
-    }
-
-    override fun onConfigureTitle(v: TextView): Boolean {
-        v.text = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() } ?: return false
-        return true
-    }
-
-    override fun onConfigureMessage(v: TextView): Boolean {
-        v.text = arguments?.getString(ARG_MESSAGE)?.takeIf { it.isNotBlank() } ?: return false
-        return true
-    }
-
-    override fun onConfigureButtons(): ButtonType {
-        return arguments?.getSerializable(ARG_BUTTON_TYPE) as? ButtonType ?: ButtonType.DOUBLE
-    }
-
-    override fun onConfigureNegative(v: TextView): Action {
-        val action = super.onConfigureNegative(v)
-        return (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)?.let {
-            v.text = it.cancel
-            it.cancelAction
-        } ?: action
-    }
-
-    override fun onConfigurePositive(v: TextView): Action {
-        val action = super.onConfigurePositive(v)
-        return (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)?.let {
-            v.text = it.ok
-            it.okAction
-        } ?: action
-    }
+    override fun onTheme(): Int = R.style.DialogThemePrompt
 
     override fun onLocation(): Int {
         val sp = super.onLocation()
         return arguments?.getInt(ARG_LOCATION, sp) ?: sp
     }
 
-    class Builder(private val context: Context) {
+    override fun onCreateContent(inflater: LayoutInflater): View? {
+        return FragmentDialogPromptBinding.inflate(inflater).apply {
+            pic.visible = (arguments?.getParcelable(ARG_PIC) as? Bitmap)?.let {
+                pic.setImageBitmap(it)
+                true
+            } ?: run {
+                /*arguments?.getParcelable<Uri>(ARG_PIC_URI)?.let {
+                    PicParser.load(it)
+                        .into(pic)
+                    true
+                } ?:*/ false
+            }
 
-        private val arguments = Bundle()
+            requireActivity().themeBy(R.attr.magicPromptStyle, R.styleable.MagicPrompt) { a ->
+                a.getColor(R.styleable.MagicPrompt_magicTitleColor, 0).takeIf { it != 0 }?.let { c -> title.setTextColor(c) }
+                a.getDimension(R.styleable.MagicPrompt_magicTitleSize, 0f).takeIf { it != 0f }?.let { d -> title.setTextSize(TypedValue.COMPLEX_UNIT_PX, d) }
+                a.getColor(R.styleable.MagicPrompt_magicMessageColor, 0).takeIf { it != 0 }?.let { c -> message.setTextColor(c) }
+                a.getDimension(R.styleable.MagicPrompt_magicMessageSize, 0f).takeIf { it != 0f }?.let { d -> message.setTextSize(TypedValue.COMPLEX_UNIT_PX, d) }
+            }
+
+            title.content = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() }
+            message.content = arguments?.getString(ARG_MESSAGE)?.takeIf { it.isNotBlank() }
+            s2.visible = title.visible && message.visible
+        }.root
+    }
+
+
+    class Builder(context: Context) : BaseCommonDialog.Builder<PromptDialog>(context) {
+
+        fun pic(uri: Uri): Builder {
+            arguments.putParcelable(ARG_PIC, null)
+            arguments.putParcelable(ARG_PIC_URI, uri)
+            return this
+        }
+
+        fun bitmap(bitmap: Bitmap): Builder {
+            arguments.putParcelable(ARG_PIC_URI, null)
+            arguments.putParcelable(ARG_PIC, bitmap)
+            return this
+        }
 
         fun title(title: String?): Builder {
             arguments.putString(ARG_TITLE, title)
@@ -64,26 +74,6 @@ class PromptDialog : BaseCommonDialog() {
             return this
         }
 
-        fun negative(button: String?, action: Action = Action.NORMAL): Builder {
-            arguments.putSerializable(ARG_BUTTON_CONFIG_NEGATIVE, Config.negative(context, button, action))
-            return this
-        }
-
-        fun positive(button: String?, action: Action = Action.ALERT): Builder {
-            arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button, action))
-            return this
-        }
-
-        fun type(buttonType: ButtonType): Builder {
-            arguments.putSerializable(ARG_BUTTON_TYPE, buttonType)
-            return this
-        }
-
-        fun cancellable(cancellable: Boolean): Builder {
-            arguments.putSerializable(ARG_CANCELLABLE, cancellable)
-            return this
-        }
-
         fun location(location: Int): Builder {
             if (location and Location.Expanded == 0 && location and Location.Full == 0) {
                 throw RuntimeException("Prompt dialog has to be expanded or full")
@@ -92,35 +82,19 @@ class PromptDialog : BaseCommonDialog() {
             return this
         }
 
-        fun build(): PromptDialog {
-            val config = (arguments.getSerializable(ARG_BUTTON_CONFIG) as? Config) ?: Config.of(context)
-            val neg = arguments.getSerializable(ARG_BUTTON_CONFIG_NEGATIVE) as? Config
-            val pos = arguments.getSerializable(ARG_BUTTON_CONFIG_POSITIVE) as? Config
-            arguments.putSerializable(ARG_BUTTON_CONFIG, Config(
-                neg?.cancel.takeIf { !it.isNullOrBlank() } ?: config.cancel,
-                pos?.ok.takeIf { !it.isNullOrBlank() } ?: config.ok,
-                neg?.cancelAction ?: config.cancelAction,
-                pos?.okAction ?: config.okAction
-            ))
-            return newDialog(arguments)
+        override fun create() = PromptDialog().apply {
+            this.arguments = this@Builder.arguments
         }
 
     }
 
+
     companion object {
 
-        private const val ARG_TITLE = "title"
+        private const val ARG_PIC = "picture"
+        private const val ARG_PIC_URI = "picture"
         private const val ARG_MESSAGE = "message"
-        private const val ARG_BUTTON_CONFIG = "button_config"
-        private const val ARG_BUTTON_CONFIG_NEGATIVE = "button_config_negative"
-        private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
-        private const val ARG_BUTTON_TYPE = "button_type"
-        private const val ARG_CANCELLABLE = "cancellable"
         private const val ARG_LOCATION = "location"
-
-        private fun newDialog(args: Bundle) = PromptDialog().apply {
-            arguments = args
-        }
 
     }
 

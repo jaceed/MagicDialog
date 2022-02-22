@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Theme dimensions-->
+    <dimen name="ts_01">10sp</dimen>
+    <dimen name="ts_02">12sp</dimen>
+    <dimen name="ts_03">14sp</dimen>
+    <dimen name="ts_04">16sp</dimen>
+    <dimen name="ts_05">18sp</dimen>
+    <dimen name="ts_06">20sp</dimen>
+    <dimen name="ts_07">24sp</dimen>
+    <dimen name="ts_08">28sp</dimen>
+    <dimen name="ts_09">32sp</dimen>
+
+    <dimen name="corner_small">4dp</dimen>
+    <dimen name="corner_normal">6dp</dimen>
+    <dimen name="corner_large">14dp</dimen>
+    <dimen name="corner_large_extra">20dp</dimen>
+    <dimen name="corner_huge">100dp</dimen>
+
     <dimen name="dialog_background_corner">8dp</dimen>
-    <dimen name="dialog_content_border_margin">36dp</dimen>
+
+    <dimen name="dialog_content_border_margin">16dp</dimen>
+    <dimen name="dialog_content_border_margin_bottom">50dp</dimen>
+    <dimen name="dialog_corner">8dp</dimen>
 
 </resources>

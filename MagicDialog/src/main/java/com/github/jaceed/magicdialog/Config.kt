@@ -7,23 +7,21 @@ import java.io.Serializable
  * Created by Jacee.
  * Date: 2021.03.26
  */
-internal data class Config(
+data class Config(
     val cancel: CharSequence,
-    val ok: CharSequence,
-    val cancelAction: Action,
-    val okAction: Action
+    val ok: CharSequence
 ) : Serializable {
 
     companion object {
 
         fun of(context: Context) =
-            Config(context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok), Action.NORMAL, Action.ALERT)
+            Config(context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok))
 
-        fun positive(context: Context, ok: CharSequence?, action: Action = Action.ALERT) =
-            Config(context.getString(R.string.dialog_btn_cancel), ok ?: context.getString(R.string.dialog_btn_ok), Action.NORMAL, action)
+        fun positive(context: Context, ok: CharSequence?) =
+            Config(context.getString(R.string.dialog_btn_cancel), ok ?: context.getString(R.string.dialog_btn_ok))
 
-        fun negative(context: Context, cancel: CharSequence?, action: Action = Action.NORMAL) =
-            Config(cancel ?: context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok), action, Action.ALERT)
+        fun negative(context: Context, cancel: CharSequence?) =
+            Config(cancel ?: context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok))
 
     }
 

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintDimensionRatio="H,2:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <Space
+        android:id="@+id/s1"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pic" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorOnSecondary"
+        android:textSize="@dimen/ts_05"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guide_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_left"
+        app:layout_constraintTop_toBottomOf="@id/s1"
+        tools:text="长相思·山一程，身向榆关那畔行，夜深千帐灯。"
+        tools:textColor="@android:color/black"
+        tools:visibility="visible" />
+
+    <Space
+        android:id="@+id/s2"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@color/colorOnSecondary"
+        android:textSize="@dimen/ts_04"
+        app:layout_constraintEnd_toEndOf="@id/guide_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_left"
+        app:layout_constraintTop_toBottomOf="@id/s2"
+        tools:text="山一程，水一程，身向榆关那畔行，夜深千帐灯。风一更，雪一更，聒碎乡心梦不成，故园无此声。"
+        tools:textColor="@android:color/black" />
+
+    <Space
+        android:id="@+id/s3"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

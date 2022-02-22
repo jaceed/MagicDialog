@@ -3,7 +3,7 @@ package com.github.jaceed.magicdialog
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
-import com.github.jaceed.magicdialog.utils.colorOf
+import com.github.jaceed.magicdialog.utils.colorOr
 
 /**
  * Created by Jacee.
@@ -15,18 +15,18 @@ abstract class BaseDialog : BaseDialogFragment() {
         resources.getDimensionPixelSize(R.dimen.dialog_content_border_margin)
     }
 
-    protected val magicBackgroundColorDefault by lazy {
-        colorOf(R.attr.magicBackground, ResourcesCompat.getColor(resources, R.color.magicBackground, null))
+    private val magicBackgroundColorDefault by lazy {
+        colorOr(R.attr.magicBackground, R.attr.colorSurface, ResourcesCompat.getColor(resources, R.color.magicBackground, null))
     }
 
     private val backgroundDrawable by lazy {
-        ResourcesCompat.getDrawable(resources, R.drawable.bg_inset_common_dialog, null)?.apply {
+        ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_inset_common_dialog, null)?.apply {
             setTint(magicBackgroundColorDefault)
         }
     }
 
-    private val backgroundDrawableFull by lazy {
-        ResourcesCompat.getDrawable(resources, R.drawable.bg_common_dialog, null)?.apply {
+    private val backgroundDrawableExpanded by lazy {
+        ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_common_dialog, null)?.apply {
             setTint(magicBackgroundColorDefault)
         }
     }
@@ -37,14 +37,8 @@ abstract class BaseDialog : BaseDialogFragment() {
         val attrs = window.attributes
         val location = onLocation()
 
-        var bg = backgroundDrawable
-        var w = ViewGroup.LayoutParams.WRAP_CONTENT
-        if (location and Location.Expanded == Location.Expanded) {
-            w = ViewGroup.LayoutParams.MATCH_PARENT
-        } else if (location and Location.Full == Location.Full) {
-            w = ViewGroup.LayoutParams.MATCH_PARENT
-            bg = backgroundDrawableFull
-        }
+        val w = if (location and Location.MATCH_MASK != 0) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+        val bg = if (location and Location.Full == Location.Full) backgroundDrawableExpanded else backgroundDrawable
 
         if (location and Location.Bottom == Location.Bottom) {
             attrs.gravity = Gravity.BOTTOM

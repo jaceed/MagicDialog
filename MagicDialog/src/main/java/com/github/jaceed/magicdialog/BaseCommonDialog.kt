@@ -1,20 +1,19 @@
 package com.github.jaceed.magicdialog
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.PaintDrawable
-import android.graphics.drawable.StateListDrawable
+import android.content.res.TypedArray
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.AttrRes
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.fragment.app.FragmentActivity
 import com.github.jaceed.extender.view.visible
 import com.github.jaceed.magicdialog.databinding.FragmentDialogBaseCommonBinding
-import com.github.jaceed.magicdialog.utils.colorBy
-import com.github.jaceed.magicdialog.utils.colorOf
-import com.github.jaceed.magicdialog.utils.colorOr
 
 /**
  * Created by Jacee.
@@ -22,154 +21,119 @@ import com.github.jaceed.magicdialog.utils.colorOr
  */
 abstract class BaseCommonDialog : BaseDialog() {
 
-    // An interaction obtained by attached context
-    private var attachedInteraction: OnDialogFragmentInteraction? = null
-    // An interaction obtained by set function
-    private var interactionExcluded: OnDialogFragmentInteraction? = null
+    private var listener: OnDialogFragmentInteraction? = null
+    private var listenerExcluded: OnDialogFragmentInteraction? = null
 
-    private val normalColor: Int by lazy {
-        colorOf(R.attr.magicTextNormalColor, ResourcesCompat.getColor(resources, R.color.magicTextColor, null))
-    }
-    private val alertColor: Int by lazy {
-        colorOr(R.attr.magicTextAlertColor, R.attr.colorPrimary)
-    }
-    private val warningColor: Int by lazy {
-        colorOr(R.attr.magicTextWarningColor, R.attr.colorError)
-    }
-    private val cornerSize: Float by lazy {
-        resources.getDimensionPixelSize(R.dimen.dialog_background_corner).toFloat()
-    }
-    private val leftRadii by lazy {
-        floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, cornerSize, cornerSize)
+    protected fun FragmentActivity.themeBy(@AttrRes attrStyle: Int, attrs: IntArray, res: ((res: TypedArray) -> Unit)? = null) {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attrStyle, typedValue, false).let {
+            if (it && typedValue.type == TypedValue.TYPE_REFERENCE) {
+                res?.invoke(theme.obtainStyledAttributes(typedValue.data, attrs))
+            }
+        }
     }
 
-    private val rightRadii by lazy {
-        floatArrayOf(0f, 0f, 0f, 0f, cornerSize, cornerSize, 0f, 0f)
-    }
-
-    private fun TextView.configure(bgNormal: Int, bgPressed: Int, text: Int, left: Boolean) {
-        val state = StateListDrawable()
-        state.addState(intArrayOf(android.R.attr.state_pressed), PaintDrawable(bgPressed).apply {
-            setCornerRadii(if (left) leftRadii else rightRadii)
-        })
-        state.addState(intArrayOf(), PaintDrawable(bgNormal).apply {
-            setCornerRadii(if (left) leftRadii else rightRadii)
-        })
-        background = state
-        setTextColor(text)
-    }
-
-    private fun generateButtonPressedColor(@AttrRes attr: Int, textColor: Int): Int {
-        return colorOf(attr, textColor) and 0x00FFFFFF or 0x10000000
+    protected fun FragmentActivity.themeBy(@AttrRes attrStyle: Int, attrs: IntArray): TypedArray? {
+        val typedValue = TypedValue()
+        return theme.resolveAttribute(attrStyle, typedValue, false).let {
+            if (it && typedValue.type == TypedValue.TYPE_REFERENCE) {
+                theme.obtainStyledAttributes(typedValue.data, attrs)
+            } else {
+                null
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        attachedInteraction = if (context is OnDialogFragmentInteraction) context else null
+        listener = if (context is OnDialogFragmentInteraction) context else null
     }
 
+    @SuppressLint("ResourceType")
     final override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         return FragmentDialogBaseCommonBinding.inflate(inflater).apply {
-            title.visible = onConfigureTitle(title).also {
-                s3.visible = it
-            }
-            colorBy(R.attr.magicTitleColor) {
-                title.setTextColor(it)
-            }
-            message.visible = onConfigureMessage(message).also {
-                s3.visible = it && title.visible
-            }
-            colorBy(R.attr.magicMessageColor) {
-                message.setTextColor(it)
-            }
-
-            colorBy(R.attr.magicDivider) {
-                divider.setBackgroundColor(it)
+            onCreateContent(inflater)?.let {
+                contentContainer.addView(it)
             }
 
             when (onConfigureButtons()) {
                 ButtonType.DOUBLE -> {
                     btnCancel.visible = true
                     btnOk.visible = true
+                    buttonGap.visible = true
                 }
                 ButtonType.SINGLE -> {
-                    btnCancel.visible = false
-                    btnOk.visible = true
+                    btnCancel.visible = true
+                    btnOk.visible = false
+                    buttonGap.visible = false
                 }
                 else -> {
                     btnCancel.visible = false
                     btnOk.visible = false
-                    divider.visible = false
+                    buttonTop.visible = false
+                    buttonBottom.visible = false
                 }
             }
-
-            onConfigureNegative(btnCancel).let {
-                when (it) {
-                    Action.NORMAL, Action.NONE -> {
-                        btnCancel.configure(magicBackgroundColorDefault, generateButtonPressedColor(R.attr.magicTextNormalColor, normalColor), normalColor, true)
+            if (btnCancel.visible) {
+                requireActivity().themeBy(R.attr.magicNegativeStyle, intArrayOf(android.R.attr.background, android.R.attr.textColor)) {
+                    it.getDrawable(0)?.let { bg ->
+                        btnCancel.background = bg
                     }
-                    Action.ALERT -> {
-                        btnCancel.configure(magicBackgroundColorDefault, generateButtonPressedColor(R.attr.magicTextAlertColor, alertColor), alertColor, true)
-                    }
-                    Action.WARNING -> {
-                        btnCancel.configure(magicBackgroundColorDefault, generateButtonPressedColor(R.attr.magicTextWarningColor, warningColor), warningColor, true)
-                    }
+                    btnCancel.setTextColor(it.getColor(1, getColor(requireContext(), R.color.button_text_gray_variant)))
                 }
             }
-            onConfigurePositive(btnOk).let {
-                when (it) {
-                    Action.NORMAL, Action.NONE -> {
-                        btnOk.configure(magicBackgroundColorDefault, generateButtonPressedColor(R.attr.magicTextNormalColor, normalColor), normalColor, false)
+            if (btnOk.visible) {
+                requireActivity().themeBy(R.attr.magicPositiveStyle, intArrayOf(android.R.attr.background, android.R.attr.textColor)) {
+                    it.getDrawable(0)?.let { bg ->
+                        btnOk.background = bg
                     }
-                    Action.ALERT -> {
-                        btnOk.configure(magicBackgroundColorDefault, generateButtonPressedColor(R.attr.magicTextAlertColor, alertColor), alertColor, false)
-                    }
-                    Action.WARNING -> {
-                        btnOk.configure(magicBackgroundColorDefault, generateButtonPressedColor(R.attr.magicTextWarningColor, warningColor), warningColor, false)
-                    }
+                    btnOk.setTextColor(it.getColor(1, getColor(requireContext(), R.color.primary_white)))
                 }
             }
+            onConfigureNegative(btnCancel)
+            onConfigurePositive(btnOk)
         }.root
     }
 
-    protected open fun onConfigureTitle(v: TextView): Boolean {
-        return false
-    }
+    override fun onCancelable(): Boolean = arguments?.getBoolean(ARG_CANCELLABLE, true) ?: true
 
-    protected open fun onConfigureMessage(v: TextView): Boolean {
-        return false
-    }
+    abstract fun onCreateContent(inflater: LayoutInflater): View?
 
     protected open fun onConfigureButtons(): ButtonType {
-        return ButtonType.NONE
+        return arguments?.getSerializable(ARG_BUTTON_TYPE) as? ButtonType ?: ButtonType.DOUBLE
+
     }
 
     /**
      * @return true to show the negative button, default true
      */
-    protected open fun onConfigureNegative(v: TextView): Action {
+    protected open fun onConfigureNegative(v: TextView) {
         v.setOnClickListener {
             onNegativeClick(v)
-            interactionExcluded?.onDialogNegativeClick(v) ?: attachedInteraction?.onDialogNegativeClick(v)
+            listenerExcluded?.onDialogNegativeClick(v) ?: listener?.onDialogNegativeClick(v)
             dismiss()
         }
-        return Action.NORMAL
+        (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)?.let {
+            v.text = it.cancel
+        }
     }
 
     /**
      * @return true to show the positive button, default true
      */
-    protected open fun onConfigurePositive(v: TextView): Action {
+    protected open fun onConfigurePositive(v: TextView) {
         v.setOnClickListener {
             onPositiveClick(v)
-            interactionExcluded?.onDialogPositiveClick(v) ?: attachedInteraction?.onDialogPositiveClick(v)
+            listenerExcluded?.onDialogPositiveClick(v) ?: listener?.onDialogPositiveClick(v)
             dismiss()
         }
-        return Action.ALERT
+        (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)?.let {
+            v.text = it.ok
+        }
     }
 
     protected open fun onNegativeClick(v: TextView) {
@@ -180,9 +144,65 @@ abstract class BaseCommonDialog : BaseDialog() {
 
     }
 
-    fun setOnDialogFragmentInteraction(interaction: OnDialogFragmentInteraction): BaseCommonDialog {
-        interactionExcluded = interaction
+    fun setOnDialogFragmentInteraction(listener: OnDialogFragmentInteraction): BaseCommonDialog {
+        listenerExcluded = listener
         return this
+    }
+
+
+    abstract class Builder<T>(private val context: Context) {
+
+        protected val arguments = Bundle()
+
+        fun negative(button: String?): Builder<T> {
+            arguments.putSerializable(ARG_BUTTON_CONFIG_NEGATIVE, Config.negative(context, button))
+            return this
+        }
+
+        fun positive(button: String?): Builder<T> {
+            arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button))
+            return this
+        }
+
+        fun type(buttonType: ButtonType): Builder<T> {
+            arguments.putSerializable(ARG_BUTTON_TYPE, buttonType)
+            return this
+        }
+
+        fun cancellable(cancellable: Boolean): Builder<T> {
+            arguments.putBoolean(ARG_CANCELLABLE, cancellable)
+            return this
+        }
+
+        protected open fun onPreBuild() {
+            val config = Config.of(context)
+            val neg = arguments.getSerializable(ARG_BUTTON_CONFIG_NEGATIVE) as? Config
+            val pos = arguments.getSerializable(ARG_BUTTON_CONFIG_POSITIVE) as? Config
+            arguments.putSerializable(
+                ARG_BUTTON_CONFIG, Config(
+                    neg?.cancel.takeIf { !it.isNullOrBlank() } ?: config.cancel,
+                    pos?.ok.takeIf { !it.isNullOrBlank() } ?: config.ok
+                ))
+        }
+
+        protected abstract fun create(): T
+
+        fun build(): T {
+            onPreBuild()
+            return create()
+        }
+
+    }
+
+
+    companion object {
+        private const val ARG_BUTTON_CONFIG = "button_config"
+        private const val ARG_BUTTON_CONFIG_NEGATIVE = "button_config_negative"
+        private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
+        private const val ARG_BUTTON_TYPE = "button_type"
+        private const val ARG_CANCELLABLE = "cancellable"
+
+        const val ARG_TITLE = "title"
     }
 
 }

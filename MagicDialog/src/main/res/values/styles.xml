@@ -1,10 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="MagicText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/ts_04</item>
+        <item name="android:textColor">@color/colorOnSecondary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+     <!--============ Buttons ==============-->
+    <style name="MagicButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textSize">@dimen/ts_04</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+<!--
+    <style name="MagicButton.Primary">
+        <item name="android:background">@drawable/bg_button_corner_primary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="MagicButton.PrimaryVariant">
+        <item name="android:background">@drawable/bg_button_corner_primary_variant</item>
+        <item name="android:textColor">@color/button_text_primary_variant</item>
+    </style>
+
+    <style name="MagicButton.PrimaryVariantLargeCorner">
+        <item name="android:background">@drawable/bg_button_corner_large_primary_variant</item>
+        <item name="android:textColor">@color/button_text_primary_variant</item>
+    </style>
+
+    <style name="MagicButton.PrimaryHugeCorner">
+        <item name="android:background">@drawable/bg_button_corner_huge_primary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="MagicButton.AccentSmallCorner">
+        <item name="android:background">@drawable/bg_button_corner_small_accent</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
+
+    <style name="MagicButton.AccentSmallCorner.Captcha">
+        <item name="android:textSize">@dimen/ts_02</item>
+    </style>
+
+    <style name="MagicButton.DarkInverseFramed">
+        <item name="android:background">@drawable/bg_button_corner_dark_inverse_framed</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
+
+    <style name="MagicButton.DarkInverseFramed.LargeExtra">
+        <item name="android:background">@drawable/bg_button_corner_large_extra_dark_inverse_framed</item>
+    </style>-->
+
+    <style name="MagicButton.DialogNegative">
+        <item name="android:background">@drawable/bg_button_corner_gray_variant</item>
+        <item name="android:textColor">@color/button_text_gray_variant</item>
+    </style>
+
+    <style name="MagicButton.DialogPositive">
+        <item name="android:background">@drawable/bg_button_corner_gray</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
+
     <style name="DialogThemeCommon" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="magicDivider">@color/magicDivider</item>
         <item name="magicTitleColor">@color/magicTextColor</item>
         <item name="magicMessageColor">@color/magicTextColor</item>
+        <item name="magicBackground">@color/magicBackground</item>
+        <item name="android:textViewStyle">@style/MagicText</item>
+    </style>
+
+    <style name="DialogThemePrompt" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="magicTitleColor">@color/colorOnSecondary</item>
+        <item name="magicMessageColor">@color/colorOnSecondary</item>
+        <item name="magicBackground">@color/colorSecondary</item>
+        <item name="android:textViewStyle">@style/MagicText</item>
+    </style>
+
+    <style name="DialogThemeOptions" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="magicTitleColor">@color/gray_04</item>
+        <item name="magicOptionItemColor">@color/colorOnSecondary</item>
+        <item name="magicOptionItemCheckColor">@color/colorPrimary</item>
+        <item name="magicBackground">@color/colorSecondary</item>
+        <item name="android:textViewStyle">@style/MagicText</item>
     </style>
 
 </resources>
