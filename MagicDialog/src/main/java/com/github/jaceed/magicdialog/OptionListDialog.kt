@@ -19,7 +19,7 @@ import com.github.jaceed.extender.view.visible
  * Created by Jacee.
  * Date: 2021.07.15
  */
-class CheckOptionDialog : BaseOptionDialog() {
+class OptionListDialog : BaseOptionDialog() {
 
     private lateinit var options: Array<String>
     private var checkedIndex: Int = -1
@@ -32,15 +32,14 @@ class CheckOptionDialog : BaseOptionDialog() {
     }
 
     override fun onCreateOptionView(inflater: LayoutInflater): View? {
-
         return FragmentDialogCheckOptionBinding.inflate(inflater).apply {
             optionList.adapter = OptionAdapter()
-        }
-            .root
+        }.root
     }
 
-    fun setInteraction(interaction: CheckOptionInteraction) {
+    fun setInteraction(interaction: CheckOptionInteraction): OptionListDialog {
         this.interaction = interaction
+        return this
     }
 
 
@@ -92,17 +91,23 @@ class CheckOptionDialog : BaseOptionDialog() {
 
     }
 
+    class Builder(context: Context) : BaseCommonDialog.Builder<Builder, OptionListDialog>(context) {
 
-    class Builder(context: Context) : BaseOptionDialog.Builder<CheckOptionDialog>(context) {
+        fun options(list: Array<Int>, checked: Int = -1): Builder =
+            options(list.map { res ->
+                context.getString(res)
+            }.toTypedArray(), checked)
 
-        fun options(list: Array<String>, checked: Int): Builder {
+        fun options(list: Array<String>, checked: Int = -1): Builder {
+            if (checked != -1) {
             require(checked in list.indices)
+            }
             arguments.putStringArray(ARG_OPTIONS, list)
             arguments.putInt(ARG_CHECKED, checked)
             return this
         }
 
-        override fun create() = CheckOptionDialog().apply {
+        override fun create() = OptionListDialog().apply {
             this.arguments = this@Builder.arguments
         }
 

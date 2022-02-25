@@ -18,6 +18,9 @@
     <dimen name="corner_large_extra">20dp</dimen>
     <dimen name="corner_huge">100dp</dimen>
 
+    <dimen name="content_border_margin_normal">16dp</dimen>
+    <dimen name="content_border_margin_large">24dp</dimen>
+
     <dimen name="dialog_background_corner">8dp</dimen>
 
     <dimen name="dialog_content_border_margin">16dp</dimen>

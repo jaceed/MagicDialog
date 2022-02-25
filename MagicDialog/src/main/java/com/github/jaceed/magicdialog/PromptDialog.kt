@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.StringRes
 import com.github.jaceed.extender.view.content
 import com.github.jaceed.extender.view.visible
 import com.github.jaceed.magicdialog.databinding.FragmentDialogPromptBinding
@@ -16,11 +17,16 @@ import com.github.jaceed.magicdialog.databinding.FragmentDialogPromptBinding
  */
 class PromptDialog : BaseCommonDialog() {
 
+    override fun onLocation(): Int  = BOTTOM
+
+    override fun onMatchState(): Int {
+        return super.onMatchState().takeIf { it != WRAP } ?: EXPANDED
+    }
+
     override fun onTheme(): Int = R.style.DialogThemePrompt
 
-    override fun onLocation(): Int {
-        val sp = super.onLocation()
-        return arguments?.getInt(ARG_LOCATION, sp) ?: sp
+    override fun onAnimation(): Int {
+        return R.style.PromptDialogAnimation
     }
 
     override fun onCreateContent(inflater: LayoutInflater): View? {
@@ -50,7 +56,7 @@ class PromptDialog : BaseCommonDialog() {
     }
 
 
-    class Builder(context: Context) : BaseCommonDialog.Builder<PromptDialog>(context) {
+    class Builder(context: Context) : BaseCommonDialog.Builder<Builder, PromptDialog>(context) {
 
         fun pic(uri: Uri): Builder {
             arguments.putParcelable(ARG_PIC, null)
@@ -64,21 +70,12 @@ class PromptDialog : BaseCommonDialog() {
             return this
         }
 
-        fun title(title: String?): Builder {
-            arguments.putString(ARG_TITLE, title)
-            return this
+        fun message(@StringRes message: Int): Builder {
+            return message(context.getString(message))
         }
 
         fun message(message: String?): Builder {
             arguments.putString(ARG_MESSAGE, message)
-            return this
-        }
-
-        fun location(location: Int): Builder {
-            if (location and Location.Expanded == 0 && location and Location.Full == 0) {
-                throw RuntimeException("Prompt dialog has to be expanded or full")
-            }
-            arguments.putInt(ARG_LOCATION, location)
             return this
         }
 
@@ -94,7 +91,6 @@ class PromptDialog : BaseCommonDialog() {
         private const val ARG_PIC = "picture"
         private const val ARG_PIC_URI = "picture"
         private const val ARG_MESSAGE = "message"
-        private const val ARG_LOCATION = "location"
 
     }
 

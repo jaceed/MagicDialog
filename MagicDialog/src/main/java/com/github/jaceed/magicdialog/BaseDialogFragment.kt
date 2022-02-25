@@ -3,6 +3,7 @@ package com.github.jaceed.magicdialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.StyleRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 
@@ -18,6 +19,13 @@ abstract class BaseDialogFragment : DialogFragment() {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, onTheme())
         isCancelable = onCancelable()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        onAnimation().takeIf { it != 0 }?.let {
+            dialog?.window?.setWindowAnimations(it)
+        }
     }
 
     override fun show(manager: FragmentManager, tag: String?) {
@@ -49,6 +57,9 @@ abstract class BaseDialogFragment : DialogFragment() {
     protected open fun onCancelable(): Boolean = true
 
     protected open fun onTheme(): Int = R.style.DialogThemeCommon
+
+    @StyleRes
+    protected open fun onAnimation(): Int = 0
 
     fun setOnDismissListener(l: DialogInterface.OnDismissListener): BaseDialogFragment {
         dismissListener = l

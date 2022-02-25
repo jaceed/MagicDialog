@@ -15,6 +15,4 @@ class LoadingDialog: BaseDialog() {
         return inflater.inflate(R.layout.fragment_dialog_loading, container, false)
     }
 
-    override fun onLocation(): Int = Location.Center
-
 }

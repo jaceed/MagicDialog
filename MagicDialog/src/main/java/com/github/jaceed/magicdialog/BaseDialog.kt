@@ -35,21 +35,31 @@ abstract class BaseDialog : BaseDialogFragment() {
         super.onStart()
         val window = dialog?.window ?: return
         val attrs = window.attributes
-        val location = onLocation()
-
-        val w = if (location and Location.MATCH_MASK != 0) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
-        val bg = if (location and Location.Full == Location.Full) backgroundDrawableExpanded else backgroundDrawable
-
-        if (location and Location.Bottom == Location.Bottom) {
-            attrs.gravity = Gravity.BOTTOM
-        }
-
-        attrs.width = w
+        attrs.gravity = if (onLocation() == BOTTOM) Gravity.BOTTOM else Gravity.CENTER
         attrs.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+        val bg = when (onMatchState()) {
+            WRAP -> {
+                attrs.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                backgroundDrawable
+            }
+            EXPANDED -> {
+                attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
+                backgroundDrawable
+            }
+            else -> {
+                attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
+                backgroundDrawableExpanded
+            }
+        }
         window.attributes = attrs
         window.setBackgroundDrawable(bg)
     }
 
-    protected open fun onLocation(): Int = Location.Center or Location.Expanded
+    @Location
+    protected open fun onLocation(): Int = CENTER
+
+    @MatchState
+    protected open fun onMatchState(): Int = WRAP
 
 }

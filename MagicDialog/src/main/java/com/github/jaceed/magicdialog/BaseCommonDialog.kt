@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.AttrRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.FragmentActivity
 import com.github.jaceed.extender.view.visible
@@ -44,6 +45,16 @@ abstract class BaseCommonDialog : BaseDialog() {
         }
     }
 
+    override fun onLocation(): Int {
+        val sp = super.onLocation()
+        return arguments?.getInt(ARG_LOCATION, sp) ?: sp
+    }
+
+    override fun onMatchState(): Int {
+        val sp = super.onMatchState()
+        return arguments?.getInt(ARG_MATCH_STATE, sp) ?: sp
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = if (context is OnDialogFragmentInteraction) context else null
@@ -66,9 +77,14 @@ abstract class BaseCommonDialog : BaseDialog() {
                     btnOk.visible = true
                     buttonGap.visible = true
                 }
-                ButtonType.SINGLE -> {
+                ButtonType.SINGLE_NEGATIVE -> {
                     btnCancel.visible = true
                     btnOk.visible = false
+                    buttonGap.visible = false
+                }
+                ButtonType.SINGLE_POSITIVE -> {
+                    btnCancel.visible = false
+                    btnOk.visible = true
                     buttonGap.visible = false
                 }
                 else -> {
@@ -150,28 +166,47 @@ abstract class BaseCommonDialog : BaseDialog() {
     }
 
 
-    abstract class Builder<T>(private val context: Context) {
+    abstract class Builder<T : Builder<T, R>, R: BaseCommonDialog>(protected val context: Context) {
 
         protected val arguments = Bundle()
 
-        fun negative(button: String?): Builder<T> {
+        fun title(@StringRes title: Int): T {
+            return title(context.getString(title))
+        }
+
+        fun title(title: String?): T {
+            arguments.putString(ARG_TITLE, title)
+            return this as T
+        }
+
+        fun negative(button: String?): T {
             arguments.putSerializable(ARG_BUTTON_CONFIG_NEGATIVE, Config.negative(context, button))
-            return this
+            return this as T
         }
 
-        fun positive(button: String?): Builder<T> {
+        fun positive(button: String?): T {
             arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button))
-            return this
+            return this as T
         }
 
-        fun type(buttonType: ButtonType): Builder<T> {
+        fun type(buttonType: ButtonType): T {
             arguments.putSerializable(ARG_BUTTON_TYPE, buttonType)
-            return this
+            return this as T
         }
 
-        fun cancellable(cancellable: Boolean): Builder<T> {
+        fun cancellable(cancellable: Boolean): T {
             arguments.putBoolean(ARG_CANCELLABLE, cancellable)
-            return this
+            return this as T
+        }
+
+        fun location(@Location location: Int): T {
+            arguments.putInt(ARG_LOCATION, location)
+            return this as T
+        }
+
+        fun match(@MatchState match: Int): T {
+            arguments.putInt(ARG_MATCH_STATE, match)
+            return this as T
         }
 
         protected open fun onPreBuild() {
@@ -185,9 +220,9 @@ abstract class BaseCommonDialog : BaseDialog() {
                 ))
         }
 
-        protected abstract fun create(): T
+        protected abstract fun create(): R
 
-        fun build(): T {
+        fun build(): R {
             onPreBuild()
             return create()
         }
@@ -201,6 +236,8 @@ abstract class BaseCommonDialog : BaseDialog() {
         private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
         private const val ARG_BUTTON_TYPE = "button_type"
         private const val ARG_CANCELLABLE = "cancellable"
+        private const val ARG_LOCATION = "location"
+        private const val ARG_MATCH_STATE = "match_state"
 
         const val ARG_TITLE = "title"
     }

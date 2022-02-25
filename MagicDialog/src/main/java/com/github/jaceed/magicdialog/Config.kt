@@ -7,7 +7,7 @@ import java.io.Serializable
  * Created by Jacee.
  * Date: 2021.03.26
  */
-data class Config(
+internal data class Config(
     val cancel: CharSequence,
     val ok: CharSequence
 ) : Serializable {

@@ -6,6 +6,7 @@ package com.github.jaceed.magicdialog
  */
 enum class ButtonType {
     NONE,
-    SINGLE,
+    SINGLE_NEGATIVE,
+    SINGLE_POSITIVE,
     DOUBLE
 }
