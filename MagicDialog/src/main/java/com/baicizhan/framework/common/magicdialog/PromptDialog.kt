@@ -23,7 +23,7 @@ class PromptDialog : BaseCommonDialog() {
         return super.onMatchState().takeIf { it != WRAP } ?: EXPANDED
     }
 
-    override fun onTheme(): Int = R.style.DialogThemePrompt
+    override fun onTheme(): Int = R.style.DialogThemeCommon_Prompt
 
     override fun onAnimation(): Int {
         return R.style.PromptDialogAnimation
@@ -42,11 +42,20 @@ class PromptDialog : BaseCommonDialog() {
                 } ?:*/ false
             }
 
-            requireActivity().themeBy(R.attr.magicPromptStyle, R.styleable.MagicPrompt) { a ->
-                a.getColor(R.styleable.MagicPrompt_magicTitleColor, 0).takeIf { it != 0 }?.let { c -> title.setTextColor(c) }
+            val a = requireActivity().themeBy(R.attr.magicPromptStyle, R.styleable.MagicPrompt)
+            if (a != null) {
+                a.getColor(R.styleable.MagicPrompt_magicTitleColor, 0).takeIf { it != 0 }?.let { c -> title.setTextColor(c) } ?: run {
+                    if (magicOnSurfaceColorDefault != 0) title.setTextColor(magicOnSurfaceColorDefault)
+                }
                 a.getDimension(R.styleable.MagicPrompt_magicTitleSize, 0f).takeIf { it != 0f }?.let { d -> title.setTextSize(TypedValue.COMPLEX_UNIT_PX, d) }
-                a.getColor(R.styleable.MagicPrompt_magicMessageColor, 0).takeIf { it != 0 }?.let { c -> message.setTextColor(c) }
+                a.getColor(R.styleable.MagicPrompt_magicMessageColor, 0).takeIf { it != 0 }?.let { c -> message.setTextColor(c) } ?: run {
+                    if (magicOnSurfaceColorDefault != 0) message.setTextColor(magicOnSurfaceColorDefault)
+                }
                 a.getDimension(R.styleable.MagicPrompt_magicMessageSize, 0f).takeIf { it != 0f }?.let { d -> message.setTextSize(TypedValue.COMPLEX_UNIT_PX, d) }
+                a.recycle()
+            } else {
+                if (magicOnSurfaceColorDefault != 0) title.setTextColor(magicOnSurfaceColorDefault)
+                if (magicOnSurfaceColorDefault != 0) message.setTextColor(magicOnSurfaceColorDefault)
             }
 
             title.content = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() }

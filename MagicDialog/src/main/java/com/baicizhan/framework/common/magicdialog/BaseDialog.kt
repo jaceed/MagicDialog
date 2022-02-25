@@ -3,6 +3,7 @@ package com.baicizhan.framework.common.magicdialog
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import com.baicizhan.framework.common.magicdialog.utils.colorOf
 import com.baicizhan.framework.common.magicdialog.utils.colorOr
 
 /**
@@ -16,18 +17,22 @@ abstract class BaseDialog : BaseDialogFragment() {
     }
 
     private val magicBackgroundColorDefault by lazy {
-        colorOr(R.attr.magicBackground, R.attr.colorSurface, ResourcesCompat.getColor(resources, R.color.magicBackground, null))
+        colorOr(R.attr.magicBackground, R.attr.colorSurface, 0)
+    }
+
+    protected val magicOnSurfaceColorDefault by lazy {
+        colorOf(R.attr.colorOnSurface, 0)
     }
 
     private val backgroundDrawable by lazy {
         ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_inset_common_dialog, null)?.apply {
-            setTint(magicBackgroundColorDefault)
+            setTint(magicBackgroundColorDefault.takeIf { it != 0 } ?: return@apply)
         }
     }
 
     private val backgroundDrawableExpanded by lazy {
         ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_common_dialog, null)?.apply {
-            setTint(magicBackgroundColorDefault)
+            setTint(magicBackgroundColorDefault.takeIf { it != 0 } ?: return@apply)
         }
     }
 

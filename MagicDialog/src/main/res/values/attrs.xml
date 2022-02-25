@@ -12,7 +12,7 @@
         <attr name="magicMessageSize" format="dimension|reference" />
     </declare-styleable>
 
-    <declare-styleable name="MagicOptionChecked">
+    <declare-styleable name="MagicOptions">
         <attr name="magicOptionTitleColor" format="color|reference" />
         <attr name="magicOptionTitleSize" format="dimension|reference" />
         <attr name="magicOptionItemColor" format="color|reference" />

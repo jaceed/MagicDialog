@@ -22,7 +22,7 @@
         android:layout_gravity="right|center_vertical"
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_dialog_checked"
-        app:tint="@color/colorPrimary" />
+        app:tint="?attr/colorPrimary" />
 
 </FrameLayout>
 

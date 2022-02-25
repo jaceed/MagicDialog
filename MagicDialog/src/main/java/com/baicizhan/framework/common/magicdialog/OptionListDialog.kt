@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogCheckOptionBinding
 import com.baicizhan.framework.common.magicdialog.databinding.ItemDialogCheckOptionBinding
+import com.baicizhan.framework.common.magicdialog.utils.colorOr
 import com.github.jaceed.extender.view.setOnProtectedClickListener
 import com.github.jaceed.extender.view.visible
 
@@ -60,15 +61,22 @@ class OptionListDialog : BaseOptionDialog() {
     private inner class OptionAdapter : RecyclerView.Adapter<OptionHolder>() {
 
         private val themeColor by lazy {
-            val a = requireActivity().themeBy(R.attr.magicOptionStyle, R.styleable.MagicOptionChecked) ?: return@lazy null
-            Pair(a.getColor(R.styleable.MagicOptionChecked_magicOptionItemColor, 0), a.getColor(R.styleable.MagicOptionChecked_magicOptionItemCheckColor, 0)).also {
-                a.recycle()
+            val a = requireActivity().themeBy(R.attr.magicOptionStyle, R.styleable.MagicOptions)
+            if (a != null) {
+                Pair(a.getColor(R.styleable.MagicOptions_magicOptionItemColor, 0), a.getColor(R.styleable.MagicOptions_magicOptionItemCheckColor, 0)).also {
+                    a.recycle()
+                }
+            } else {
+                Pair(
+                    colorOr(R.attr.magicOptionItemColor, R.attr.colorOnSurface, 0),
+                    colorOr(R.attr.magicOptionItemCheckColor, R.attr.colorPrimary, 0)
+                )
             }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionHolder {
             return OptionHolder(ItemDialogCheckOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
-                themeColor?.let {
+                themeColor.let {
                     if (it.first != 0) {
                         name.setTextColor(it.first)
                     }

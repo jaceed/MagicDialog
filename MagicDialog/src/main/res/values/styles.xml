@@ -3,7 +3,7 @@
 
     <style name="MagicText" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/ts_04</item>
-        <item name="android:textColor">@color/colorOnSecondary</item>
+        <item name="android:textColor">@color/colorOnSurface</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
@@ -24,29 +24,16 @@
         <item name="android:textColor">@color/primary_white</item>
     </style>
 
-    <style name="DialogThemeCommon" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="magicTitleColor">@color/magicTextColor</item>
-        <item name="magicMessageColor">@color/magicTextColor</item>
-        <item name="magicBackground">@color/magicBackground</item>
+    <style name="DialogThemeCommon" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:textViewStyle">@style/MagicText</item>
     </style>
 
-    <style name="DialogThemePrompt" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="magicTitleColor">@color/colorOnSecondary</item>
-        <item name="magicMessageColor">@color/colorOnSecondary</item>
-        <item name="magicBackground">@color/colorSecondary</item>
-        <item name="android:textViewStyle">@style/MagicText</item>
+    <style name="DialogThemeCommon.Prompt">
     </style>
 
-    <style name="DialogThemeOptions" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="magicTitleColor">@color/gray_04</item>
-        <item name="magicOptionItemColor">@color/colorOnSecondary</item>
-        <item name="magicOptionItemCheckColor">@color/colorPrimary</item>
-        <item name="magicBackground">@color/colorSecondary</item>
-        <item name="android:textViewStyle">@style/MagicText</item>
+    <style name="DialogThemeCommon.Options">
+        <item name="magicOptionTitleColor">@color/gray_04</item>
     </style>
-
-
 
     <!--============ Animations ==============-->
     <style name="OptionDialogAnimation">
