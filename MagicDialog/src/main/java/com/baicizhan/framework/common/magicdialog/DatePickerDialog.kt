@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.Log
 import com.github.jaceed.extender.standard.available
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogWheelPickerBinding
+import com.baicizhan.framework.common.magicdialog.utils.days
+import com.baicizhan.framework.common.magicdialog.utils.months
+import com.baicizhan.framework.common.magicdialog.utils.years
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.contracts.ExperimentalContracts

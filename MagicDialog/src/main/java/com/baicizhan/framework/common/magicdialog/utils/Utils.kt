@@ -1,52 +1,76 @@
 package com.baicizhan.framework.common.magicdialog.utils
 
-import android.util.TypedValue
-import androidx.annotation.AttrRes
-import androidx.annotation.ColorInt
+import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import com.baicizhan.framework.common.magicdialog.LoadingDialog
+import java.time.YearMonth
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Jacee.
- * Date: 2021.04.23
+ * Date: 2021.04.06
  */
 
-private val typedValue by lazy {
-    TypedValue()
-}
+private const val LOADING_TAG = "magic_loading"
 
-internal fun FragmentActivity.colorBy(@AttrRes attr: Int, res: ((color: Int) -> Unit)? = null) {
-    theme.resolveAttribute(attr, typedValue, true).let {
-        if (it) {
-            res?.invoke(typedValue.data)
+private fun setLoading(manager: FragmentManager, loading: Boolean) {
+    manager.findFragmentByTag(LOADING_TAG).let {
+        if (it?.isAdded != true && loading) {
+            LoadingDialog().show(manager, LOADING_TAG)
+        } else if (it != null && !loading) {
+            (it as? LoadingDialog)?.dismiss()
         }
     }
 }
 
-internal fun FragmentActivity.colorOf(@AttrRes attr: Int, @ColorInt default: Int = 0): Int {
-    return theme.resolveAttribute(attr, typedValue, true).let {
-        if (it) typedValue.data else default
-    }
+private fun isLoading(manager: FragmentManager): Boolean = (manager.findFragmentByTag(LOADING_TAG) as? LoadingDialog)?.let {
+    it.isAdded && it.isVisible
+} ?: false
+
+fun AppCompatActivity.isLoading(): Boolean= isLoading(supportFragmentManager)
+
+fun AppCompatActivity.setLoading(loading: Boolean) {
+    setLoading(supportFragmentManager, loading)
 }
 
-internal fun FragmentActivity.colorOr(@AttrRes attr: Int, @AttrRes attrDefault: Int, @ColorInt elseColor: Int = 0): Int {
-    return theme.resolveAttribute(attr, typedValue, true).let { res ->
-        if (res) typedValue.data else run {
-            theme.resolveAttribute(attrDefault, typedValue, true).let { other ->
-                if (other) typedValue.data else elseColor
-            }
+fun Fragment.setLoading(loading: Boolean) {
+    setLoading(childFragmentManager, loading)
+}
+
+fun years(since: Long): ArrayList<String> {
+    val now = Calendar.getInstance().get(Calendar.YEAR)
+    return ArrayList<String>(150).apply {
+        for (i in since..now) {
+            add(i.toString())
         }
     }
 }
 
-internal fun Fragment.colorBy(@AttrRes attr: Int, res: ((color: Int) -> Unit)? = null) {
-    requireActivity().colorBy(attr, res)
+fun months(): ArrayList<String> {
+    return ArrayList<String>(12).apply {
+        for (i in 1..12) {
+            add(i.toString())
+        }
+    }
 }
 
-internal fun Fragment.colorOf(@AttrRes attr: Int, @ColorInt default: Int = 0): Int {
-    return requireActivity().colorOf(attr, default)
+fun days(year: Int, month: Int): ArrayList<String> {
+    val daysCount = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        YearMonth.of(year, month).lengthOfMonth()
+    } else {
+        GregorianCalendar(year, month - 1, 1).getActualMaximum(Calendar.DAY_OF_MONTH)
+    }
+    return ArrayList<String>(12).apply {
+        for (i in 1..daysCount) {
+            add(i.toString())
+        }
+    }
 }
 
-internal fun Fragment.colorOr(@AttrRes attr: Int, @AttrRes attrDefault: Int, @ColorInt elseColor: Int = 0): Int {
-    return requireActivity().colorOr(attr, attrDefault, elseColor)
+fun main(args: Array<String>) {
+    val years = years(1900)
+    println("last: ${years[years.size - 1]},  size: ${years.size}")
 }
