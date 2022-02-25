@@ -1,4 +1,4 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,8 +13,8 @@ import androidx.annotation.AttrRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.FragmentActivity
+import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseCommonBinding
 import com.github.jaceed.extender.view.visible
-import com.github.jaceed.magicdialog.databinding.FragmentDialogBaseCommonBinding
 
 /**
  * Created by Jacee.

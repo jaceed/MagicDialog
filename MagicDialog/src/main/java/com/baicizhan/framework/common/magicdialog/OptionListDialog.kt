@@ -1,4 +1,4 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.github.jaceed.magicdialog.databinding.FragmentDialogCheckOptionBinding
-import com.github.jaceed.magicdialog.databinding.ItemDialogCheckOptionBinding
+import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogCheckOptionBinding
+import com.baicizhan.framework.common.magicdialog.databinding.ItemDialogCheckOptionBinding
 import com.github.jaceed.extender.view.setOnProtectedClickListener
 import com.github.jaceed.extender.view.visible
 

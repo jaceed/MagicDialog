@@ -1,9 +1,9 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.content.Context
 import android.util.Log
 import com.github.jaceed.extender.standard.available
-import com.github.jaceed.magicdialog.databinding.FragmentDialogWheelPickerBinding
+import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogWheelPickerBinding
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.contracts.ExperimentalContracts

@@ -1,4 +1,4 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -7,9 +7,9 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.StringRes
+import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogPromptBinding
 import com.github.jaceed.extender.view.content
 import com.github.jaceed.extender.view.visible
-import com.github.jaceed.magicdialog.databinding.FragmentDialogPromptBinding
 
 /**
  * Created by Jacee.

@@ -1,11 +1,11 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseOptionBinding
 import com.github.jaceed.extender.view.content
 import com.github.jaceed.extender.view.visible
-import com.github.jaceed.magicdialog.databinding.FragmentDialogBaseOptionBinding
 
 /**
  * Created by Jacee.

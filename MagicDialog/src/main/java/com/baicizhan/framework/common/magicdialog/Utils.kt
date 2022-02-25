@@ -1,4 +1,4 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

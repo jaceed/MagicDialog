@@ -1,4 +1,4 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

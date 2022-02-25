@@ -1,15 +1,15 @@
-package com.github.jaceed.magicdialog.utils
+package com.baicizhan.framework.common.magicdialog.utils
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.github.jaceed.magicdialog.BaseDialogFragment
+import com.baicizhan.framework.common.magicdialog.BaseDialogFragment
 
 /**
  * Created by Jacee.
  * Date: 2021.05.26
  */
 
-private const val DEFAULT_DIALOG_TAG = "com.github.jaceed.magicdialog.tag"
+private const val DEFAULT_DIALOG_TAG = "com.baicizhan.framework.common.magicdialog.tag"
 
 fun FragmentActivity.show(dialog: BaseDialogFragment, tag: String = DEFAULT_DIALOG_TAG) {
     dialog.show(supportFragmentManager, tag)

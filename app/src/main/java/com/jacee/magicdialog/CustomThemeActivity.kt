@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.github.jaceed.magicdialog.ButtonType
-import com.github.jaceed.magicdialog.OptionListDialog
-import com.github.jaceed.magicdialog.OnDialogFragmentInteraction
-import com.github.jaceed.magicdialog.PromptDialog
-import com.github.jaceed.magicdialog.utils.show
+import com.baicizhan.framework.common.magicdialog.ButtonType
+import com.baicizhan.framework.common.magicdialog.OptionListDialog
+import com.baicizhan.framework.common.magicdialog.OnDialogFragmentInteraction
+import com.baicizhan.framework.common.magicdialog.PromptDialog
+import com.baicizhan.framework.common.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityCustomBinding
 
 class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {

@@ -1,9 +1,9 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
-import com.github.jaceed.magicdialog.utils.colorOr
+import com.baicizhan.framework.common.magicdialog.utils.colorOr
 
 /**
  * Created by Jacee.

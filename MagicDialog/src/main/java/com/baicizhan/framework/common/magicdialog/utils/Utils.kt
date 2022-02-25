@@ -1,4 +1,4 @@
-package com.github.jaceed.magicdialog.utils
+package com.baicizhan.framework.common.magicdialog.utils
 
 import android.util.TypedValue
 import androidx.annotation.AttrRes

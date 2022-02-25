@@ -1,4 +1,4 @@
-package com.github.jaceed.magicdialog
+package com.baicizhan.framework.common.magicdialog
 
 import android.content.Context
 import android.util.Log
@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import com.aigestudio.wheelpicker.WheelPicker
 import com.github.jaceed.extender.view.visible
-import com.github.jaceed.magicdialog.databinding.FragmentDialogWheelPickerBinding
+import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogWheelPickerBinding
 
 /**
  * Created by Jacee.

@@ -7,9 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.github.jaceed.magicdialog.*
-import com.github.jaceed.magicdialog.utils.dismiss
-import com.github.jaceed.magicdialog.utils.show
+import com.baicizhan.framework.common.magicdialog.*
+import com.baicizhan.framework.common.magicdialog.utils.dismiss
+import com.baicizhan.framework.common.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
