@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 PromptDialog.Builder(this)
                     .title("标题")
                     .message("测试一下")
-                    .type(ButtonType.SINGLE)
+                    .type(ButtonType.SINGLE_NEGATIVE)
                     .build(), "single"
             )
         }
@@ -93,7 +93,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomExpanded.setOnClickListener {
             show(
                 PromptDialog.Builder(this)
-                    .location(Location.Bottom or Location.Expanded)
+                    .location(BOTTOM)
+                    .match(EXPANDED)
                     .title("标题")
                     .message("测试一下")
                     .build(), "b"
@@ -103,7 +104,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomFull.setOnClickListener {
             show(
                 PromptDialog.Builder(this)
-                    .location(Location.Bottom or Location.Full)
+                    .location(BOTTOM)
+                    .match(FULL)
                     .title("标题")
                     .message("测试一下")
                     .build(), "bf"

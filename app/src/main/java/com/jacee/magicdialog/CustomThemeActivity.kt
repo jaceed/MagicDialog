@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.github.jaceed.magicdialog.ButtonType
-import com.github.jaceed.magicdialog.CheckOptionDialog
+import com.github.jaceed.magicdialog.OptionListDialog
 import com.github.jaceed.magicdialog.OnDialogFragmentInteraction
 import com.github.jaceed.magicdialog.PromptDialog
 import com.github.jaceed.magicdialog.utils.show
@@ -33,10 +33,10 @@ class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
 
     override fun onDialogPositiveClick(v: View) {
         Toast.makeText(this, "确定", Toast.LENGTH_LONG).show()
-        CheckOptionDialog.Builder(this)
+        OptionListDialog.Builder(this)
             .options((15..60 step 15).map { "$it 分钟" }.toTypedArray(), 0)
             .title("定时关闭")
-            .type(ButtonType.SINGLE)
+            .type(ButtonType.SINGLE_POSITIVE)
             .build()
             .show(supportFragmentManager, "checked")
     }

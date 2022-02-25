@@ -14,4 +14,16 @@
         android:text="options_checked"
         android:onClick="optionsChecked"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date_picker"
+        android:onClick="datePicker"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="normal_picker"
+        android:onClick="wheelPicker"/>
+
 </LinearLayout>
