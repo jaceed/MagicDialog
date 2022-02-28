@@ -13,6 +13,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+<!--        <item name="colorSurface">#aaa</item>-->
+<!--        <item name="colorOnSurface">#0f0</item>-->
+<!--        <item name="magicBackground">#aaa</item>-->
     </style>
 
     <style name="Negative" parent="TextAppearance.AppCompat.Widget.Button">
@@ -40,7 +43,7 @@
     </style>
 
     <style name="Theme.MagicDialog.Custom">
-        <item name="magicBackground">#888</item>
+        <item name="magicBackground">#348956</item>
         <item name="magicNegativeStyle">@style/Negative</item>
         <item name="magicPositiveStyle">@style/Positive</item>
         <item name="magicOptionStyle">@style/Options</item>

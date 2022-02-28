@@ -11,6 +11,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="options"
+        android:onClick="options"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="options_checked"
         android:onClick="optionsChecked"/>
 

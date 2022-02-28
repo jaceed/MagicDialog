@@ -15,6 +15,17 @@ class OptionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_options)
     }
 
+    fun options(view: View) {
+        OptionListDialog.Builder(this)
+            .options(arrayOf("a", "b", "c", "d"))
+            .title("选项")
+            .type(ButtonType.SINGLE_NEGATIVE)
+            .build()
+            .setInteraction { index -> Toast.makeText(this@OptionsActivity, "clicked $index", Toast.LENGTH_SHORT).show() }
+            .show(supportFragmentManager, "options")
+    }
+
+
     fun optionsChecked(view: View) {
         OptionListDialog.Builder(this)
             .options((15..60 step 15).map { "$it 分钟" }.toTypedArray(), 0)
@@ -43,8 +54,10 @@ class OptionsActivity : AppCompatActivity() {
         WheelPickerDialog.Builder(this)
             .wheels(arrayListOf("a", "b", "c", "d", "e", "f"))
             .type(ButtonType.SINGLE_POSITIVE)
+            .title("标题")
             .positive("好吧")
             .build()
             .show(supportFragmentManager, "wheel")
     }
+
 }
