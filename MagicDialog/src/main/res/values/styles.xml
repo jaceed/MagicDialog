@@ -29,6 +29,8 @@
     </style>
 
     <style name="DialogThemeCommon.Prompt">
+        <item name="magicBackgroundMargin">@dimen/dialog_common_bg_inset_margin</item>
+        <item name="magicBackgroundMarginBottom">@dimen/dialog_common_bg_inset_margin_bottom</item>
     </style>
 
     <style name="DialogThemeCommon.Options">
