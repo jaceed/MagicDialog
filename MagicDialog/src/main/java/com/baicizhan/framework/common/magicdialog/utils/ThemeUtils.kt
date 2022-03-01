@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.util.TypedValue
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
@@ -57,7 +56,3 @@ internal fun Fragment.colorOf(@AttrRes attr: Int, @ColorInt default: Int = 0): I
 internal fun Fragment.colorOr(@AttrRes attr: Int, @AttrRes attrDefault: Int, @ColorInt elseColor: Int = 0): Int {
     return requireActivity().colorOr(attr, attrDefault, elseColor)
 }
-
-internal fun DialogFragment.dimenOf(@AttrRes attr: Int, default: Int = 0) =
-    requireActivity().theme.dimenOf(attr, 0).takeIf { it != 0 } ?:
-        dialog?.context?.theme?.dimenOf(attr, 0).takeIf { it != 0 } ?: default

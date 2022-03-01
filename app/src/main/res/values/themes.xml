@@ -16,6 +16,12 @@
 <!--        <item name="colorSurface">#aaa</item>-->
 <!--        <item name="colorOnSurface">#0f0</item>-->
 <!--        <item name="magicBackground">#aaa</item>-->
+<!--        <item name="magicTitleColor">#f00</item>-->
+<!--        <item name="magicPromptStyle">@style/Prompt</item>-->
+<!--        <item name="magicOptionStyle">@style/Options</item>-->
+<!--        <item name="magicOptionItemColor">@color/auxiliary_flower</item>-->
+<!--        <item name="magicOptionItemCheckColor">@color/primary_blue_variant_400</item>-->
+
     </style>
 
     <style name="Negative" parent="TextAppearance.AppCompat.Widget.Button">
@@ -29,10 +35,13 @@
     </style>
 
     <style name="Options">
-        <item name="magicOptionTitleColor">#F00</item>
-        <item name="magicOptionTitleSize">32dp</item>
+        <item name="magicTitleColor">#F00</item>
+        <item name="magicTitleSize">32dp</item>
         <item name="magicOptionItemColor">#0ff</item>
+        <item name="magicBackground">@android:color/holo_blue_dark</item>
         <item name="magicOptionItemCheckColor">#ff0</item>
+        <item name="magicBackgroundMargin">10dp</item>
+        <item name="magicBackgroundMarginBottom">60dp</item>
     </style>
 
     <style name="Prompt">
@@ -40,14 +49,16 @@
         <item name="magicTitleSize">10dp</item>
         <item name="magicMessageColor">#0FF</item>
         <item name="magicMessageSize">40dp</item>
+        <item name="magicBackgroundMargin">50dp</item>
+        <item name="magicBackgroundMarginBottom">10dp</item>
     </style>
 
     <style name="Theme.MagicDialog.Custom">
         <item name="magicBackground">#348956</item>
         <item name="magicNegativeStyle">@style/Negative</item>
         <item name="magicPositiveStyle">@style/Positive</item>
-        <item name="magicOptionStyle">@style/Options</item>
         <item name="magicPromptStyle">@style/Prompt</item>
+        <item name="magicOptionStyle">@style/Options</item>
     </style>
 
 </resources>

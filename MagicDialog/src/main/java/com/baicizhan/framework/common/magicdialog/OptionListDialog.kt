@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogCheckOptionBinding
 import com.baicizhan.framework.common.magicdialog.databinding.ItemDialogCheckOptionBinding
-import com.baicizhan.framework.common.magicdialog.utils.colorOr
+import com.baicizhan.framework.common.magicdialog.utils.colorOf
 import com.github.jaceed.extender.view.setOnProtectedClickListener
 import com.github.jaceed.extender.view.visible
 
@@ -61,17 +61,21 @@ class OptionListDialog : BaseOptionDialog() {
     private inner class OptionAdapter : RecyclerView.Adapter<OptionHolder>() {
 
         private val themeColor by lazy {
-            val a = requireActivity().themeBy(R.attr.magicOptionStyle, R.styleable.MagicOptions)
-            if (a != null) {
-                Pair(a.getColor(R.styleable.MagicOptions_magicOptionItemColor, 0), a.getColor(R.styleable.MagicOptions_magicOptionItemCheckColor, 0)).also {
-                    a.recycle()
+            var option = 0
+            var check = 0
+            themeOf(R.attr.magicOptionStyle, R.styleable.OptionAppearance) { a ->
+                a.getColor(R.styleable.OptionAppearance_magicOptionItemColor, 0).takeIf { it != 0 }?.let {
+                    option = it
                 }
-            } else {
-                Pair(
-                    colorOr(R.attr.magicOptionItemColor, R.attr.colorOnSurface, 0),
-                    colorOr(R.attr.magicOptionItemCheckColor, R.attr.colorPrimary, 0)
-                )
+                a.getColor(R.styleable.OptionAppearance_magicOptionItemCheckColor, 0).takeIf { it != 0 }?.let {
+                    check = it
+                }
             }
+
+            Pair(
+                option.takeIf { it != 0 } ?: colorOf(R.attr.colorOnSurface, 0),
+                check.takeIf { it != 0 } ?: colorOf(R.attr.colorPrimary, 0)
+            )
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionHolder {

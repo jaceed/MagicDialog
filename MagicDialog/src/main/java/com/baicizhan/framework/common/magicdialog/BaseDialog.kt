@@ -1,12 +1,15 @@
 package com.baicizhan.framework.common.magicdialog
 
+import android.content.res.TypedArray
 import android.graphics.drawable.InsetDrawable
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
+import androidx.annotation.AttrRes
+import androidx.annotation.StyleableRes
 import androidx.core.content.res.ResourcesCompat
 import com.baicizhan.framework.common.magicdialog.utils.colorOf
-import com.baicizhan.framework.common.magicdialog.utils.colorOr
-import com.baicizhan.framework.common.magicdialog.utils.dimenOf
+
 
 /**
  * Created by Jacee.
@@ -14,19 +17,72 @@ import com.baicizhan.framework.common.magicdialog.utils.dimenOf
  */
 abstract class BaseDialog : BaseDialogFragment() {
 
+    protected data class Theme(
+        var backgroundColor: Int = 0,
+        var backgroundMargin: Int = 0,
+        var backgroundMarginBottom: Int = 0,
+        var titleColor: Int = 0,
+        var titleSize: Int = 0
+    )
+    
+    protected fun themeOf(@AttrRes attrId: Int, @StyleableRes attrs: IntArray, result: (TypedArray) -> Unit) {
+        val type = TypedValue()
+        fun update(a: TypedArray) {
+            result(a)
+            a.recycle()
+        }
+        requireDialog().context.theme.obtainStyledAttributes(attrs).let {
+            update(it)
+        }
+        requireDialog().context.theme.resolveAttribute(attrId, type, true).takeIf { it }?.let {
+            if (type.type == TypedValue.TYPE_REFERENCE) {
+                requireDialog().context.theme.obtainStyledAttributes(type.data, attrs).let {
+                    update(it)
+                }
+            }
+        }
+        requireActivity().theme.obtainStyledAttributes(attrs).let {
+            update(it)
+        }
+        requireActivity().theme.resolveAttribute(attrId, type, true).takeIf { it }?.let {
+            if (type.type == TypedValue.TYPE_REFERENCE) {
+                requireDialog().context.theme.obtainStyledAttributes(type.data, attrs).let {
+                    update(it)
+                }
+            }
+        }
+    }
+
+    protected val themeData by lazy {
+        Theme().apply {
+            val (attrId, attrs, attrRes) = onStyle() ?: return@apply
+            check(attrRes.size == 5)
+            themeOf(attrId, attrs) { a ->
+                a.getColor(attrRes[0], 0).takeIf { it != 0 }?.let {
+                    backgroundColor = it
+                }
+                a.getDimensionPixelSize(attrRes[1], 0).takeIf { it != 0 }?.let {
+                    backgroundMargin = it
+                }
+                a.getDimensionPixelSize(attrRes[2], 0).takeIf { it != 0 }?.let {
+                    backgroundMarginBottom = it
+                }
+                a.getColor(attrRes[3], 0).takeIf { it != 0 }?.let {
+                    titleColor = it
+                }
+                a.getDimensionPixelSize(attrRes[4], 0).takeIf { it != 0 }?.let {
+                    titleSize = it
+                }
+            }
+        }
+    }
+
     private val magicBackgroundColorDefault by lazy {
-        colorOr(R.attr.magicBackground, R.attr.colorSurface, 0)
+        themeData.backgroundColor.takeIf { it != 0 } ?: colorOf(R.attr.colorSurface, 0)
     }
 
     protected val magicOnSurfaceColorDefault by lazy {
         colorOf(R.attr.colorOnSurface, 0)
-    }
-
-    private val insets by lazy {
-        Pair(
-            dimenOf(R.attr.magicBackgroundMargin),
-            dimenOf(R.attr.magicBackgroundMarginBottom)
-        )
     }
 
     private val backgroundDrawable by lazy {
@@ -45,6 +101,7 @@ abstract class BaseDialog : BaseDialogFragment() {
         super.onStart()
         val window = dialog?.window ?: return
         val attrs = window.attributes
+
         attrs.gravity = if (onLocation() == BOTTOM) Gravity.BOTTOM else Gravity.CENTER
         attrs.height = ViewGroup.LayoutParams.WRAP_CONTENT
 
@@ -61,9 +118,9 @@ abstract class BaseDialog : BaseDialogFragment() {
         }
         window.attributes = attrs
 
-        val bg = if (onLocation() == BOTTOM && onMatchState() != WRAP && insets.first == 0 && insets.second == 0)
+        val bg = if (onLocation() == BOTTOM && onMatchState() != WRAP && themeData.backgroundMargin == 0 && themeData.backgroundMarginBottom == 0)
             backgroundDrawableBottom else InsetDrawable(
-            backgroundDrawable, insets.first, 0, insets.first, insets.second - 2
+            backgroundDrawable, themeData.backgroundMargin, 0, themeData.backgroundMargin, themeData.backgroundMarginBottom
         )
         window.setBackgroundDrawable(bg)
     }
@@ -73,5 +130,7 @@ abstract class BaseDialog : BaseDialogFragment() {
 
     @MatchState
     protected open fun onMatchState(): Int = WRAP
+
+    protected open fun onStyle(): StyleParams? = null
 
 }

@@ -17,7 +17,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, onTheme())
+        setStyle(STYLE_NORMAL, R.style.DialogThemeCommon)
         isCancelable = onCancelable()
     }
 
@@ -55,8 +55,6 @@ abstract class BaseDialogFragment : DialogFragment() {
     }
 
     protected open fun onCancelable(): Boolean = true
-
-    protected open fun onTheme(): Int = R.style.DialogThemeCommon
 
     @StyleRes
     protected open fun onAnimation(): Int = 0

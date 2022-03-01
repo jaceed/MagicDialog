@@ -4,24 +4,31 @@
     <attr name="magicBackground" format="color|reference" />
     <attr name="magicBackgroundMargin" format="dimension|reference" />
     <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
+    <attr name="magicTitleColor" format="color|reference" />
+    <attr name="magicTitleSize" format="dimension|reference" />
+    <attr name="magicPromptStyle" format="reference" />
+    <attr name="magicOptionStyle" format="reference" />
     <attr name="magicNegativeStyle" format="reference" />
     <attr name="magicPositiveStyle" format="reference" />
 
-    <declare-styleable name="MagicPrompt">
-        <attr name="magicTitleColor" format="color|reference" />
-        <attr name="magicTitleSize" format="dimension|reference" />
+    <declare-styleable name="PromptAppearance">
+        <attr name="magicBackground" />
+        <attr name="magicBackgroundMargin" />
+        <attr name="magicBackgroundMarginBottom" />
+        <attr name="magicTitleColor" />
+        <attr name="magicTitleSize" />
         <attr name="magicMessageColor" format="color|reference" />
         <attr name="magicMessageSize" format="dimension|reference" />
     </declare-styleable>
 
-    <declare-styleable name="MagicOptions">
-        <attr name="magicOptionTitleColor" format="color|reference" />
-        <attr name="magicOptionTitleSize" format="dimension|reference" />
+    <declare-styleable name="OptionAppearance">
+        <attr name="magicBackground" />
+        <attr name="magicBackgroundMargin" />
+        <attr name="magicBackgroundMarginBottom" />
+        <attr name="magicTitleColor" />
+        <attr name="magicTitleSize" />
         <attr name="magicOptionItemColor" format="color|reference" />
         <attr name="magicOptionItemCheckColor" format="color|reference" />
     </declare-styleable>
-
-    <attr name="magicPromptStyle" format="reference" />
-    <attr name="magicOptionStyle" format="reference" />
 
 </resources>

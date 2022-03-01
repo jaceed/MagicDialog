@@ -26,15 +26,17 @@
 
     <style name="DialogThemeCommon" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:textViewStyle">@style/MagicText</item>
+        <item name="magicOptionStyle">@style/DialogOptions</item>
+        <item name="magicPromptStyle">@style/DialogPrompt</item>
     </style>
 
-    <style name="DialogThemeCommon.Prompt">
+    <style name="DialogPrompt">
         <item name="magicBackgroundMargin">@dimen/dialog_common_bg_inset_margin</item>
         <item name="magicBackgroundMarginBottom">@dimen/dialog_common_bg_inset_margin_bottom</item>
     </style>
 
-    <style name="DialogThemeCommon.Options">
-        <item name="magicOptionTitleColor">@color/gray_04</item>
+    <style name="DialogOptions">
+        <item name="magicTitleColor">@color/gray_04</item>
     </style>
 
     <!--============ Animations ==============-->

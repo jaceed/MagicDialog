@@ -23,7 +23,13 @@ class PromptDialog : BaseCommonDialog() {
         return super.onMatchState().takeIf { it != WRAP } ?: EXPANDED
     }
 
-    override fun onTheme(): Int = R.style.DialogThemeCommon_Prompt
+    override fun onStyle(): StyleParams = StyleParams(R.attr.magicPromptStyle, R.styleable.PromptAppearance, intArrayOf(
+        R.styleable.PromptAppearance_magicBackground,
+        R.styleable.PromptAppearance_magicBackgroundMargin,
+        R.styleable.PromptAppearance_magicBackgroundMarginBottom,
+        R.styleable.PromptAppearance_magicTitleColor,
+        R.styleable.PromptAppearance_magicTitleSize,
+    ))
 
     override fun onAnimation(): Int {
         return R.style.PromptDialogAnimation
@@ -42,21 +48,27 @@ class PromptDialog : BaseCommonDialog() {
                 } ?:*/ false
             }
 
-            val a = requireActivity().themeBy(R.attr.magicPromptStyle, R.styleable.MagicPrompt)
-            if (a != null) {
-                a.getColor(R.styleable.MagicPrompt_magicTitleColor, 0).takeIf { it != 0 }?.let { c -> title.setTextColor(c) } ?: run {
-                    if (magicOnSurfaceColorDefault != 0) title.setTextColor(magicOnSurfaceColorDefault)
-                }
-                a.getDimension(R.styleable.MagicPrompt_magicTitleSize, 0f).takeIf { it != 0f }?.let { d -> title.setTextSize(TypedValue.COMPLEX_UNIT_PX, d) }
-                a.getColor(R.styleable.MagicPrompt_magicMessageColor, 0).takeIf { it != 0 }?.let { c -> message.setTextColor(c) } ?: run {
-                    if (magicOnSurfaceColorDefault != 0) message.setTextColor(magicOnSurfaceColorDefault)
-                }
-                a.getDimension(R.styleable.MagicPrompt_magicMessageSize, 0f).takeIf { it != 0f }?.let { d -> message.setTextSize(TypedValue.COMPLEX_UNIT_PX, d) }
-                a.recycle()
-            } else {
-                if (magicOnSurfaceColorDefault != 0) title.setTextColor(magicOnSurfaceColorDefault)
-                if (magicOnSurfaceColorDefault != 0) message.setTextColor(magicOnSurfaceColorDefault)
+            (themeData.titleColor.takeIf { it != 0 } ?: magicOnSurfaceColorDefault.takeIf { it != 0 })?.let {
+                title.setTextColor(it)
             }
+            themeData.titleSize.takeIf { it != 0 }?.let {
+                title.setTextSize(TypedValue.COMPLEX_UNIT_PX, it.toFloat())
+            }
+
+            var messageColor = 0
+            var messageSize = 0
+
+            themeOf(R.attr.magicPromptStyle, R.styleable.PromptAppearance) { a ->
+                a.getColor(R.styleable.PromptAppearance_magicMessageColor, 0).takeIf { it != 0 }?.let {
+                    messageColor = it
+                }
+                a.getDimensionPixelSize(R.styleable.PromptAppearance_magicMessageSize, 0).takeIf { it != 0 }?.let {
+                    messageSize = it
+                }
+            }
+
+            if (messageColor != 0) message.setTextColor(messageColor)
+            if (messageSize != 0) message.setTextSize(TypedValue.COMPLEX_UNIT_PX, messageSize.toFloat())
 
             title.content = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() }
             message.content = arguments?.getString(ARG_MESSAGE)?.takeIf { it.isNotBlank() }

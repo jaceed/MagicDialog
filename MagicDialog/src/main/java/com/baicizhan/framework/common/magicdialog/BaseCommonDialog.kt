@@ -25,22 +25,11 @@ abstract class BaseCommonDialog : BaseDialog() {
     private var listener: OnDialogFragmentInteraction? = null
     private var listenerExcluded: OnDialogFragmentInteraction? = null
 
-    protected fun FragmentActivity.themeBy(@AttrRes attrStyle: Int, attrs: IntArray, res: ((res: TypedArray) -> Unit)? = null) {
+    private fun FragmentActivity.themeBy(@AttrRes attrStyle: Int, attrs: IntArray, res: ((res: TypedArray) -> Unit)? = null) {
         val typedValue = TypedValue()
         theme.resolveAttribute(attrStyle, typedValue, false).let {
             if (it && typedValue.type == TypedValue.TYPE_REFERENCE) {
                 res?.invoke(theme.obtainStyledAttributes(typedValue.data, attrs))
-            }
-        }
-    }
-
-    protected fun FragmentActivity.themeBy(@AttrRes attrStyle: Int, attrs: IntArray): TypedArray? {
-        val typedValue = TypedValue()
-        return theme.resolveAttribute(attrStyle, typedValue, false).let {
-            if (it && typedValue.type == TypedValue.TYPE_REFERENCE) {
-                theme.obtainStyledAttributes(typedValue.data, attrs)
-            } else {
-                null
             }
         }
     }
