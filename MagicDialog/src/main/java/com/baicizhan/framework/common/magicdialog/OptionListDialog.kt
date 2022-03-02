@@ -38,6 +38,8 @@ class OptionListDialog : BaseOptionDialog() {
         }.root
     }
 
+    override fun onConfigureButtons(): ButtonType = ButtonType.SINGLE_NEGATIVE
+
     fun setInteraction(interaction: CheckOptionInteraction): OptionListDialog {
         this.interaction = interaction
         return this

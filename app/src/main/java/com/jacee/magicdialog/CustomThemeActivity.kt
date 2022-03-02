@@ -25,7 +25,7 @@ class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
                 show(
                     OptionListDialog.Builder(this)
                         .options(arrayOf("a", "b", "c", "d"))
-                        .type(ButtonType.SINGLE_POSITIVE)
+//                        .type(ButtonType.SINGLE_POSITIVE)
                         .build()
                 )
             }
@@ -33,7 +33,7 @@ class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
                 show(
                     OptionListDialog.Builder(this)
                         .title("选择器")
-                        .type(ButtonType.SINGLE_NEGATIVE)
+//                        .type(ButtonType.SINGLE_NEGATIVE)
                         .options(arrayOf("a", "b", "c", "d"), 2)
                         .build()
                 )
@@ -41,7 +41,7 @@ class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
             it.wheel.setOnClickListener {
                 WheelPickerDialog.Builder(this)
                     .wheels(arrayListOf("a", "b", "c", "d", "e", "f"))
-                    .type(ButtonType.SINGLE_POSITIVE)
+//                    .type(ButtonType.SINGLE_POSITIVE)
                     .title("标题")
                     .positive("好吧")
                     .build()
@@ -51,7 +51,7 @@ class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
                 DatePickerDialog.Builder(this)
                     .title("日期")
                     .dateTo("1990", "6", "3")
-                    .type(ButtonType.SINGLE_NEGATIVE)
+//                    .type(ButtonType.SINGLE_NEGATIVE)
                     .build()
                     .setOnDateListener { year, month, day ->
                         Toast.makeText(this, "$year, $month, $day", Toast.LENGTH_SHORT).show()

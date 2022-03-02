@@ -34,16 +34,6 @@ abstract class BaseCommonDialog : BaseDialog() {
         }
     }
 
-    override fun onLocation(): Int {
-        val sp = super.onLocation()
-        return arguments?.getInt(ARG_LOCATION, sp) ?: sp
-    }
-
-    override fun onMatchState(): Int {
-        val sp = super.onMatchState()
-        return arguments?.getInt(ARG_MATCH_STATE, sp) ?: sp
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = if (context is OnDialogFragmentInteraction) context else null
@@ -159,6 +149,11 @@ abstract class BaseCommonDialog : BaseDialog() {
 
         protected val arguments = Bundle()
 
+        fun cancellable(cancellable: Boolean): T {
+            arguments.putBoolean(ARG_CANCELLABLE, cancellable)
+            return this as T
+        }
+
         fun title(@StringRes title: Int): T {
             return title(context.getString(title))
         }
@@ -175,26 +170,6 @@ abstract class BaseCommonDialog : BaseDialog() {
 
         fun positive(button: String?): T {
             arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button))
-            return this as T
-        }
-
-        fun type(buttonType: ButtonType): T {
-            arguments.putSerializable(ARG_BUTTON_TYPE, buttonType)
-            return this as T
-        }
-
-        fun cancellable(cancellable: Boolean): T {
-            arguments.putBoolean(ARG_CANCELLABLE, cancellable)
-            return this as T
-        }
-
-        fun location(@Location location: Int): T {
-            arguments.putInt(ARG_LOCATION, location)
-            return this as T
-        }
-
-        fun match(@MatchState match: Int): T {
-            arguments.putInt(ARG_MATCH_STATE, match)
             return this as T
         }
 
@@ -223,12 +198,10 @@ abstract class BaseCommonDialog : BaseDialog() {
         private const val ARG_BUTTON_CONFIG = "button_config"
         private const val ARG_BUTTON_CONFIG_NEGATIVE = "button_config_negative"
         private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
-        private const val ARG_BUTTON_TYPE = "button_type"
         private const val ARG_CANCELLABLE = "cancellable"
 
         const val ARG_TITLE = "title"
-        const val ARG_MATCH_STATE = "match_state"
-        const val ARG_LOCATION = "location"
+        const val ARG_BUTTON_TYPE = "button_type"
     }
 
 }

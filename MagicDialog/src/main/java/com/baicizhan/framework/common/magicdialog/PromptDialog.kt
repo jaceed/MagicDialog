@@ -98,6 +98,21 @@ class PromptDialog : BaseCommonDialog() {
             return this
         }
 
+        fun type(buttonType: ButtonType): Builder {
+            arguments.putSerializable(ARG_BUTTON_TYPE, buttonType)
+            return this
+        }
+
+        fun location(@Location location: Int): Builder {
+            arguments.putInt(ARG_LOCATION, location)
+            return this
+        }
+
+        fun match(@MatchState match: Int): Builder{
+            arguments.putInt(ARG_MATCH_STATE, match)
+            return this
+        }
+
         override fun create() = PromptDialog().apply {
             this.arguments = this@Builder.arguments
         }
@@ -110,6 +125,9 @@ class PromptDialog : BaseCommonDialog() {
         private const val ARG_PIC = "picture"
         private const val ARG_PIC_URI = "picture_uri"
         private const val ARG_MESSAGE = "message"
+
+        private const val ARG_MATCH_STATE = "match_state"
+        private const val ARG_LOCATION = "location"
 
     }
 
