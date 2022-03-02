@@ -105,6 +105,18 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        binding.centerWrap.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .title("居中")
+                    .message("内容适配")
+                    .location(CENTER)
+                    .match(WRAP)
+                    .cancellable(true)
+                    .build(), "ce"
+            )
+        }
+
         binding.bottomFull.setOnClickListener {
             show(
                 PromptDialog.Builder(this)

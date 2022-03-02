@@ -54,6 +54,12 @@
             android:text="location: center" />
 
         <Button
+            android:id="@+id/center_wrap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location: center wrap" />
+
+        <Button
             android:id="@+id/bottom_full"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
