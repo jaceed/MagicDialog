@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.aigestudio.wheelpicker.WheelPicker
-import com.github.jaceed.extender.view.visible
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogWheelPickerBinding
+import com.github.jaceed.extender.view.visible
 
 /**
  * Created by Jacee.
@@ -20,6 +20,20 @@ open class WheelPickerDialog : BaseOptionDialog() {
     protected var selectedRight: Int = 0
 
     protected var interaction: OnPickInteraction? = null
+
+    private val themeColor by lazy {
+        var itemColor = 0
+        var itemCycledColor = 0
+        themeOf(R.attr.magicOptionStyle, R.styleable.OptionAppearance) { a ->
+            a.getColor(R.styleable.OptionAppearance_magicOptionItemColor, 0).takeIf { it != 0 }?.let {
+                itemColor = it
+            }
+            a.getColor(R.styleable.OptionAppearance_magicOptionItemCycledColor, 0).takeIf { it != 0 }?.let {
+                itemCycledColor = it
+            }
+        }
+        Pair(itemColor, itemCycledColor)
+    }
 
     override fun onCreateOptionView(inflater: LayoutInflater): View {
         return FragmentDialogWheelPickerBinding.inflate(inflater).apply {
@@ -72,6 +86,14 @@ open class WheelPickerDialog : BaseOptionDialog() {
         get() = data as? ArrayList<*>?
         set(value) {
             visible = value != null
+            if (visible) {
+                themeColor.first.takeIf { it != 0 }?.let {
+                    selectedItemTextColor = it
+                }
+                themeColor.second.takeIf { it != 0 }?.let {
+                    itemTextColor = it
+                }
+            }
             data = value?.toList() ?: return
         }
 

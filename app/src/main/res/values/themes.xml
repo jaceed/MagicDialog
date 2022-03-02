@@ -37,7 +37,8 @@
     <style name="Options">
         <item name="magicTitleColor">#F00</item>
         <item name="magicTitleSize">32dp</item>
-        <item name="magicOptionItemColor">#0ff</item>
+        <item name="magicOptionItemColor">#ff6</item>
+        <item name="magicOptionItemCycledColor">#f0f</item>
         <item name="magicBackground">@android:color/holo_blue_dark</item>
         <item name="magicOptionItemCheckColor">#ff0</item>
         <item name="magicBackgroundMargin">10dp</item>

@@ -29,6 +29,7 @@
         <attr name="magicTitleSize" />
         <attr name="magicOptionItemColor" format="color|reference" />
         <attr name="magicOptionItemCheckColor" format="color|reference" />
+        <attr name="magicOptionItemCycledColor" format="color|reference" />
     </declare-styleable>
 
 </resources>

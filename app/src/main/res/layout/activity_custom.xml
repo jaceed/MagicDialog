@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/custom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".CustomThemeActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="prompt" />
+
+    <Button
+        android:id="@+id/options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="options" />
+
+    <Button
+        android:id="@+id/options_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="options checked" />
+
+    <Button
+        android:id="@+id/wheel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wheel" />
+
+    <Button
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date picker" />
+</LinearLayout>
