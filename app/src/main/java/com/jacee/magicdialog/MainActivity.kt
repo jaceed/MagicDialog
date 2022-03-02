@@ -168,6 +168,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.add(0, 0, 0, "主题")
         menu?.add(0, 1, 0, "选项")
+        menu?.add(0, 2, 0, "测试")
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -178,6 +179,11 @@ class MainActivity : AppCompatActivity() {
             }
             1 -> {
                 startActivity(Intent(this, OptionsActivity::class.java))
+            }
+            2 -> {
+                show(
+                    TestDialog.Builder(this).build()
+                )
             }
             else -> {
                 return false
