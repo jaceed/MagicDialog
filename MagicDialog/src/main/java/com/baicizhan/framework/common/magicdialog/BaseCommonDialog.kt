@@ -17,6 +17,9 @@ import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBase
 import com.github.jaceed.extender.view.visible
 
 /**
+ *
+ * Child classes have to inherit the Builder to create instances
+ *
  * Created by Jacee.
  * Date: 2019.03.18
  */
@@ -24,6 +27,8 @@ abstract class BaseCommonDialog : BaseDialog() {
 
     private var listener: OnDialogFragmentInteraction? = null
     private var listenerExcluded: OnDialogFragmentInteraction? = null
+
+    override val minWidthEnabled: Boolean = true
 
     private fun FragmentActivity.themeBy(@AttrRes attrStyle: Int, attrs: IntArray, res: ((res: TypedArray) -> Unit)? = null) {
         val typedValue = TypedValue()

@@ -22,6 +22,7 @@
 <!--        <item name="magicOptionItemColor">@color/auxiliary_flower</item>-->
 <!--        <item name="magicOptionItemCheckColor">@color/primary_blue_variant_400</item>-->
 
+<!--        <item name="magicMinWidth">300dp</item>-->
     </style>
 
     <style name="Negative" parent="TextAppearance.AppCompat.Widget.Button">

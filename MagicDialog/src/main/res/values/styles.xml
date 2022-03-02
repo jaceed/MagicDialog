@@ -26,6 +26,7 @@
 
     <style name="DialogThemeCommon" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:textViewStyle">@style/MagicText</item>
+        <item name="magicMinWidth">@dimen/dialog_common_content_min_width</item>
         <item name="magicOptionStyle">@style/DialogOptions</item>
         <item name="magicPromptStyle">@style/DialogPrompt</item>
     </style>

@@ -6,6 +6,7 @@
     <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
     <attr name="magicTitleColor" format="color|reference" />
     <attr name="magicTitleSize" format="dimension|reference" />
+    <attr name="magicMinWidth" format="dimension|reference" />
     <attr name="magicPromptStyle" format="reference" />
     <attr name="magicOptionStyle" format="reference" />
     <attr name="magicNegativeStyle" format="reference" />

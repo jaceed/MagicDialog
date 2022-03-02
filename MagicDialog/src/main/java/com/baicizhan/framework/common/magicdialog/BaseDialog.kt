@@ -2,6 +2,7 @@ package com.baicizhan.framework.common.magicdialog
 
 import android.content.res.TypedArray
 import android.graphics.drawable.InsetDrawable
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.StyleableRes
 import androidx.core.content.res.ResourcesCompat
 import com.baicizhan.framework.common.magicdialog.utils.colorOf
+import com.baicizhan.framework.common.magicdialog.utils.dimenOf
 
 
 /**
@@ -17,6 +19,8 @@ import com.baicizhan.framework.common.magicdialog.utils.colorOf
  */
 abstract class BaseDialog : BaseDialogFragment() {
 
+    open val minWidthEnabled = false
+
     protected data class Theme(
         var backgroundColor: Int = 0,
         var backgroundMargin: Int = 0,
@@ -24,7 +28,7 @@ abstract class BaseDialog : BaseDialogFragment() {
         var titleColor: Int = 0,
         var titleSize: Int = 0
     )
-    
+
     protected fun themeOf(@AttrRes attrId: Int, @StyleableRes attrs: IntArray, result: (TypedArray) -> Unit) {
         val type = TypedValue()
         fun update(a: TypedArray) {
@@ -107,7 +111,9 @@ abstract class BaseDialog : BaseDialogFragment() {
 
         val bg = when (onMatchState()) {
             WRAP -> {
-                attrs.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                attrs.width = with (dimenOf(R.attr.magicMinWidth, 0)) {
+                    if (this > 0 && minWidthEnabled) this else ViewGroup.LayoutParams.WRAP_CONTENT
+                }
                 backgroundDrawable
             }
             EXPANDED -> {

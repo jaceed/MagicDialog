@@ -23,6 +23,8 @@
 
     <dimen name="dialog_background_corner">8dp</dimen>
 
+    <dimen name="dialog_common_content_min_width">240dp</dimen>
+
     <dimen name="dialog_common_bg_inset_margin">16dp</dimen>
     <dimen name="dialog_common_bg_inset_margin_bottom">50dp</dimen>
     <dimen name="dialog_corner">8dp</dimen>
