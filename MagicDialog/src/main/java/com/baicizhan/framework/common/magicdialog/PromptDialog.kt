@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.StringRes
+import coil.load
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogPromptBinding
 import com.github.jaceed.extender.view.content
 import com.github.jaceed.extender.view.visible
@@ -17,11 +18,9 @@ import com.github.jaceed.extender.view.visible
  */
 class PromptDialog : BaseCommonDialog() {
 
-    override fun onLocation(): Int  = BOTTOM
+    override fun onLocation(): Int  = arguments?.getInt(ARG_LOCATION, -1).takeIf { it != -1 } ?: BOTTOM
 
-    override fun onMatchState(): Int {
-        return super.onMatchState().takeIf { it != WRAP } ?: EXPANDED
-    }
+    override fun onMatchState(): Int = arguments?.getInt(ARG_MATCH_STATE, -1).takeIf { it != -1 } ?: EXPANDED
 
     override fun onStyle(): StyleParams = StyleParams(R.attr.magicPromptStyle, R.styleable.PromptAppearance, intArrayOf(
         R.styleable.PromptAppearance_magicBackground,
@@ -41,11 +40,10 @@ class PromptDialog : BaseCommonDialog() {
                 pic.setImageBitmap(it)
                 true
             } ?: run {
-                /*arguments?.getParcelable<Uri>(ARG_PIC_URI)?.let {
-                    PicParser.load(it)
-                        .into(pic)
+                arguments?.getParcelable<Uri>(ARG_PIC_URI)?.let {
+                    pic.load(it)
                     true
-                } ?:*/ false
+                } ?: false
             }
 
             (themeData.titleColor.takeIf { it != 0 } ?: magicOnSurfaceColorDefault.takeIf { it != 0 })?.let {
@@ -110,7 +108,7 @@ class PromptDialog : BaseCommonDialog() {
     companion object {
 
         private const val ARG_PIC = "picture"
-        private const val ARG_PIC_URI = "picture"
+        private const val ARG_PIC_URI = "picture_uri"
         private const val ARG_MESSAGE = "message"
 
     }

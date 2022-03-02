@@ -225,10 +225,10 @@ abstract class BaseCommonDialog : BaseDialog() {
         private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
         private const val ARG_BUTTON_TYPE = "button_type"
         private const val ARG_CANCELLABLE = "cancellable"
-        private const val ARG_LOCATION = "location"
-        private const val ARG_MATCH_STATE = "match_state"
 
         const val ARG_TITLE = "title"
+        const val ARG_MATCH_STATE = "match_state"
+        const val ARG_LOCATION = "location"
     }
 
 }

@@ -21,13 +21,19 @@
             android:id="@+id/prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="prompt" />
+            android:text="prompt button config" />
 
         <Button
             android:id="@+id/single"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button: single" />
+
+        <Button
+            android:id="@+id/single_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button: single positive" />
 
         <Button
             android:id="@+id/none"
@@ -48,16 +54,28 @@
             android:text="location: center" />
 
         <Button
-            android:id="@+id/bottom_expanded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="location: bottom expanded" />
-
-        <Button
             android:id="@+id/bottom_full"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="location: bottom full" />
+
+        <Button
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="picture" />
+
+        <Button
+            android:id="@+id/picture_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="picture message" />
+
+        <Button
+            android:id="@+id/picture_title_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="picture title message" />
 
     </LinearLayout>
 

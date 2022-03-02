@@ -1,12 +1,16 @@
 package com.jacee.magicdialog
 
+import android.content.ContentResolver
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.baicizhan.framework.common.magicdialog.*
 import com.baicizhan.framework.common.magicdialog.utils.dismiss
 import com.baicizhan.framework.common.magicdialog.utils.show
@@ -63,6 +67,16 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        binding.singlePositive.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .title("标题")
+                    .message("测试一下")
+                    .type(ButtonType.SINGLE_POSITIVE)
+                    .build(), "single positive"
+            )
+        }
+
         binding.none.setOnClickListener {
             show(
                 PromptDialog.Builder(this)
@@ -84,20 +98,10 @@ class MainActivity : AppCompatActivity() {
         binding.center.setOnClickListener {
             show(
                 PromptDialog.Builder(this)
-//                    .location(Location.Center) // Not supported
+                    .title("居中")
+                    .location(CENTER)
                     .cancellable(true)
                     .build(), "ce"
-            )
-        }
-
-        binding.bottomExpanded.setOnClickListener {
-            show(
-                PromptDialog.Builder(this)
-                    .location(BOTTOM)
-                    .match(EXPANDED)
-                    .title("标题")
-                    .message("测试一下")
-                    .build(), "b"
             )
         }
 
@@ -106,9 +110,57 @@ class MainActivity : AppCompatActivity() {
                 PromptDialog.Builder(this)
                     .location(BOTTOM)
                     .match(FULL)
+                    .cancellable(false)
                     .title("标题")
                     .message("测试一下")
                     .build(), "bf"
+            )
+        }
+
+        binding.picture.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .title("带图")
+                    .pic(
+                        Uri.parse(
+                            "${ContentResolver.SCHEME_ANDROID_RESOURCE}://" +
+                                    "${resources.getResourcePackageName(R.drawable.test_bg_pic_top)}/" +
+                                    "${resources.getResourceTypeName(R.drawable.test_bg_pic_top)}/${resources.getResourceEntryName(R.drawable.test_bg_pic_top)}"
+                        )
+                    )
+                    .build()
+            )
+        }
+
+        binding.pictureMsg.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .message("消息一下")
+                    .pic(
+                        Uri.parse(
+                            "${ContentResolver.SCHEME_ANDROID_RESOURCE}://" +
+                                    "${resources.getResourcePackageName(R.drawable.test_bg_pic_top)}/" +
+                                    "${resources.getResourceTypeName(R.drawable.test_bg_pic_top)}/${resources.getResourceEntryName(R.drawable.test_bg_pic_top)}"
+                        )
+                    )
+                    .build()
+            )
+        }
+
+        binding.pictureTitleMsg.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .title("带图")
+                    .message("消息一下")
+                    .bitmap(resources.getDrawable(R.mipmap.ic_launcher, null).let {
+                        val bitmap = Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888)
+                        Canvas(bitmap).apply {
+                            it.setBounds(0, 0, width, height)
+                            it.draw(this)
+                        }
+                        bitmap
+                    })
+                    .build()
             )
         }
     }

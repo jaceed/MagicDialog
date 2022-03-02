@@ -105,23 +105,24 @@ abstract class BaseDialog : BaseDialogFragment() {
         attrs.gravity = if (onLocation() == BOTTOM) Gravity.BOTTOM else Gravity.CENTER
         attrs.height = ViewGroup.LayoutParams.WRAP_CONTENT
 
-        when (onMatchState()) {
+        val bg = when (onMatchState()) {
             WRAP -> {
                 attrs.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                backgroundDrawable
             }
             EXPANDED -> {
                 attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
+                if (themeData.backgroundMargin == 0 && themeData.backgroundMarginBottom == 0)
+                    backgroundDrawable
+                else
+                    InsetDrawable(backgroundDrawable, themeData.backgroundMargin, 0, themeData.backgroundMargin, themeData.backgroundMarginBottom)
             }
             else -> {
                 attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
+                if (onLocation() == BOTTOM) backgroundDrawableBottom else backgroundDrawable
             }
         }
         window.attributes = attrs
-
-        val bg = if (onLocation() == BOTTOM && onMatchState() != WRAP && themeData.backgroundMargin == 0 && themeData.backgroundMarginBottom == 0)
-            backgroundDrawableBottom else InsetDrawable(
-            backgroundDrawable, themeData.backgroundMargin, 0, themeData.backgroundMargin, themeData.backgroundMarginBottom
-        )
         window.setBackgroundDrawable(bg)
     }
 
