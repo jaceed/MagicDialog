@@ -23,7 +23,7 @@
         app:wheel_indicator_background="@drawable/bg_dialog_date_picker_indicator_left"
         app:wheel_indicator_background_size="40dp"
         app:wheel_item_space="14dp"
-        app:wheel_item_text_color="@color/gray_04"
+        app:wheel_item_text_color="@color/gray_05"
         app:wheel_item_text_size="@dimen/ts_06"
         app:wheel_selected_item_text_color="@color/gray_01"
         app:wheel_visible_item_count="5"
