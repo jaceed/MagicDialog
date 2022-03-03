@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid android:color="?attr/magicBackground" />
-    <corners android:radius="@dimen/dialog_corner" />
+    <corners android:radius="@dimen/dialog_background_corner" />
 
 </shape>

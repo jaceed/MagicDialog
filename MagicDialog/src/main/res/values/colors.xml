@@ -68,17 +68,4 @@
     <color name="white_80">#CCFFFFFF</color>
 
 
-
-    <!--Ui colors-->
-    <color name="colorPrimary">@color/primary_blue</color>
-    <color name="colorOnPrimary">@color/primary_white</color>
-    <color name="colorPrimaryVariant">@color/primary_blue_variant_700</color>
-    <color name="colorPrimaryPressed">#146653DB</color>
-    <color name="colorAccent">@color/primary_orange</color>
-    <color name="colorError">#FF2D55</color>
-    <color name="colorErrorVariant">#14FF2D55</color>
-    <color name="colorSurface">@color/primary_white</color>
-    <color name="colorOnSurface">@color/gray_01</color>
-
-
 </resources>

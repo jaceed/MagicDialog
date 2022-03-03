@@ -3,7 +3,7 @@
 
     <solid android:color="?attr/magicBackground" />
     <corners
-        android:topLeftRadius="@dimen/dialog_corner"
-        android:topRightRadius="@dimen/dialog_corner" />
+        android:topLeftRadius="@dimen/dialog_background_corner"
+        android:topRightRadius="@dimen/dialog_background_corner" />
 
 </shape>
