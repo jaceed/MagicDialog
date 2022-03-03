@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="magicBackground" format="color|reference" />
-    <attr name="magicBackgroundMargin" format="dimension|reference" />
-    <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
-    <attr name="magicTitleColor" format="color|reference" />
-    <attr name="magicTitleSize" format="dimension|reference" />
-    <attr name="magicMinWidth" format="dimension|reference" />
-    <attr name="magicPromptStyle" format="reference" />
-    <attr name="magicOptionStyle" format="reference" />
-    <attr name="magicNegativeStyle" format="reference" />
-    <attr name="magicPositiveStyle" format="reference" />
+    <!-- Public style attributes-->
+    <attr name="magicAppearance" format="reference" />
+    <attr name="magicPromptAppearance" format="reference" />
+    <attr name="magicOptionsAppearance" format="reference" />
+    <attr name="magicNegativeAppearance" format="reference" />
+    <attr name="magicPositiveAppearance" format="reference" />
+
+    <declare-styleable name="MagicAppearance">
+        <attr name="magicBackground" format="color|reference" />
+        <attr name="magicBackgroundMargin" format="dimension|reference" />
+        <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
+        <attr name="magicTitleColor" format="color|reference" />
+        <attr name="magicTitleSize" format="dimension|reference" />
+        <attr name="magicMinWidth" format="dimension|reference" />
+    </declare-styleable>
 
     <declare-styleable name="PromptAppearance">
         <attr name="magicBackground" />

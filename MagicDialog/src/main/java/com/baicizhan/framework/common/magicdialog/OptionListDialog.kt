@@ -2,7 +2,6 @@ package com.baicizhan.framework.common.magicdialog
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogCheckOptionBinding
 import com.baicizhan.framework.common.magicdialog.databinding.ItemDialogCheckOptionBinding
-import com.baicizhan.framework.common.magicdialog.utils.colorOf
 import com.github.jaceed.extender.view.setOnProtectedClickListener
 import com.github.jaceed.extender.view.visible
 
@@ -62,36 +60,8 @@ class OptionListDialog : BaseOptionDialog() {
     @SuppressLint("ResourceType")
     private inner class OptionAdapter : RecyclerView.Adapter<OptionHolder>() {
 
-        private val themeColor by lazy {
-            var option = 0
-            var check = 0
-            themeOf(R.attr.magicOptionStyle, R.styleable.OptionAppearance) { a ->
-                a.getColor(R.styleable.OptionAppearance_magicOptionItemColor, 0).takeIf { it != 0 }?.let {
-                    option = it
-                }
-                a.getColor(R.styleable.OptionAppearance_magicOptionItemCheckColor, 0).takeIf { it != 0 }?.let {
-                    check = it
-                }
-            }
-
-            Pair(
-                option.takeIf { it != 0 } ?: colorOf(R.attr.colorOnSurface, 0),
-                check.takeIf { it != 0 } ?: colorOf(R.attr.colorPrimary, 0)
-            )
-        }
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionHolder {
-            return OptionHolder(ItemDialogCheckOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
-                themeColor.let {
-                    if (it.first != 0) {
-                        name.setTextColor(it.first)
-                    }
-                    if (it.second != 0) {
-                        checked.imageTintList = ColorStateList.valueOf(it.second)
-                    }
-                }
-            }
-
+            return OptionHolder(ItemDialogCheckOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: OptionHolder, position: Int) {

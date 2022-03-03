@@ -13,21 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-<!--        <item name="colorSurface">#aaa</item>-->
-<!--        <item name="colorOnSurface">#0f0</item>-->
-<!--        <item name="magicBackground">#aaa</item>-->
-<!--        <item name="magicTitleColor">#f00</item>-->
-<!--        <item name="magicPromptStyle">@style/Prompt</item>-->
-<!--        <item name="magicOptionStyle">@style/Options</item>-->
-<!--        <item name="magicOptionItemColor">@color/auxiliary_flower</item>-->
-<!--        <item name="magicOptionItemCheckColor">@color/primary_blue_variant_400</item>-->
-
-<!--        <item name="magicMinWidth">300dp</item>-->
     </style>
 
     <style name="Negative" parent="TextAppearance.AppCompat.Widget.Button">
         <item name="android:background">@android:color/holo_blue_bright</item>
         <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="Positive">
@@ -41,9 +32,7 @@
         <item name="magicOptionItemColor">#ff6</item>
         <item name="magicOptionItemCycledColor">#f0f</item>
         <item name="magicBackground">@android:color/holo_blue_dark</item>
-        <item name="magicOptionItemCheckColor">#ff0</item>
-        <item name="magicBackgroundMargin">10dp</item>
-        <item name="magicBackgroundMarginBottom">60dp</item>
+        <item name="magicOptionItemCheckColor">#f00</item>
     </style>
 
     <style name="Prompt">
@@ -55,12 +44,16 @@
         <item name="magicBackgroundMarginBottom">10dp</item>
     </style>
 
-    <style name="Theme.MagicDialog.Custom">
+    <style name="Base">
         <item name="magicBackground">#348956</item>
-        <item name="magicNegativeStyle">@style/Negative</item>
-        <item name="magicPositiveStyle">@style/Positive</item>
-        <item name="magicPromptStyle">@style/Prompt</item>
-        <item name="magicOptionStyle">@style/Options</item>
+        <item name="magicNegativeAppearance">@style/Negative</item>
+        <item name="magicPositiveAppearance">@style/Positive</item>
+    </style>
+
+    <style name="Theme.MagicDialog.Custom">
+        <item name="magicAppearance">@style/Base</item>
+        <item name="magicPromptAppearance">@style/Prompt</item>
+        <item name="magicOptionsAppearance">@style/Options</item>
     </style>
 
 </resources>

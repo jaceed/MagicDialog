@@ -21,6 +21,3 @@ annotation class MatchState
 const val WRAP = 0
 const val EXPANDED = 1
 const val FULL = 1 shl 1
-
-
-typealias StyleParams = Triple<Int, IntArray, IntArray>

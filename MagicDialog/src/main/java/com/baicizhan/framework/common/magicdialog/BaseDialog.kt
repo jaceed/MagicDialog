@@ -1,16 +1,13 @@
 package com.baicizhan.framework.common.magicdialog
 
-import android.content.res.TypedArray
+import android.app.Dialog
 import android.graphics.drawable.InsetDrawable
-import android.util.Log
-import android.util.TypedValue
+import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
-import androidx.annotation.AttrRes
-import androidx.annotation.StyleableRes
 import androidx.core.content.res.ResourcesCompat
-import com.baicizhan.framework.common.magicdialog.utils.colorOf
 import com.baicizhan.framework.common.magicdialog.utils.dimenOf
+import com.baicizhan.framework.common.magicdialog.utils.styleOf
 
 
 /**
@@ -20,84 +17,29 @@ import com.baicizhan.framework.common.magicdialog.utils.dimenOf
 abstract class BaseDialog : BaseDialogFragment() {
 
     open val minWidthEnabled = false
+    open val appearance = 0
 
-    protected data class Theme(
-        var backgroundColor: Int = 0,
-        var backgroundMargin: Int = 0,
-        var backgroundMarginBottom: Int = 0,
-        var titleColor: Int = 0,
-        var titleSize: Int = 0
-    )
+    @Location
+    open val location = CENTER
 
-    protected fun themeOf(@AttrRes attrId: Int, @StyleableRes attrs: IntArray, result: (TypedArray) -> Unit) {
-        val type = TypedValue()
-        fun update(a: TypedArray) {
-            result(a)
-            a.recycle()
-        }
-        requireDialog().context.theme.obtainStyledAttributes(attrs).let {
-            update(it)
-        }
-        requireDialog().context.theme.resolveAttribute(attrId, type, true).takeIf { it }?.let {
-            if (type.type == TypedValue.TYPE_REFERENCE) {
-                requireDialog().context.theme.obtainStyledAttributes(type.data, attrs).let {
-                    update(it)
-                }
-            }
-        }
-        requireActivity().theme.obtainStyledAttributes(attrs).let {
-            update(it)
-        }
-        requireActivity().theme.resolveAttribute(attrId, type, true).takeIf { it }?.let {
-            if (type.type == TypedValue.TYPE_REFERENCE) {
-                requireDialog().context.theme.obtainStyledAttributes(type.data, attrs).let {
-                    update(it)
-                }
-            }
-        }
-    }
-
-    protected val themeData by lazy {
-        Theme().apply {
-            val (attrId, attrs, attrRes) = onStyle() ?: return@apply
-            check(attrRes.size == 5)
-            themeOf(attrId, attrs) { a ->
-                a.getColor(attrRes[0], 0).takeIf { it != 0 }?.let {
-                    backgroundColor = it
-                }
-                a.getDimensionPixelSize(attrRes[1], 0).takeIf { it != 0 }?.let {
-                    backgroundMargin = it
-                }
-                a.getDimensionPixelSize(attrRes[2], 0).takeIf { it != 0 }?.let {
-                    backgroundMarginBottom = it
-                }
-                a.getColor(attrRes[3], 0).takeIf { it != 0 }?.let {
-                    titleColor = it
-                }
-                a.getDimensionPixelSize(attrRes[4], 0).takeIf { it != 0 }?.let {
-                    titleSize = it
-                }
-            }
-        }
-    }
-
-    private val magicBackgroundColorDefault by lazy {
-        themeData.backgroundColor.takeIf { it != 0 } ?: colorOf(R.attr.colorSurface, 0)
-    }
-
-    protected val magicOnSurfaceColorDefault by lazy {
-        colorOf(R.attr.colorOnSurface, 0)
-    }
+    @MatchState
+    open val matchState = WRAP
 
     private val backgroundDrawable by lazy {
-        ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_round_all, null)?.apply {
-            setTint(magicBackgroundColorDefault.takeIf { it != 0 } ?: return@apply)
-        }
+        ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_round_all, requireDialog().context.theme)
     }
 
     private val backgroundDrawableBottom by lazy {
-        ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_round_top, null)?.apply {
-            setTint(magicBackgroundColorDefault.takeIf { it != 0 } ?: return@apply)
+        ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_round_top, requireDialog().context.theme)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState).also { dialog ->
+            dialog.context.theme.apply {
+                styleOf(appearance.takeIf { it != 0 } ?: return@also) { attr ->
+                    applyStyle(attr, true)
+                }
+            }
         }
     }
 
@@ -106,38 +48,32 @@ abstract class BaseDialog : BaseDialogFragment() {
         val window = dialog?.window ?: return
         val attrs = window.attributes
 
-        attrs.gravity = if (onLocation() == BOTTOM) Gravity.BOTTOM else Gravity.CENTER
+        attrs.gravity = if (location == BOTTOM) Gravity.BOTTOM else Gravity.CENTER
         attrs.height = ViewGroup.LayoutParams.WRAP_CONTENT
 
-        val bg = when (onMatchState()) {
+        val bg = when (matchState) {
             WRAP -> {
-                attrs.width = with (dimenOf(R.attr.magicMinWidth, 0)) {
+                attrs.width = with(dimenOf(R.attr.magicMinWidth, 0)) {
                     if (this > 0 && minWidthEnabled) this else ViewGroup.LayoutParams.WRAP_CONTENT
                 }
                 backgroundDrawable
             }
             EXPANDED -> {
                 attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
-                if (themeData.backgroundMargin == 0 && themeData.backgroundMarginBottom == 0)
+                val margin = dimenOf(R.attr.magicBackgroundMargin)
+                val marginBottom = dimenOf(R.attr.magicBackgroundMarginBottom)
+                if (margin == 0 && marginBottom == 0)
                     backgroundDrawable
                 else
-                    InsetDrawable(backgroundDrawable, themeData.backgroundMargin, 0, themeData.backgroundMargin, themeData.backgroundMarginBottom)
+                    InsetDrawable(backgroundDrawable, margin, 0, margin, marginBottom)
             }
             else -> {
                 attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
-                if (onLocation() == BOTTOM) backgroundDrawableBottom else backgroundDrawable
+                if (location == BOTTOM) backgroundDrawableBottom else backgroundDrawable
             }
         }
         window.attributes = attrs
         window.setBackgroundDrawable(bg)
     }
-
-    @Location
-    protected open fun onLocation(): Int = CENTER
-
-    @MatchState
-    protected open fun onMatchState(): Int = WRAP
-
-    protected open fun onStyle(): StyleParams? = null
 
 }

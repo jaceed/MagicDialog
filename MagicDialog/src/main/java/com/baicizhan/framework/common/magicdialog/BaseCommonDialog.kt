@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.FragmentActivity
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseCommonBinding
 import com.github.jaceed.extender.view.visible
@@ -76,22 +75,6 @@ abstract class BaseCommonDialog : BaseDialog() {
                     btnOk.visible = false
                     buttonTop.visible = false
                     buttonBottom.visible = false
-                }
-            }
-            if (btnCancel.visible) {
-                requireActivity().themeBy(R.attr.magicNegativeStyle, intArrayOf(android.R.attr.background, android.R.attr.textColor)) {
-                    it.getDrawable(0)?.let { bg ->
-                        btnCancel.background = bg
-                    }
-                    btnCancel.setTextColor(it.getColor(1, getColor(requireContext(), R.color.button_text_gray_variant)))
-                }
-            }
-            if (btnOk.visible) {
-                requireActivity().themeBy(R.attr.magicPositiveStyle, intArrayOf(android.R.attr.background, android.R.attr.textColor)) {
-                    it.getDrawable(0)?.let { bg ->
-                        btnOk.background = bg
-                    }
-                    btnOk.setTextColor(it.getColor(1, getColor(requireContext(), R.color.primary_white)))
                 }
             }
             onConfigureNegative(btnCancel)

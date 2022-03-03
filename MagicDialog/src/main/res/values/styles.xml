@@ -3,7 +3,7 @@
 
     <style name="MagicText" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/ts_04</item>
-        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:textColor">@color/gray_01</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
@@ -24,21 +24,28 @@
         <item name="android:textColor">@color/primary_white</item>
     </style>
 
-    <style name="DialogThemeCommon" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="MagicDefault" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:textViewStyle">@style/MagicText</item>
+        <item name="magicBackground">@color/primary_white</item>
         <item name="magicMinWidth">@dimen/dialog_common_content_min_width</item>
-        <item name="magicOptionStyle">@style/DialogOptions</item>
-        <item name="magicPromptStyle">@style/DialogPrompt</item>
+        <item name="magicNegativeAppearance">@style/MagicButton.DialogNegative</item>
+        <item name="magicPositiveAppearance">@style/MagicButton.DialogPositive</item>
     </style>
 
-    <style name="DialogPrompt">
+    <style name="MagicDefault.Prompt">
+        <item name="magicTitleColor">@color/gray_01</item>
+        <item name="magicTitleSize">@dimen/ts_05</item>
+        <item name="magicMessageColor">@color/gray_01</item>
+        <item name="magicMessageSize">@dimen/ts_04</item>
         <item name="magicBackgroundMargin">@dimen/dialog_common_bg_inset_margin</item>
         <item name="magicBackgroundMarginBottom">@dimen/dialog_common_bg_inset_margin_bottom</item>
     </style>
 
-    <style name="DialogOptions">
+    <style name="MagicDefault.Options">
         <item name="magicTitleColor">@color/gray_04</item>
+        <item name="magicTitleSize">@dimen/ts_05</item>
         <item name="magicOptionItemColor">@color/gray_01</item>
+        <item name="magicOptionItemCheckColor">?attr/colorPrimary</item>
         <item name="magicOptionItemCycledColor">@color/gray_05</item>
     </style>
 

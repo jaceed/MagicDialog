@@ -23,9 +23,9 @@
         app:wheel_indicator_background="@drawable/bg_dialog_date_picker_indicator_left"
         app:wheel_indicator_background_size="40dp"
         app:wheel_item_space="14dp"
-        app:wheel_item_text_color="@color/gray_05"
+        app:wheel_item_text_color="?attr/magicOptionItemCycledColor"
         app:wheel_item_text_size="@dimen/ts_06"
-        app:wheel_selected_item_text_color="@color/gray_01"
+        app:wheel_selected_item_text_color="?attr/magicOptionItemColor"
         app:wheel_visible_item_count="5"
         tools:visibility="visible" />
 
@@ -43,9 +43,9 @@
         app:wheel_indicator_color="@color/gray_06"
         app:wheel_indicator_size="1dp"
         app:wheel_item_space="14dp"
-        app:wheel_item_text_color="@color/gray_05"
+        app:wheel_item_text_color="?attr/magicOptionItemCycledColor"
         app:wheel_item_text_size="@dimen/ts_06"
-        app:wheel_selected_item_text_color="@color/gray_01"
+        app:wheel_selected_item_text_color="?attr/magicOptionItemColor"
         app:wheel_visible_item_count="5" />
 
     <com.aigestudio.wheelpicker.WheelPicker
@@ -62,9 +62,9 @@
         app:wheel_indicator_color="@color/gray_06"
         app:wheel_indicator_size="1dp"
         app:wheel_item_space="14dp"
-        app:wheel_item_text_color="@color/gray_05"
+        app:wheel_item_text_color="?attr/magicOptionItemCycledColor"
         app:wheel_item_text_size="@dimen/ts_06"
-        app:wheel_selected_item_text_color="@color/gray_01"
+        app:wheel_selected_item_text_color="?attr/magicOptionItemColor"
         app:wheel_visible_item_count="5" />
 
 </LinearLayout>

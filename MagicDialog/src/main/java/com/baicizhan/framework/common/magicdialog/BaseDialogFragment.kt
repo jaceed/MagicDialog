@@ -1,11 +1,13 @@
 package com.baicizhan.framework.common.magicdialog
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.StyleRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.baicizhan.framework.common.magicdialog.utils.styleOf
 
 /**
  * Created by Jacee.
@@ -14,11 +16,22 @@ import androidx.fragment.app.FragmentManager
 abstract class BaseDialogFragment : DialogFragment() {
 
     private var dismissListener: DialogInterface.OnDismissListener? = null
+    protected open val themeRes = R.style.MagicDefault
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.DialogThemeCommon)
+        setStyle(STYLE_NORMAL, themeRes)
         isCancelable = onCancelable()
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState).also { dialog ->
+            dialog.context.theme.apply {
+                styleOf(R.attr.magicAppearance) {
+                    applyStyle(it, true)
+                }
+            }
+        }
     }
 
     override fun onStart() {

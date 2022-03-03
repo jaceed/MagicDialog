@@ -55,7 +55,7 @@
 
     <TextView
         android:id="@+id/btn_cancel"
-        style="@style/MagicButton.DialogNegative"
+        style="?attr/magicNegativeAppearance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -75,7 +75,7 @@
 
     <TextView
         android:id="@+id/btn_ok"
-        style="@style/MagicButton.DialogPositive"
+        style="?attr/magicPositiveAppearance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"

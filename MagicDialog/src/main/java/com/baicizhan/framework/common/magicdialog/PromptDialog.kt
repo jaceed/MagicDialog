@@ -3,7 +3,6 @@ package com.baicizhan.framework.common.magicdialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.StringRes
@@ -18,17 +17,12 @@ import com.github.jaceed.extender.view.visible
  */
 class PromptDialog : BaseCommonDialog() {
 
-    override fun onLocation(): Int  = arguments?.getInt(ARG_LOCATION, -1).takeIf { it != -1 } ?: BOTTOM
-
-    override fun onMatchState(): Int = arguments?.getInt(ARG_MATCH_STATE, -1).takeIf { it != -1 } ?: EXPANDED
-
-    override fun onStyle(): StyleParams = StyleParams(R.attr.magicPromptStyle, R.styleable.PromptAppearance, intArrayOf(
-        R.styleable.PromptAppearance_magicBackground,
-        R.styleable.PromptAppearance_magicBackgroundMargin,
-        R.styleable.PromptAppearance_magicBackgroundMarginBottom,
-        R.styleable.PromptAppearance_magicTitleColor,
-        R.styleable.PromptAppearance_magicTitleSize,
-    ))
+    override val themeRes: Int = R.style.MagicDefault_Prompt
+    override val appearance = R.attr.magicPromptAppearance
+    override val location: Int
+        get() = arguments?.getInt(ARG_LOCATION, -1).takeIf { it != -1 } ?: BOTTOM
+    override val matchState: Int
+        get() = arguments?.getInt(ARG_MATCH_STATE, -1).takeIf { it != -1 } ?: EXPANDED
 
     override fun onAnimation(): Int {
         return R.style.PromptDialogAnimation
@@ -45,29 +39,6 @@ class PromptDialog : BaseCommonDialog() {
                     true
                 } ?: false
             }
-
-            (themeData.titleColor.takeIf { it != 0 } ?: magicOnSurfaceColorDefault.takeIf { it != 0 })?.let {
-                title.setTextColor(it)
-            }
-            themeData.titleSize.takeIf { it != 0 }?.let {
-                title.setTextSize(TypedValue.COMPLEX_UNIT_PX, it.toFloat())
-            }
-
-            var messageColor = 0
-            var messageSize = 0
-
-            themeOf(R.attr.magicPromptStyle, R.styleable.PromptAppearance) { a ->
-                a.getColor(R.styleable.PromptAppearance_magicMessageColor, 0).takeIf { it != 0 }?.let {
-                    messageColor = it
-                }
-                a.getDimensionPixelSize(R.styleable.PromptAppearance_magicMessageSize, 0).takeIf { it != 0 }?.let {
-                    messageSize = it
-                }
-            }
-
-            if (messageColor != 0) message.setTextColor(messageColor)
-            if (messageSize != 0) message.setTextSize(TypedValue.COMPLEX_UNIT_PX, messageSize.toFloat())
-
             title.content = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() }
             message.content = arguments?.getString(ARG_MESSAGE)?.takeIf { it.isNotBlank() }
             s2.visible = title.visible && message.visible

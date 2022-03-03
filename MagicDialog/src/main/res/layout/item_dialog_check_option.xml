@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="16dp"
+        android:textColor="?attr/magicOptionItemColor"
         android:paddingBottom="16dp"
         tools:text="选项" />
 
@@ -22,7 +23,7 @@
         android:layout_gravity="right|center_vertical"
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_dialog_checked"
-        app:tint="?attr/colorPrimary" />
+        app:tint="?attr/magicOptionItemCheckColor" />
 
 </FrameLayout>
 
