@@ -23,10 +23,7 @@ class PromptDialog : BaseCommonDialog() {
         get() = arguments?.getInt(ARG_LOCATION, -1).takeIf { it != -1 } ?: BOTTOM
     override val matchState: Int
         get() = arguments?.getInt(ARG_MATCH_STATE, -1).takeIf { it != -1 } ?: EXPANDED
-
-    override fun onAnimation(): Int {
-        return R.style.PromptDialogAnimation
-    }
+    override val animationRes: Int = R.style.PromptDialogAnimation
 
     override fun onCreateContent(inflater: LayoutInflater): View? {
         return FragmentDialogPromptBinding.inflate(inflater).apply {

@@ -16,8 +16,8 @@ import com.baicizhan.framework.common.magicdialog.utils.styleOf
  */
 abstract class BaseDialog : BaseDialogFragment() {
 
-    open val minWidthEnabled = false
-    open val appearance = 0
+    protected open val minWidthEnabled = false
+    protected open val appearance = 0
 
     @Location
     open val location = CENTER

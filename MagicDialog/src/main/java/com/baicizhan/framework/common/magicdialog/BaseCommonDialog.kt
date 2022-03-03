@@ -2,16 +2,12 @@ package com.baicizhan.framework.common.magicdialog
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.TypedArray
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.AttrRes
 import androidx.annotation.StringRes
-import androidx.fragment.app.FragmentActivity
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseCommonBinding
 import com.github.jaceed.extender.view.visible
 
@@ -28,15 +24,6 @@ abstract class BaseCommonDialog : BaseDialog() {
     private var listenerExcluded: OnDialogFragmentInteraction? = null
 
     override val minWidthEnabled: Boolean = true
-
-    private fun FragmentActivity.themeBy(@AttrRes attrStyle: Int, attrs: IntArray, res: ((res: TypedArray) -> Unit)? = null) {
-        val typedValue = TypedValue()
-        theme.resolveAttribute(attrStyle, typedValue, false).let {
-            if (it && typedValue.type == TypedValue.TYPE_REFERENCE) {
-                res?.invoke(theme.obtainStyledAttributes(typedValue.data, attrs))
-            }
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -17,6 +17,8 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     private var dismissListener: DialogInterface.OnDismissListener? = null
     protected open val themeRes = R.style.MagicDefault
+    @StyleRes
+    protected open val animationRes = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +38,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        onAnimation().takeIf { it != 0 }?.let {
-            dialog?.window?.setWindowAnimations(it)
-        }
+        dialog?.window?.setWindowAnimations(animationRes.takeIf { it != 0 } ?: return)
     }
 
     override fun show(manager: FragmentManager, tag: String?) {
@@ -68,9 +68,6 @@ abstract class BaseDialogFragment : DialogFragment() {
     }
 
     protected open fun onCancelable(): Boolean = true
-
-    @StyleRes
-    protected open fun onAnimation(): Int = 0
 
     fun setOnDismissListener(l: DialogInterface.OnDismissListener): BaseDialogFragment {
         dismissListener = l

@@ -16,8 +16,7 @@ abstract class BaseOptionDialog: BaseCommonDialog() {
     override val appearance = R.attr.magicOptionsAppearance
     override val location: Int = BOTTOM
     override val matchState: Int = FULL
-
-    override fun onAnimation(): Int = R.style.OptionDialogAnimation
+    override val animationRes: Int = R.style.OptionDialogAnimation
 
     final override fun onCreateContent(inflater: LayoutInflater): View? {
         return FragmentDialogBaseOptionBinding.inflate(inflater).apply {
