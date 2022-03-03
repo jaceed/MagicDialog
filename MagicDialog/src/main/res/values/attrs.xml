@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="magicBackground" format="color|reference" />
+    <attr name="magicBackgroundMargin" format="dimension|reference" />
+    <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
+    <attr name="magicTitleColor" format="color|reference" />
+    <attr name="magicTitleSize" format="dimension|reference" />
+    <attr name="magicMinWidth" format="dimension|reference" />
+
+    <declare-styleable name="PromptAppearance">
+        <attr name="magicMessageColor" format="color|reference" />
+        <attr name="magicMessageSize" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="OptionAppearance">
+        <attr name="magicOptionItemColor" format="color|reference" />
+        <attr name="magicOptionItemCheckColor" format="color|reference" />
+        <attr name="magicOptionItemCycledColor" format="color|reference" />
+    </declare-styleable>
+
     <!-- Public style attributes-->
     <attr name="magicAppearance" format="reference" />
     <attr name="magicPromptAppearance" format="reference" />
     <attr name="magicOptionsAppearance" format="reference" />
     <attr name="magicNegativeAppearance" format="reference" />
     <attr name="magicPositiveAppearance" format="reference" />
-
-    <declare-styleable name="MagicAppearance">
-        <attr name="magicBackground" format="color|reference" />
-        <attr name="magicBackgroundMargin" format="dimension|reference" />
-        <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
-        <attr name="magicTitleColor" format="color|reference" />
-        <attr name="magicTitleSize" format="dimension|reference" />
-        <attr name="magicMinWidth" format="dimension|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="PromptAppearance">
-        <attr name="magicBackground" />
-        <attr name="magicBackgroundMargin" />
-        <attr name="magicBackgroundMarginBottom" />
-        <attr name="magicTitleColor" />
-        <attr name="magicTitleSize" />
-        <attr name="magicMessageColor" format="color|reference" />
-        <attr name="magicMessageSize" format="dimension|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="OptionAppearance">
-        <attr name="magicBackground" />
-        <attr name="magicBackgroundMargin" />
-        <attr name="magicBackgroundMarginBottom" />
-        <attr name="magicTitleColor" />
-        <attr name="magicTitleSize" />
-        <attr name="magicOptionItemColor" format="color|reference" />
-        <attr name="magicOptionItemCheckColor" format="color|reference" />
-        <attr name="magicOptionItemCycledColor" format="color|reference" />
-    </declare-styleable>
 
 </resources>
