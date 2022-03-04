@@ -75,7 +75,7 @@ class OptionListDialog : BaseOptionDialog() {
 
     }
 
-    class Builder(context: Context) : BaseCommonDialog.Builder<Builder, OptionListDialog>(context) {
+    class Builder(context: Context) : BaseContentDialog.Builder<Builder, OptionListDialog>(context) {
 
         fun options(list: Array<Int>, checked: Int = -1): Builder =
             options(list.map { res ->

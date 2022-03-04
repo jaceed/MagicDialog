@@ -100,7 +100,7 @@ class DatePickerDialog : WheelPickerDialog() {
     }
 
 
-    class Builder(context: Context) : BaseCommonDialog.Builder<Builder, DatePickerDialog>(context)  {
+    class Builder(context: Context) : BaseContentDialog.Builder<Builder, DatePickerDialog>(context)  {
 
         fun dateTo(time: Long): Builder {
             Calendar.getInstance().apply {

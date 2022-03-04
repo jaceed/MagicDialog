@@ -129,15 +129,6 @@ abstract class BaseCommonDialog : BaseDialog() {
             return this as T
         }
 
-        fun title(@StringRes title: Int): T {
-            return title(context.getString(title))
-        }
-
-        fun title(title: String?): T {
-            arguments.putString(ARG_TITLE, title)
-            return this as T
-        }
-
         fun negative(button: String?): T {
             arguments.putSerializable(ARG_BUTTON_CONFIG_NEGATIVE, Config.negative(context, button))
             return this as T

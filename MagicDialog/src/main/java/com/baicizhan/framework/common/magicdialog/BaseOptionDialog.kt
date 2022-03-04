@@ -10,7 +10,7 @@ import com.github.jaceed.extender.view.visible
  * Created by Jacee.
  * Date: 2021.07.15
  */
-abstract class BaseOptionDialog: BaseCommonDialog() {
+abstract class BaseOptionDialog: BaseContentDialog() {
 
     override val themeRes: Int = R.style.MagicDefault_Options
     override val appearance = R.attr.magicOptionsAppearance

@@ -15,7 +15,7 @@ import com.github.jaceed.extender.view.visible
  * Created by Jacee.
  * Date: 2021.03.26
  */
-class PromptDialog : BaseCommonDialog() {
+class PromptDialog : BaseContentDialog() {
 
     override val themeRes: Int = R.style.MagicDefault_Prompt
     override val appearance = R.attr.magicPromptAppearance
@@ -43,7 +43,7 @@ class PromptDialog : BaseCommonDialog() {
     }
 
 
-    class Builder(context: Context) : BaseCommonDialog.Builder<Builder, PromptDialog>(context) {
+    class Builder(context: Context) : BaseContentDialog.Builder<Builder, PromptDialog>(context) {
 
         fun pic(uri: Uri): Builder {
             arguments.putParcelable(ARG_PIC, null)

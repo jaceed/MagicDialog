@@ -82,7 +82,7 @@ open class WheelPickerDialog : BaseOptionDialog() {
     }
 
 
-    class Builder(context: Context) : BaseCommonDialog.Builder<Builder, WheelPickerDialog>(context) {
+    class Builder(context: Context) : BaseContentDialog.Builder<Builder, WheelPickerDialog>(context) {
 
         fun wheels(vararg list: ArrayList<String>): Builder {
             require(list.size in 1..3)
