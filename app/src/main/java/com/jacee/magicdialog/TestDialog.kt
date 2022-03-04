@@ -19,9 +19,7 @@ class TestDialog: BaseCommonDialog() {
     class Builder(context: Context) : BaseCommonDialog.Builder<Builder, TestDialog>(context) {
 
         override fun create(): TestDialog {
-            return TestDialog().apply {
-                this.arguments = this@Builder.arguments
-            }
+            return TestDialog()
         }
     }
 

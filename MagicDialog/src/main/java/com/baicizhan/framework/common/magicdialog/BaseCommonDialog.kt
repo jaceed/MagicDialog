@@ -161,7 +161,9 @@ abstract class BaseCommonDialog : BaseDialog() {
 
         fun build(): R {
             onPreBuild()
-            return create()
+            return create().apply {
+                this.arguments = this@Builder.arguments
+            }
         }
 
     }

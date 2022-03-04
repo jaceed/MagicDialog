@@ -91,9 +91,7 @@ class OptionListDialog : BaseOptionDialog() {
             return this
         }
 
-        override fun create() = OptionListDialog().apply {
-            this.arguments = this@Builder.arguments
-        }
+        override fun create() = OptionListDialog()
 
     }
 

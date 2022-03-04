@@ -98,9 +98,7 @@ open class WheelPickerDialog : BaseOptionDialog() {
             return this
         }
 
-        override fun create() = WheelPickerDialog().apply {
-            this.arguments = this@Builder.arguments
-        }
+        override fun create() = WheelPickerDialog()
 
     }
 

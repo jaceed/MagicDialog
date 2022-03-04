@@ -115,9 +115,7 @@ class DatePickerDialog : WheelPickerDialog() {
             return this
         }
 
-        override fun create() = DatePickerDialog().apply {
-            this.arguments = this@Builder.arguments
-        }
+        override fun create() = DatePickerDialog()
 
     }
 

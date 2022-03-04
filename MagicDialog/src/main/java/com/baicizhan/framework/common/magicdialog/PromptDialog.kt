@@ -81,9 +81,7 @@ class PromptDialog : BaseContentDialog() {
             return this
         }
 
-        override fun create() = PromptDialog().apply {
-            this.arguments = this@Builder.arguments
-        }
+        override fun create() = PromptDialog()
 
     }
 
