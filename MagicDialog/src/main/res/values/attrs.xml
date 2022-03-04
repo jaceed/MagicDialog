@@ -2,6 +2,7 @@
 <resources>
 
     <attr name="magicBackground" format="color|reference" />
+    <attr name="magicBackgroundCorner" format="dimension|reference" />
     <attr name="magicBackgroundMargin" format="dimension|reference" />
     <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
     <attr name="magicTitleColor" format="color|reference" />

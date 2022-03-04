@@ -27,6 +27,7 @@
     <style name="MagicDefault" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:textViewStyle">@style/MagicText</item>
         <item name="magicBackground">@color/primary_white</item>
+        <item name="magicBackgroundCorner">@dimen/dialog_background_corner</item>
         <item name="magicMinWidth">@dimen/dialog_common_content_min_width</item>
         <item name="magicNegativeAppearance">@style/MagicButton.DialogNegative</item>
         <item name="magicPositiveAppearance">@style/MagicButton.DialogPositive</item>
