@@ -83,6 +83,12 @@
             android:layout_height="wrap_content"
             android:text="picture title message" />
 
+        <Button
+            android:id="@+id/styled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="styled" />
+
     </LinearLayout>
 
 

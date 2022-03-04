@@ -46,6 +46,7 @@
 
     <style name="Base">
         <item name="magicBackground">#348956</item>
+        <item name="magicBackgroundCorner">20dp</item>
         <item name="magicNegativeAppearance">@style/Negative</item>
         <item name="magicPositiveAppearance">@style/Positive</item>
     </style>

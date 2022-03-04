@@ -175,6 +175,16 @@ class MainActivity : AppCompatActivity() {
                     .build()
             )
         }
+
+        binding.styled.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .message("自带个临时style")
+                    .style(R.style.BuilderPromptStyle)
+                    .cancellable(false)
+                    .build(), "style"
+            )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

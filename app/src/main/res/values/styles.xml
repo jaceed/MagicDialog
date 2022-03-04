@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BuilderPromptStyle">
+        <item name="magicBackground">@color/primary_green</item>
+        <item name="magicBackgroundCorner">32dp</item>
+    </style>
+
+</resources>
