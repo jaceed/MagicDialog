@@ -5,6 +5,7 @@ import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
+import androidx.annotation.AttrRes
 import androidx.core.content.res.ResourcesCompat
 import com.baicizhan.framework.common.magicdialog.utils.dimenOf
 import com.baicizhan.framework.common.magicdialog.utils.styleOf
@@ -17,7 +18,8 @@ import com.baicizhan.framework.common.magicdialog.utils.styleOf
 abstract class BaseDialog : BaseDialogFragment() {
 
     protected open val minWidthEnabled = false
-    protected open val appearance = 0
+    @AttrRes
+    protected open val appearanceAttribute = 0
 
     @Location
     open val location = CENTER
@@ -33,13 +35,14 @@ abstract class BaseDialog : BaseDialogFragment() {
         ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_round_top, requireDialog().context.theme)
     }
 
+    protected open fun onAppearanceStyle(): Int? =
+        appearanceAttribute.takeIf { it != 0 }?.let {
+            dialog?.context?.theme?.styleOf(it)
+        }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).also { dialog ->
-            dialog.context.theme.apply {
-                styleOf(appearance.takeIf { it != 0 } ?: return@also) { attr ->
-                    applyStyle(attr, true)
-                }
-            }
+            dialog.context.theme.applyStyle(onAppearanceStyle() ?: return@also, true)
         }
     }
 

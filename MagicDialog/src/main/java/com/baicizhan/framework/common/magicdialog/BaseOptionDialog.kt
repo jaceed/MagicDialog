@@ -13,7 +13,7 @@ import com.github.jaceed.extender.view.visible
 abstract class BaseOptionDialog: BaseContentDialog() {
 
     override val themeRes: Int = R.style.MagicDefault_Options
-    override val appearance = R.attr.magicOptionsAppearance
+    override val appearanceAttribute = R.attr.magicOptionsAppearance
     override val location: Int = BOTTOM
     override val matchState: Int = FULL
     override val animationRes: Int = R.style.OptionDialogAnimation

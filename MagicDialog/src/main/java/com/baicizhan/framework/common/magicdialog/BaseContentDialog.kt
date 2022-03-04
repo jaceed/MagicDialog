@@ -22,4 +22,9 @@ abstract class BaseContentDialog : BaseCommonDialog() {
 
     }
 
+
+    companion object {
+        const val ARG_TITLE = "title"
+    }
+
 }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.StringRes
+import androidx.annotation.StyleRes
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseCommonBinding
 import com.github.jaceed.extender.view.visible
 
@@ -29,6 +29,8 @@ abstract class BaseCommonDialog : BaseDialog() {
         super.onAttach(context)
         listener = if (context is OnDialogFragmentInteraction) context else null
     }
+
+    override fun onAppearanceStyle(): Int? = arguments?.getInt(ARG_STYLE, 0) ?: super.onAppearanceStyle()
 
     @SuppressLint("ResourceType")
     final override fun onCreateView(
@@ -124,6 +126,11 @@ abstract class BaseCommonDialog : BaseDialog() {
 
         protected val arguments = Bundle()
 
+        fun style(@StyleRes resId: Int): T {
+            arguments.putInt(ARG_STYLE, resId)
+            return this as T
+        }
+
         fun cancellable(cancellable: Boolean): T {
             arguments.putBoolean(ARG_CANCELLABLE, cancellable)
             return this as T
@@ -165,8 +172,8 @@ abstract class BaseCommonDialog : BaseDialog() {
         private const val ARG_BUTTON_CONFIG_NEGATIVE = "button_config_negative"
         private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
         private const val ARG_CANCELLABLE = "cancellable"
+        private const val ARG_STYLE = "style"
 
-        const val ARG_TITLE = "title"
         const val ARG_BUTTON_TYPE = "button_type"
     }
 

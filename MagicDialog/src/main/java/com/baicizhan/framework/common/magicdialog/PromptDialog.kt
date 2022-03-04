@@ -18,7 +18,7 @@ import com.github.jaceed.extender.view.visible
 class PromptDialog : BaseContentDialog() {
 
     override val themeRes: Int = R.style.MagicDefault_Prompt
-    override val appearance = R.attr.magicPromptAppearance
+    override val appearanceAttribute = R.attr.magicPromptAppearance
     override val location: Int
         get() = arguments?.getInt(ARG_LOCATION, -1).takeIf { it != -1 } ?: BOTTOM
     override val matchState: Int
