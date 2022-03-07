@@ -5,9 +5,12 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import androidx.annotation.StyleRes
 import coil.load
-import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogPromptBinding
 import com.github.jaceed.extender.view.content
 import com.github.jaceed.extender.view.visible
 
@@ -23,23 +26,29 @@ class PromptDialog : BaseContentDialog() {
         get() = arguments?.getInt(ARG_LOCATION, -1).takeIf { it != -1 } ?: BOTTOM
     override val matchState: Int
         get() = arguments?.getInt(ARG_MATCH_STATE, -1).takeIf { it != -1 } ?: EXPANDED
-    override val animationRes: Int = R.style.PromptDialogAnimation
+    override val animationRes: Int
+        get() = arguments?.getInt(ARG_ANIMATION)?.takeIf { it != 0 } ?: R.style.PromptDialogAnimation
+
+    private var layoutResource = R.layout.fragment_dialog_prompt
 
     override fun onCreateContent(inflater: LayoutInflater): View? {
-        return FragmentDialogPromptBinding.inflate(inflater).apply {
-            pic.visible = (arguments?.getParcelable(ARG_PIC) as? Bitmap)?.let {
-                pic.setImageBitmap(it)
-                true
-            } ?: run {
-                arguments?.getParcelable<Uri>(ARG_PIC_URI)?.let {
-                    pic.load(it)
+        return inflater.inflate(arguments?.getInt(ARG_LAYOUT)?.takeIf { it != 0 } ?: layoutResource, null, false).apply {
+            findViewById<ImageView>(R.id.magic_prompt_pic)?.let { pic ->
+                pic.visible = (arguments?.getParcelable(ARG_PIC) as? Bitmap)?.let {
+                    pic.setImageBitmap(it)
                     true
-                } ?: false
+                } ?: run {
+                    arguments?.getParcelable<Uri>(ARG_PIC_URI)?.let {
+                        pic.load(it)
+                        true
+                    } ?: false
+                }
             }
-            title.content = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() }
-            message.content = arguments?.getString(ARG_MESSAGE)?.takeIf { it.isNotBlank() }
-            s2.visible = title.visible && message.visible
-        }.root
+            var paddingFlag = -2
+            findViewById<TextView>(R.id.magic_prompt_title)?.content = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() }?.also { paddingFlag++ }
+            findViewById<TextView>(R.id.magic_prompt_message)?.content = arguments?.getString(ARG_MESSAGE)?.takeIf { it.isNotBlank() }?.also { paddingFlag++ }
+            findViewById<View>(R.id.magic_prompt_tm_padding)?.visible = paddingFlag == 0
+        }
     }
 
 
@@ -63,6 +72,16 @@ class PromptDialog : BaseContentDialog() {
 
         fun message(message: String?): Builder {
             arguments.putString(ARG_MESSAGE, message)
+            return this
+        }
+
+        fun layout(@LayoutRes layoutRes: Int): Builder {
+            arguments.putInt(ARG_LAYOUT, layoutRes)
+            return this
+        }
+
+        fun animation(@StyleRes animRes: Int): Builder {
+            arguments.putInt(ARG_ANIMATION, animRes)
             return this
         }
 
@@ -91,6 +110,8 @@ class PromptDialog : BaseContentDialog() {
         private const val ARG_PIC = "picture"
         private const val ARG_PIC_URI = "picture_uri"
         private const val ARG_MESSAGE = "message"
+        private const val ARG_LAYOUT = "layout"
+        private const val ARG_ANIMATION = "animation"
 
         private const val ARG_MATCH_STATE = "match_state"
         private const val ARG_LOCATION = "location"

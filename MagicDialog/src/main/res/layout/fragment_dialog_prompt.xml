@@ -20,7 +20,7 @@
         app:layout_constraintGuide_end="24dp" />
 
     <ImageView
-        android:id="@+id/pic"
+        android:id="@id/magic_prompt_pic"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
@@ -36,10 +36,10 @@
         android:layout_height="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pic" />
+        app:layout_constraintTop_toBottomOf="@id/magic_prompt_pic" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@id/magic_prompt_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -54,15 +54,15 @@
         tools:visibility="visible" />
 
     <Space
-        android:id="@+id/s2"
+        android:id="@id/magic_prompt_tm_padding"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@id/magic_prompt_title" />
 
     <TextView
-        android:id="@+id/message"
+        android:id="@id/magic_prompt_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
@@ -71,7 +71,7 @@
         android:textSize="?attr/magicMessageSize"
         app:layout_constraintEnd_toEndOf="@id/guide_right"
         app:layout_constraintStart_toStartOf="@+id/guide_left"
-        app:layout_constraintTop_toBottomOf="@id/s2"
+        app:layout_constraintTop_toBottomOf="@id/magic_prompt_tm_padding"
         tools:text="山一程，水一程，身向榆关那畔行，夜深千帐灯。风一更，雪一更，聒碎乡心梦不成，故园无此声。"
         tools:textColor="@android:color/black" />
 
@@ -81,6 +81,6 @@
         android:layout_height="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/message" />
+        app:layout_constraintTop_toBottomOf="@id/magic_prompt_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

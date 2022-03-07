@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="magic_prompt_pic" type="id" />
+    <item name="magic_prompt_title" type="id" />
+    <item name="magic_prompt_message" type="id" />
+    <item name="magic_prompt_tm_padding" type="id" />
+
+</resources>
