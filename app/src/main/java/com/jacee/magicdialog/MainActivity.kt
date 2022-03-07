@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             show(
                 PromptDialog.Builder(this)
                     .title("居中")
-                    .location(CENTER)
+                    .location(Location.CENTER)
                     .cancellable(true)
                     .build(), "ce"
             )
@@ -110,8 +110,8 @@ class MainActivity : AppCompatActivity() {
                 PromptDialog.Builder(this)
                     .title("居中")
                     .message("内容适配")
-                    .location(CENTER)
-                    .match(WRAP)
+                    .location(Location.CENTER)
+                    .state(State.WRAP)
                     .cancellable(true)
                     .build(), "ce"
             )
@@ -120,8 +120,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomFull.setOnClickListener {
             show(
                 PromptDialog.Builder(this)
-                    .location(BOTTOM)
-                    .match(FULL)
+                    .location(Location.BOTTOM)
+                    .state(State.FULL)
                     .cancellable(false)
                     .title("标题")
                     .message("测试一下")
@@ -193,8 +193,8 @@ class MainActivity : AppCompatActivity() {
                     .title("custom")
                     .layout(R.layout.layout_custom_prompt)
                     .cancellable(false)
-                    .match(FULL)
-                    .location(BOTTOM)
+                    .state(State.FULL)
+                    .location(Location.BOTTOM)
                     .build(), "layout"
             )
         }
@@ -205,9 +205,9 @@ class MainActivity : AppCompatActivity() {
                     .title("custom anim")
                     .layout(R.layout.layout_custom_prompt)
                     .cancellable(false)
-                    .match(FULL)
+                    .state(State.FULL)
                     .animation(R.style.CustomPromptDialogAnimation)
-                    .location(BOTTOM)
+                    .location(Location.BOTTOM)
                     .build(), "layout"
             )
         }

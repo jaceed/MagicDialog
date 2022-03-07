@@ -1,23 +1,25 @@
 package com.baicizhan.framework.common.magicdialog
 
-import androidx.annotation.IntDef
-
 /**
  * Created by Jacee.
  * Date: 2021.05.27
  */
 
-@IntDef(CENTER, BOTTOM)
-@Retention(AnnotationRetention.SOURCE)
-annotation class Location
+enum class Location {
+    CENTER,
+    BOTTOM
+}
 
-const val CENTER = 0
-const val BOTTOM = 1
+enum class State {
+    WRAP,
+    EXPANDED,
+    FULL
+}
 
-@IntDef(WRAP, EXPANDED, FULL)
-@Retention(AnnotationRetention.SOURCE)
-annotation class MatchState
+private const val LOCATION_MASK = 0xFF
+private const val STATE_MASK = 0xFF00
 
-const val WRAP = 0
-const val EXPANDED = 1
-const val FULL = 1 shl 1
+internal infix fun Location.facade(s: State): Int = ordinal or (s.ordinal shl 8)
+internal infix fun State.facade(l: Location): Int = (ordinal shl 8) or l.ordinal
+internal fun Int.location(): Location = Location.values()[(this and LOCATION_MASK)]
+internal fun Int.state(): State = State.values()[(this and STATE_MASK) shr 8]

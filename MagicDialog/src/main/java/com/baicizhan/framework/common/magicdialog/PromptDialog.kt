@@ -22,10 +22,9 @@ class PromptDialog : BaseContentDialog() {
 
     override val themeRes: Int = R.style.MagicDefault_Prompt
     override val appearanceAttribute = R.attr.magicPromptAppearance
-    override val location: Int
-        get() = arguments?.getInt(ARG_LOCATION, -1).takeIf { it != -1 } ?: BOTTOM
-    override val matchState: Int
-        get() = arguments?.getInt(ARG_MATCH_STATE, -1).takeIf { it != -1 } ?: EXPANDED
+    override val facade: Int
+        get() = ((arguments?.getSerializable(ARG_LOCATION) as? Location) ?: Location.BOTTOM) facade
+                ((arguments?.getSerializable(ARG_MATCH_STATE) as? State) ?: State.EXPANDED)
     override val animationRes: Int
         get() = arguments?.getInt(ARG_ANIMATION)?.takeIf { it != 0 } ?: R.style.PromptDialogAnimation
 
@@ -90,13 +89,13 @@ class PromptDialog : BaseContentDialog() {
             return this
         }
 
-        fun location(@Location location: Int): Builder {
-            arguments.putInt(ARG_LOCATION, location)
+        fun location(location: Location): Builder {
+            arguments.putSerializable(ARG_LOCATION, location)
             return this
         }
 
-        fun match(@MatchState match: Int): Builder{
-            arguments.putInt(ARG_MATCH_STATE, match)
+        fun state(state: State): Builder {
+            arguments.putSerializable(ARG_MATCH_STATE, state)
             return this
         }
 

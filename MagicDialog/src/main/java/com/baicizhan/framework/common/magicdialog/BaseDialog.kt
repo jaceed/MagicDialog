@@ -21,11 +21,7 @@ abstract class BaseDialog : BaseDialogFragment() {
     @AttrRes
     protected open val appearanceAttribute = 0
 
-    @Location
-    open val location = CENTER
-
-    @MatchState
-    open val matchState = WRAP
+    protected open val facade = Location.CENTER facade State.WRAP
 
     private val backgroundDrawable by lazy {
         ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_round_all, requireDialog().context.theme)
@@ -50,18 +46,19 @@ abstract class BaseDialog : BaseDialogFragment() {
         super.onStart()
         val window = dialog?.window ?: return
         val attrs = window.attributes
-
-        attrs.gravity = if (location == BOTTOM) Gravity.BOTTOM else Gravity.CENTER
+        val location = facade.location()
+        val state = facade.state()
+        attrs.gravity = if (location == Location.BOTTOM) Gravity.BOTTOM else Gravity.CENTER
         attrs.height = ViewGroup.LayoutParams.WRAP_CONTENT
 
-        val bg = when (matchState) {
-            WRAP -> {
+        val bg = when (state) {
+            State.WRAP -> {
                 attrs.width = with(dimenOf(R.attr.magicMinWidth, 0)) {
                     if (this > 0 && minWidthEnabled) this else ViewGroup.LayoutParams.WRAP_CONTENT
                 }
                 backgroundDrawable
             }
-            EXPANDED -> {
+            State.EXPANDED -> {
                 attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
                 val margin = dimenOf(R.attr.magicBackgroundMargin)
                 val marginBottom = dimenOf(R.attr.magicBackgroundMarginBottom)
@@ -72,7 +69,7 @@ abstract class BaseDialog : BaseDialogFragment() {
             }
             else -> {
                 attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
-                if (location == BOTTOM) backgroundDrawableBottom else backgroundDrawable
+                if (location == Location.BOTTOM) backgroundDrawableBottom else backgroundDrawable
             }
         }
         window.attributes = attrs

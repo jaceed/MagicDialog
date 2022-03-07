@@ -14,8 +14,7 @@ abstract class BaseOptionDialog: BaseContentDialog() {
 
     override val themeRes: Int = R.style.MagicDefault_Options
     override val appearanceAttribute = R.attr.magicOptionsAppearance
-    override val location: Int = BOTTOM
-    override val matchState: Int = FULL
+    override val facade: Int = Location.BOTTOM facade State.FULL
     override val animationRes: Int = R.style.OptionDialogAnimation
 
     final override fun onCreateContent(inflater: LayoutInflater): View? {
