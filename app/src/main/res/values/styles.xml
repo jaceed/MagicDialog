@@ -6,4 +6,9 @@
         <item name="magicBackgroundCorner">32dp</item>
     </style>
 
+    <style name="CustomPromptDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_out</item>
+    </style>
+
 </resources>

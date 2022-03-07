@@ -185,6 +185,32 @@ class MainActivity : AppCompatActivity() {
                     .build(), "style"
             )
         }
+
+        binding.customLayout.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .message("layout")
+                    .title("custom")
+                    .layout(R.layout.layout_custom_prompt)
+                    .cancellable(false)
+                    .match(FULL)
+                    .location(BOTTOM)
+                    .build(), "layout"
+            )
+        }
+
+        binding.customAnim.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .title("custom anim")
+                    .layout(R.layout.layout_custom_prompt)
+                    .cancellable(false)
+                    .match(FULL)
+                    .animation(R.style.CustomPromptDialogAnimation)
+                    .location(BOTTOM)
+                    .build(), "layout"
+            )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

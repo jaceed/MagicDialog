@@ -89,6 +89,18 @@
             android:layout_height="wrap_content"
             android:text="styled" />
 
+        <Button
+            android:id="@+id/custom_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="custom layout" />
+
+        <Button
+            android:id="@+id/custom_anim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="custom anim" />
+
     </LinearLayout>
 
 
