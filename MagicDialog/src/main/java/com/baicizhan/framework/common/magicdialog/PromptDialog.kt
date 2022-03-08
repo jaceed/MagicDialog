@@ -1,5 +1,6 @@
 package com.baicizhan.framework.common.magicdialog
 
+import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
@@ -46,7 +48,9 @@ class PromptDialog : BaseContentDialog() {
             var paddingFlag = -2
             findViewById<TextView>(R.id.magic_prompt_title)?.content = arguments?.getString(ARG_TITLE)?.takeIf { it.isNotBlank() }?.also { paddingFlag++ }
             findViewById<TextView>(R.id.magic_prompt_message)?.content = arguments?.getString(ARG_MESSAGE)?.takeIf { it.isNotBlank() }?.also { paddingFlag++ }
-            findViewById<View>(R.id.magic_prompt_tm_padding)?.visible = paddingFlag == 0
+            findViewById<View>(R.id.s2)?.visible = paddingFlag == 0
+            findViewById<View>(R.id.s1)?.visible = paddingFlag != -2
+            findViewById<View>(R.id.s3)?.visible = paddingFlag != -2
         }
     }
 
@@ -59,9 +63,19 @@ class PromptDialog : BaseContentDialog() {
             return this
         }
 
-        fun bitmap(bitmap: Bitmap): Builder {
+        fun pic(bitmap: Bitmap): Builder {
             arguments.putParcelable(ARG_PIC_URI, null)
             arguments.putParcelable(ARG_PIC, bitmap)
+            return this
+        }
+
+        fun pic(@DrawableRes id: Int): Builder {
+            arguments.putParcelable(ARG_PIC, null)
+            arguments.putParcelable(ARG_PIC_URI, Uri.parse(
+                "${ContentResolver.SCHEME_ANDROID_RESOURCE}://" +
+                        "${context.resources.getResourcePackageName(id)}/" +
+                        "${context.resources.getResourceTypeName(id)}/${context.resources.getResourceEntryName(id)}"
+            ))
             return this
         }
 

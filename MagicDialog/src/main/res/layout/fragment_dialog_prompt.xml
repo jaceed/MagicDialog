@@ -54,7 +54,7 @@
         tools:visibility="visible" />
 
     <Space
-        android:id="@id/magic_prompt_tm_padding"
+        android:id="@+id/s2"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
         android:textSize="?attr/magicMessageSize"
         app:layout_constraintEnd_toEndOf="@id/guide_right"
         app:layout_constraintStart_toStartOf="@+id/guide_left"
-        app:layout_constraintTop_toBottomOf="@id/magic_prompt_tm_padding"
+        app:layout_constraintTop_toBottomOf="@id/s2"
         tools:text="山一程，水一程，身向榆关那畔行，夜深千帐灯。风一更，雪一更，聒碎乡心梦不成，故园无此声。"
         tools:textColor="@android:color/black" />
 
