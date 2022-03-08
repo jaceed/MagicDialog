@@ -164,7 +164,7 @@ class MainActivity : AppCompatActivity() {
                 PromptDialog.Builder(this)
                     .title("带图")
                     .message("消息一下")
-                    .bitmap(resources.getDrawable(R.mipmap.ic_launcher, null).let {
+                    .pic(resources.getDrawable(R.mipmap.ic_launcher, null).let {
                         val bitmap = Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888)
                         Canvas(bitmap).apply {
                             it.setBounds(0, 0, width, height)
@@ -172,6 +172,14 @@ class MainActivity : AppCompatActivity() {
                         }
                         bitmap
                     })
+                    .build()
+            )
+        }
+
+        binding.pictureOnly.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .pic(R.drawable.test_bg_pic_top)
                     .build()
             )
         }
