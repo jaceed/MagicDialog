@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
+import androidx.constraintlayout.widget.ConstraintSet
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseCommonBinding
 import com.github.jaceed.extender.view.visible
 
@@ -25,6 +27,8 @@ abstract class BaseCommonDialog : BaseDialog() {
 
     override val minWidthEnabled: Boolean = true
 
+    private var buttonsLayout = R.layout.layout_action_buttons
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = if (context is OnDialogFragmentInteraction) context else null
@@ -40,34 +44,57 @@ abstract class BaseCommonDialog : BaseDialog() {
     ): View {
         return FragmentDialogBaseCommonBinding.inflate(inflater).apply {
             onCreateContent(inflater)?.let {
-                contentContainer.addView(it)
+                magicContentContainer.addView(it)
             }
 
-            when (onConfigureButtons()) {
-                ButtonType.DOUBLE -> {
-                    btnCancel.visible = true
-                    btnOk.visible = true
-                    buttonGap.visible = true
+            val buttons = arguments?.getInt(ARG_BUTTON_LAYOUT, buttonsLayout) ?: buttonsLayout
+            inflater.inflate(buttons, rootContainer, false).apply {
+                val negativeButton by lazy { findViewById<TextView>(R.id.magic_button_negative) }
+                val positiveButton by lazy { findViewById<TextView>(R.id.magic_button_positive) }
+
+                val top by lazy { findViewById<TextView>(R.id.magic_buttons_gap_top) }
+                val bottom by lazy { findViewById<TextView>(R.id.magic_buttons_gap_bottom) }
+                val between by lazy { findViewById<TextView>(R.id.magic_buttons_gap_between) }
+
+                when (onConfigureButtons()) {
+                    ButtonType.DOUBLE -> {
+                        negativeButton.visible = true
+                        positiveButton.visible = true
+                        between?.visible = true
+                    }
+                    ButtonType.SINGLE_NEGATIVE -> {
+                        negativeButton.visible = true
+                        positiveButton.visible = false
+                        between?.visible = false
+                    }
+                    ButtonType.SINGLE_POSITIVE -> {
+                        negativeButton.visible = false
+                        positiveButton.visible = true
+                        between?.visible = false
+                    }
+                    else -> {
+                        negativeButton.visible = false
+                        positiveButton.visible = false
+                        top?.visible = false
+                        bottom?.visible = false
+                    }
                 }
-                ButtonType.SINGLE_NEGATIVE -> {
-                    btnCancel.visible = true
-                    btnOk.visible = false
-                    buttonGap.visible = false
+                onConfigureNegative(negativeButton)
+                onConfigurePositive(positiveButton)
+            }.let {
+                if (it.id == View.NO_ID) {
+                    it.id = View.generateViewId()
                 }
-                ButtonType.SINGLE_POSITIVE -> {
-                    btnCancel.visible = false
-                    btnOk.visible = true
-                    buttonGap.visible = false
-                }
-                else -> {
-                    btnCancel.visible = false
-                    btnOk.visible = false
-                    buttonTop.visible = false
-                    buttonBottom.visible = false
-                }
+                rootContainer.addView(it)
+                val constraintSet = ConstraintSet()
+                constraintSet.clone(rootContainer)
+                constraintSet.constrainWidth(it.id, 0)
+                constraintSet.connect(it.id, ConstraintSet.TOP, magicContentContainer.id, ConstraintSet.BOTTOM)
+                constraintSet.connect(it.id, ConstraintSet.START, rootContainer.id, ConstraintSet.START)
+                constraintSet.connect(it.id, ConstraintSet.END, rootContainer.id, ConstraintSet.END)
+                constraintSet.connect(it.id, ConstraintSet.BOTTOM, rootContainer.id, ConstraintSet.BOTTOM)
+                constraintSet.applyTo(rootContainer)
             }
-            onConfigureNegative(btnCancel)
-            onConfigurePositive(btnOk)
         }.root
     }
 
@@ -131,6 +158,11 @@ abstract class BaseCommonDialog : BaseDialog() {
             return this as T
         }
 
+        fun button(@LayoutRes layoutRes: Int): T {
+            arguments.putInt(ARG_BUTTON_LAYOUT, layoutRes)
+            return this as T
+        }
+
         fun cancellable(cancellable: Boolean): T {
             arguments.putBoolean(ARG_CANCELLABLE, cancellable)
             return this as T
@@ -171,6 +203,7 @@ abstract class BaseCommonDialog : BaseDialog() {
 
     companion object {
         private const val ARG_BUTTON_CONFIG = "button_config"
+        private const val ARG_BUTTON_LAYOUT = "button_layout"
         private const val ARG_BUTTON_CONFIG_NEGATIVE = "button_config_negative"
         private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
         private const val ARG_CANCELLABLE = "cancellable"
