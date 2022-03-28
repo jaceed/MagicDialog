@@ -11,6 +11,9 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
 import androidx.constraintlayout.widget.ConstraintSet
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseCommonBinding
+import com.baicizhan.framework.common.magicdialog.utils.colorOf
+import com.baicizhan.framework.common.magicdialog.utils.intResAvailable
+import com.baicizhan.framework.common.magicdialog.utils.resourceOf
 import com.github.jaceed.extender.view.visible
 
 /**
@@ -34,7 +37,7 @@ abstract class BaseCommonDialog : BaseDialog() {
         listener = if (context is OnDialogFragmentInteraction) context else null
     }
 
-    override fun onAppearanceStyle(): Int? = arguments?.getInt(ARG_STYLE, 0) ?: super.onAppearanceStyle()
+    override fun onAppearanceStyle(context: Context): Int? = arguments.intResAvailable(ARG_STYLE) ?: super.onAppearanceStyle(context)
 
     @SuppressLint("ResourceType")
     final override fun onCreateView(
@@ -47,14 +50,14 @@ abstract class BaseCommonDialog : BaseDialog() {
                 magicContentContainer.addView(it)
             }
 
-            val buttons = arguments?.getInt(ARG_BUTTON_LAYOUT, buttonsLayout) ?: buttonsLayout
+            val buttons = arguments.intResAvailable(ARG_BUTTON_LAYOUT) ?: resourceOf(R.attr.magicButtonsLayout, buttonsLayout)
             inflater.inflate(buttons, rootContainer, false).apply {
                 val negativeButton by lazy { findViewById<TextView>(R.id.magic_button_negative) }
                 val positiveButton by lazy { findViewById<TextView>(R.id.magic_button_positive) }
 
-                val top by lazy { findViewById<TextView>(R.id.magic_buttons_gap_top) }
-                val bottom by lazy { findViewById<TextView>(R.id.magic_buttons_gap_bottom) }
-                val between by lazy { findViewById<TextView>(R.id.magic_buttons_gap_between) }
+                val top by lazy { findViewById<View>(R.id.magic_buttons_gap_top) }
+                val bottom by lazy { findViewById<View>(R.id.magic_buttons_gap_bottom) }
+                val between by lazy { findViewById<View>(R.id.magic_buttons_gap_between) }
 
                 when (onConfigureButtons()) {
                     ButtonType.DOUBLE -> {
@@ -132,6 +135,20 @@ abstract class BaseCommonDialog : BaseDialog() {
         }
         (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)?.let {
             v.text = it.ok
+            it.actionOk?.let { action ->
+                colorOf(
+                    when (action) {
+                        Action.RECOMMENDED -> R.attr.magicButtonActionRecommendedColor
+                        Action.ALERT -> R.attr.magicButtonActionAlertColor
+                        else -> R.attr.magicButtonActionNormalColor
+                    }, 0
+                )
+                    .takeIf { c ->
+                        c != 0
+                    }?.let { actionColor ->
+                        v.setTextColor(actionColor)
+                    }
+            }
         }
     }
 
@@ -173,8 +190,9 @@ abstract class BaseCommonDialog : BaseDialog() {
             return this as T
         }
 
-        fun positive(button: String?): T {
-            arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button))
+        @JvmOverloads
+        fun positive(button: String? = null, action: Action? = null): T {
+            arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button, action))
             return this as T
         }
 
@@ -185,7 +203,8 @@ abstract class BaseCommonDialog : BaseDialog() {
             arguments.putSerializable(
                 ARG_BUTTON_CONFIG, Config(
                     neg?.cancel.takeIf { !it.isNullOrBlank() } ?: config.cancel,
-                    pos?.ok.takeIf { !it.isNullOrBlank() } ?: config.ok
+                    pos?.ok.takeIf { !it.isNullOrBlank() } ?: config.ok,
+                    actionOk = pos?.actionOk ?: Action.RECOMMENDED // TODO only positive supported
                 ))
         }
 

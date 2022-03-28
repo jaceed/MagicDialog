@@ -9,9 +9,24 @@
     <attr name="magicTitleSize" format="dimension|reference" />
     <attr name="magicMinWidth" format="dimension|reference" />
 
+    <attr name="magicButtonsLayout" format="reference" />
+    <attr name="magicButtonActionNormalColor" format="color|reference" />
+    <attr name="magicButtonActionRecommendedColor" format="color|reference" />
+    <attr name="magicButtonActionAlertColor" format="color|reference" />
+
     <declare-styleable name="PromptAppearance">
+        <attr name="magicPromptLayout" format="reference" />
         <attr name="magicMessageColor" format="color|reference" />
         <attr name="magicMessageSize" format="dimension|reference" />
+        <attr name="magicLocation">
+            <enum name="center" value="0" />
+            <enum name="bottom" value="1" />
+        </attr>
+        <attr name="magicState">
+            <enum name="wrap" value="0" />
+            <enum name="expanded" value="1" />
+            <enum name="full" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="OptionAppearance">

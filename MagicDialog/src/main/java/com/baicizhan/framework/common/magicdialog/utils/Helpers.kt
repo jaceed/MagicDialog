@@ -1,3 +1,4 @@
+@file:JvmName("Magics")
 package com.baicizhan.framework.common.magicdialog.utils
 
 import androidx.fragment.app.Fragment

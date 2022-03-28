@@ -27,8 +27,8 @@ abstract class BaseDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState).also { dialog ->
-            dialog.context.theme.apply {
+        return super.onCreateDialog(savedInstanceState).apply {
+            context.theme.apply {
                 styleOf(R.attr.magicAppearance) {
                     applyStyle(it, true)
                 }

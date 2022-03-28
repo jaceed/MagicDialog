@@ -13,6 +13,9 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import coil.load
+import com.baicizhan.framework.common.magicdialog.utils.enumOf
+import com.baicizhan.framework.common.magicdialog.utils.intResAvailable
+import com.baicizhan.framework.common.magicdialog.utils.resourceOf
 import com.github.jaceed.extender.view.content
 import com.github.jaceed.extender.view.visible
 
@@ -25,15 +28,17 @@ class PromptDialog : BaseContentDialog() {
     override val themeRes: Int = R.style.MagicDefault_Prompt
     override val appearanceAttribute = R.attr.magicPromptAppearance
     override val facade: Int
-        get() = ((arguments?.getSerializable(ARG_LOCATION) as? Location) ?: Location.BOTTOM) facade
+        get() = ((arguments?.getSerializable(ARG_LOCATION) as? Location) ?: Location.values()[enumOf(R.attr.magicLocation, Location.BOTTOM.ordinal)]) facade
                 ((arguments?.getSerializable(ARG_MATCH_STATE) as? State) ?: State.EXPANDED)
     override val animationRes: Int
         get() = arguments?.getInt(ARG_ANIMATION)?.takeIf { it != 0 } ?: R.style.PromptDialogAnimation
 
     private var layoutResource = R.layout.fragment_dialog_prompt
 
+    override fun onCancelable(): Boolean = false
+
     override fun onCreateContent(inflater: LayoutInflater): View? {
-        return inflater.inflate(arguments?.getInt(ARG_LAYOUT)?.takeIf { it != 0 } ?: layoutResource, null, false).apply {
+        return inflater.inflate(arguments.intResAvailable(ARG_LAYOUT) ?: resourceOf(R.attr.magicPromptLayout, layoutResource), null, false).apply {
             findViewById<ImageView>(R.id.magic_prompt_pic)?.let { pic ->
                 pic.visible = (arguments?.getParcelable(ARG_PIC) as? Bitmap)?.let {
                     pic.setImageBitmap(it)

@@ -1,6 +1,7 @@
 package com.baicizhan.framework.common.magicdialog
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.Gravity
@@ -31,14 +32,14 @@ abstract class BaseDialog : BaseDialogFragment() {
         ResourcesCompat.getDrawable(resources, R.drawable.bg_magic_round_top, requireDialog().context.theme)
     }
 
-    protected open fun onAppearanceStyle(): Int? =
+    protected open fun onAppearanceStyle(context: Context): Int? =
         appearanceAttribute.takeIf { it != 0 }?.let {
-            dialog?.context?.theme?.styleOf(it)
+            context.theme?.styleOf(it)
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState).also { dialog ->
-            dialog.context.theme.applyStyle(onAppearanceStyle() ?: return@also, true)
+        return super.onCreateDialog(savedInstanceState).apply {
+            context.theme.applyStyle(onAppearanceStyle(context) ?: return@apply, true)
         }
     }
 
