@@ -49,12 +49,34 @@
         <item name="magicBackgroundCorner">20dp</item>
         <item name="magicNegativeAppearance">@style/Negative</item>
         <item name="magicPositiveAppearance">@style/Positive</item>
+        <item name="magicButtonActionRecommendedColor">@android:color/holo_orange_dark</item>
+        <item name="magicButtonActionAlertColor">@android:color/holo_purple</item>
     </style>
 
     <style name="Theme.MagicDialog.Custom">
         <item name="magicAppearance">@style/Base</item>
         <item name="magicPromptAppearance">@style/Prompt</item>
         <item name="magicOptionsAppearance">@style/Options</item>
+    </style>
+
+    <style name="Base2">
+        <item name="magicBackground">#348956</item>
+        <item name="magicBackgroundCorner">20dp</item>
+        <item name="magicButtonsLayout">@layout/custom_buttons</item>
+        <item name="magicButtonActionRecommendedColor">@android:color/holo_orange_dark</item>
+        <item name="magicButtonActionAlertColor">@android:color/holo_purple</item>
+<!--        <item name="magicLocation">center</item>-->
+    </style>
+
+
+    <style name="Prompt2">
+        <item name="magicLocation">center</item>
+        <item name="magicPromptLayout">@layout/layout_custom_prompt</item>
+    </style>
+
+    <style name="Theme.MagicDialog.Custom2">
+        <item name="magicAppearance">@style/Base2</item>
+        <item name="magicPromptAppearance">@style/Prompt2</item>
     </style>
 
 </resources>

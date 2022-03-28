@@ -225,6 +225,7 @@ class MainActivity : AppCompatActivity() {
         menu?.add(0, 0, 0, "主题")
         menu?.add(0, 1, 0, "选项")
         menu?.add(0, 2, 0, "测试")
+        menu?.add(0, 3, 0, "主题2")
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -240,6 +241,9 @@ class MainActivity : AppCompatActivity() {
                 show(
                     TestDialog.Builder(this).build()
                 )
+            }
+            3 -> {
+                startActivity(Intent(this, CustomThemeTwoActivity::class.java))
             }
             else -> {
                 return false

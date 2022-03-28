@@ -58,6 +58,25 @@ class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
                     }
                     .show(supportFragmentManager, "date")
             }
+
+            it.customButtons.setOnClickListener {
+                PromptDialog.Builder(this)
+                    .title("按键定义")
+                    .button(R.layout.custom_buttons)
+                    .build().show(supportFragmentManager, "custom buttons")
+            }
+
+            it.customActionRecommended.setOnClickListener {
+                show(
+                    PromptDialog.Builder(this)
+                        .title("custom action")
+                        .cancellable(false)
+                        .location(Location.BOTTOM)
+                        .button(R.layout.custom_buttons)
+                        .positive(action = Action.ALERT)
+                        .build(), "layout"
+                )
+            }
         }
     }
 
