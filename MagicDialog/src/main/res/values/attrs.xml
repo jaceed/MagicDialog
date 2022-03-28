@@ -8,6 +8,7 @@
     <attr name="magicTitleColor" format="color|reference" />
     <attr name="magicTitleSize" format="dimension|reference" />
     <attr name="magicMinWidth" format="dimension|reference" />
+    <attr name="magicAnimation" format="reference" />
 
     <attr name="magicButtonsLayout" format="reference" />
     <attr name="magicButtonActionNormalColor" format="color|reference" />

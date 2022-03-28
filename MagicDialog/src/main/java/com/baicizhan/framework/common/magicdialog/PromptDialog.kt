@@ -16,6 +16,7 @@ import coil.load
 import com.baicizhan.framework.common.magicdialog.utils.enumOf
 import com.baicizhan.framework.common.magicdialog.utils.intResAvailable
 import com.baicizhan.framework.common.magicdialog.utils.resourceOf
+import com.baicizhan.framework.common.magicdialog.utils.styleOf
 import com.github.jaceed.extender.view.content
 import com.github.jaceed.extender.view.visible
 
@@ -31,7 +32,7 @@ class PromptDialog : BaseContentDialog() {
         get() = ((arguments?.getSerializable(ARG_LOCATION) as? Location) ?: Location.values()[enumOf(R.attr.magicLocation, Location.BOTTOM.ordinal)]) facade
                 ((arguments?.getSerializable(ARG_MATCH_STATE) as? State) ?: State.EXPANDED)
     override val animationRes: Int
-        get() = arguments.intResAvailable(ARG_ANIMATION) ?: R.style.PromptDialogAnimation
+        get() = arguments.intResAvailable(ARG_ANIMATION) ?: styleOf(R.attr.magicAnimation) ?: R.style.PromptDialogAnimation
 
     private var layoutResource = R.layout.fragment_dialog_prompt
 

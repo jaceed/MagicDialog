@@ -46,6 +46,9 @@ internal fun Resources.Theme.enumOf(@AttrRes attr: Int, default: Int = 0) =
     if (resolveAttribute(attr, typedValue, true) && typedValue.type >= TypedValue.TYPE_FIRST_INT && typedValue.type<= TypedValue.TYPE_LAST_INT)
         typedValue.data else default
 
+internal fun DialogFragment.styleOf(@AttrRes attr: Int) =
+    requireDialog().context.theme.styleOf(attr)
+
 internal fun DialogFragment.dimenOf(@AttrRes attr: Int, default: Int = 0) =
     requireDialog().context.theme.dimenOf(attr, default)
 
