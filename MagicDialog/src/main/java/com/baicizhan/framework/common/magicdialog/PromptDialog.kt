@@ -31,7 +31,7 @@ class PromptDialog : BaseContentDialog() {
         get() = ((arguments?.getSerializable(ARG_LOCATION) as? Location) ?: Location.values()[enumOf(R.attr.magicLocation, Location.BOTTOM.ordinal)]) facade
                 ((arguments?.getSerializable(ARG_MATCH_STATE) as? State) ?: State.EXPANDED)
     override val animationRes: Int
-        get() = arguments?.getInt(ARG_ANIMATION)?.takeIf { it != 0 } ?: R.style.PromptDialogAnimation
+        get() = arguments.intResAvailable(ARG_ANIMATION) ?: R.style.PromptDialogAnimation
 
     private var layoutResource = R.layout.fragment_dialog_prompt
 
