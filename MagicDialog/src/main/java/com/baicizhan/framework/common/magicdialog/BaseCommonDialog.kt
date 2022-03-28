@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.constraintlayout.widget.ConstraintSet
 import com.baicizhan.framework.common.magicdialog.databinding.FragmentDialogBaseCommonBinding
@@ -190,11 +191,16 @@ abstract class BaseCommonDialog : BaseDialog() {
             return this as T
         }
 
+        fun negative(@StringRes button: Int): T  = negative(context.getString(button))
+
         @JvmOverloads
         fun positive(button: String? = null, action: Action? = null): T {
             arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button, action))
             return this as T
         }
+
+        @JvmOverloads
+        fun positive(@StringRes button: Int, action: Action? = null): T  = positive(context.getString(button), action)
 
         protected open fun onPreBuild() {
             val config = Config.of(context)
