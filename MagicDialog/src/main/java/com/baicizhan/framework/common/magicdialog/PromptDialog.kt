@@ -24,7 +24,7 @@ import com.github.jaceed.extender.view.visible
  * Created by Jacee.
  * Date: 2021.03.26
  */
-class PromptDialog : BaseContentDialog() {
+class PromptDialog private constructor(): BaseContentDialog() {
 
     override val themeRes: Int = R.style.MagicDefault_Prompt
     override val appearanceAttribute = R.attr.magicPromptAppearance

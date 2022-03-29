@@ -4,6 +4,7 @@ package com.baicizhan.framework.common.magicdialog.utils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.baicizhan.framework.common.magicdialog.BaseDialogFragment
+import com.baicizhan.framework.common.magicdialog.PromptDialog
 
 /**
  * Created by Jacee.
@@ -12,6 +13,7 @@ import com.baicizhan.framework.common.magicdialog.BaseDialogFragment
 
 private const val DEFAULT_DIALOG_TAG = "com.baicizhan.framework.common.magicdialog.tag"
 
+@JvmOverloads
 fun FragmentActivity.show(dialog: BaseDialogFragment, tag: String = DEFAULT_DIALOG_TAG) {
     dialog.show(supportFragmentManager, tag)
 }
@@ -24,6 +26,7 @@ fun FragmentActivity.dismiss(tag: String = DEFAULT_DIALOG_TAG) {
     }
 }
 
+@JvmOverloads
 fun Fragment.show(dialog: BaseDialogFragment, tag: String = DEFAULT_DIALOG_TAG) {
     dialog.show(childFragmentManager, tag)
 }
@@ -35,3 +38,8 @@ fun Fragment.dismiss(tag: String = DEFAULT_DIALOG_TAG) {
             .commitAllowingStateLoss()
     }
 }
+
+fun Fragment.PromptBuilder() = PromptDialog.Builder(requireContext())
+
+fun FragmentActivity.PromptBuilder() = PromptDialog.Builder(this)
+
