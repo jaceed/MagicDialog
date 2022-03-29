@@ -115,12 +115,13 @@ abstract class BaseCommonDialog : BaseDialog() {
      * @return true to show the negative button, default true
      */
     protected open fun onConfigureNegative(v: TextView) {
+        val config = (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)
         v.setOnClickListener {
             onNegativeClick(v)
-            listenerExcluded?.onDialogNegativeClick(v) ?: listener?.onDialogNegativeClick(v)
+            listenerExcluded?.onDialogNegativeClick(v) ?: config?.cancelCallback?.invoke(v) ?: listener?.onDialogNegativeClick(v)
             dismiss()
         }
-        (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)?.let {
+        config?.let {
             v.text = it.cancel
         }
     }
@@ -129,12 +130,13 @@ abstract class BaseCommonDialog : BaseDialog() {
      * @return true to show the positive button, default true
      */
     protected open fun onConfigurePositive(v: TextView) {
+        val config = (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)
         v.setOnClickListener {
             onPositiveClick(v)
-            listenerExcluded?.onDialogPositiveClick(v) ?: listener?.onDialogPositiveClick(v)
+            listenerExcluded?.onDialogPositiveClick(v) ?: config?.okCallback?.invoke(v) ?: listener?.onDialogPositiveClick(v)
             dismiss()
         }
-        (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)?.let {
+        config?.let {
             v.text = it.ok
             it.actionOk?.let { action ->
                 colorOf(
@@ -186,21 +188,21 @@ abstract class BaseCommonDialog : BaseDialog() {
             return this as T
         }
 
-        fun negative(button: String?): T {
-            arguments.putSerializable(ARG_BUTTON_CONFIG_NEGATIVE, Config.negative(context, button))
+        fun negative(button: String?, callback: (View) -> Unit = {}): T {
+            arguments.putSerializable(ARG_BUTTON_CONFIG_NEGATIVE, Config.negative(context, button, callback))
             return this as T
         }
 
-        fun negative(@StringRes button: Int): T  = negative(context.getString(button))
+        fun negative(@StringRes button: Int, callback: (View) -> Unit = {}): T  = negative(context.getString(button), callback)
 
         @JvmOverloads
-        fun positive(button: String? = null, action: Action? = null): T {
-            arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button, action))
+        fun positive(button: String? = null, action: Action? = null, callback: (View) -> Unit = {}): T {
+            arguments.putSerializable(ARG_BUTTON_CONFIG_POSITIVE, Config.positive(context, button, action, callback))
             return this as T
         }
 
         @JvmOverloads
-        fun positive(@StringRes button: Int, action: Action? = null): T  = positive(context.getString(button), action)
+        fun positive(@StringRes button: Int, action: Action? = null, callback: (View) -> Unit = {}): T  = positive(context.getString(button), action, callback)
 
         protected open fun onPreBuild() {
             val config = Config.of(context)
@@ -210,7 +212,9 @@ abstract class BaseCommonDialog : BaseDialog() {
                 ARG_BUTTON_CONFIG, Config(
                     neg?.cancel.takeIf { !it.isNullOrBlank() } ?: config.cancel,
                     pos?.ok.takeIf { !it.isNullOrBlank() } ?: config.ok,
-                    actionOk = pos?.actionOk ?: Action.RECOMMENDED // TODO only positive supported
+                    actionOk = pos?.actionOk ?: Action.RECOMMENDED, // TODO only positive supported
+                    cancelCallback = neg?.cancelCallback ?: {},
+                    okCallback = pos?.okCallback ?: {}
                 ))
         }
 

@@ -1,6 +1,7 @@
 package com.baicizhan.framework.common.magicdialog
 
 import android.content.Context
+import android.view.View
 import java.io.Serializable
 
 /**
@@ -11,7 +12,9 @@ internal data class Config(
     val cancel: CharSequence,
     val ok: CharSequence,
     val actionCancel: Action? = null,
-    val actionOk: Action? = null
+    val actionOk: Action? = null,
+    val cancelCallback: (View) -> Unit = {},
+    val okCallback: (View) -> Unit = {}
 ) : Serializable {
 
     companion object {
@@ -19,11 +22,11 @@ internal data class Config(
         fun of(context: Context) =
             Config(context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok))
 
-        fun positive(context: Context, ok: CharSequence?, action: Action?) =
-            Config(context.getString(R.string.dialog_btn_cancel), ok ?: context.getString(R.string.dialog_btn_ok), actionOk = action)
+        fun positive(context: Context, ok: CharSequence?, action: Action?, okCallback: (View) -> Unit) =
+            Config(context.getString(R.string.dialog_btn_cancel), ok ?: context.getString(R.string.dialog_btn_ok), actionOk = action, okCallback = okCallback)
 
-        fun negative(context: Context, cancel: CharSequence?) =
-            Config(cancel ?: context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok))
+        fun negative(context: Context, cancel: CharSequence?, cancelCallback: (View) -> Unit) =
+            Config(cancel ?: context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok), cancelCallback = cancelCallback)
 
     }
 
