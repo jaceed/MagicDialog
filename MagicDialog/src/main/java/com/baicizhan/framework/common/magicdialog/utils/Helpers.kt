@@ -39,7 +39,10 @@ fun Fragment.dismiss(tag: String = DEFAULT_DIALOG_TAG) {
     }
 }
 
-fun Fragment.PromptBuilder() = PromptDialog.Builder(requireContext())
+val Fragment.PromptBuilder: PromptDialog.Builder
+    get() = PromptDialog.Builder(requireContext())
 
-fun FragmentActivity.PromptBuilder() = PromptDialog.Builder(this)
+val FragmentActivity.PromptBuilder: PromptDialog.Builder
+    get() = PromptDialog.Builder(this)
+
 

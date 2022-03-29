@@ -77,11 +77,13 @@ class OptionListDialog : BaseOptionDialog() {
 
     class Builder(context: Context) : BaseContentDialog.Builder<Builder, OptionListDialog>(context) {
 
+        @JvmOverloads
         fun options(list: Array<Int>, checked: Int = -1): Builder =
             options(list.map { res ->
                 context.getString(res)
             }.toTypedArray(), checked)
 
+        @JvmOverloads
         fun options(list: Array<String>, checked: Int = -1): Builder {
             if (checked != -1) {
             require(checked in list.indices)

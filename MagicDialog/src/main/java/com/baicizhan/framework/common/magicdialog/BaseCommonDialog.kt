@@ -188,11 +188,13 @@ abstract class BaseCommonDialog : BaseDialog() {
             return this as T
         }
 
+        @JvmOverloads
         fun negative(button: String?, callback: (View) -> Unit = {}): T {
             arguments.putSerializable(ARG_BUTTON_CONFIG_NEGATIVE, Config.negative(context, button, callback))
             return this as T
         }
 
+        @JvmOverloads
         fun negative(@StringRes button: Int, callback: (View) -> Unit = {}): T  = negative(context.getString(button), callback)
 
         @JvmOverloads
