@@ -55,36 +55,21 @@ abstract class BaseCommonDialog : BaseDialog() {
             inflater.inflate(buttons, rootContainer, false).apply {
                 val negativeButton by lazy { findViewById<TextView>(R.id.magic_button_negative) }
                 val positiveButton by lazy { findViewById<TextView>(R.id.magic_button_positive) }
+                val neutralButton by lazy { findViewById<TextView>(R.id.magic_button_neutral) }
 
                 val top by lazy { findViewById<View>(R.id.magic_buttons_gap_top) }
                 val bottom by lazy { findViewById<View>(R.id.magic_buttons_gap_bottom) }
-                val between by lazy { findViewById<View>(R.id.magic_buttons_gap_between) }
 
-                when (onConfigureButtons()) {
-                    ButtonType.DOUBLE -> {
-                        negativeButton.visible = true
-                        positiveButton.visible = true
-                        between?.visible = true
-                    }
-                    ButtonType.SINGLE_NEGATIVE -> {
-                        negativeButton.visible = true
-                        positiveButton.visible = false
-                        between?.visible = false
-                    }
-                    ButtonType.SINGLE_POSITIVE -> {
-                        negativeButton.visible = false
-                        positiveButton.visible = true
-                        between?.visible = false
-                    }
-                    else -> {
-                        negativeButton.visible = false
-                        positiveButton.visible = false
-                        top?.visible = false
-                        bottom?.visible = false
-                    }
+                with(onConfigureButtons()) {
+                    negativeButton.visible = flag and BUTTON_NEGATIVE == BUTTON_NEGATIVE
+                    positiveButton.visible = flag and BUTTON_POSITIVE == BUTTON_POSITIVE
+                    neutralButton?.visible = flag and BUTTON_NEUTRAL == BUTTON_NEUTRAL
+                    top?.visible = flag != 0
+                    bottom?.visible = flag != 0
                 }
                 onConfigureNegative(negativeButton)
                 onConfigurePositive(positiveButton)
+                neutralButton?.let { neu -> onConfigureNeutral(neu) }
             }.let {
                 if (it.id == View.NO_ID) {
                     it.id = View.generateViewId()
@@ -111,9 +96,6 @@ abstract class BaseCommonDialog : BaseDialog() {
 
     }
 
-    /**
-     * @return true to show the negative button, default true
-     */
     protected open fun onConfigureNegative(v: TextView) {
         val config = (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)
         v.setOnClickListener {
@@ -126,9 +108,6 @@ abstract class BaseCommonDialog : BaseDialog() {
         }
     }
 
-    /**
-     * @return true to show the positive button, default true
-     */
     protected open fun onConfigurePositive(v: TextView) {
         val config = (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)
         v.setOnClickListener {
@@ -155,11 +134,27 @@ abstract class BaseCommonDialog : BaseDialog() {
         }
     }
 
+    protected open fun onConfigureNeutral(v: TextView) {
+        val config = (arguments?.getSerializable(ARG_BUTTON_CONFIG) as? Config)
+        v.setOnClickListener {
+            onNeutralClick(v)
+            listenerExcluded?.onDialogNeutralClick(v) ?: config?.neutralCallback?.invoke(v) ?: listener?.onDialogNeutralClick(v)
+            dismiss()
+        }
+        config?.let {
+            v.text = it.neutral
+        }
+    }
+
     protected open fun onNegativeClick(v: TextView) {
 
     }
 
     protected open fun onPositiveClick(v: TextView) {
+
+    }
+
+    protected open fun onNeutralClick(v: TextView) {
 
     }
 
@@ -206,17 +201,29 @@ abstract class BaseCommonDialog : BaseDialog() {
         @JvmOverloads
         fun positive(@StringRes button: Int, action: Action? = null, callback: (View) -> Unit = {}): T  = positive(context.getString(button), action, callback)
 
+        @JvmOverloads
+        fun neutral(button: String?, callback: (View) -> Unit = {}): T {
+            arguments.putSerializable(ARG_BUTTON_CONFIG_NEUTRAL, Config.neutral(context, button, callback))
+            return this as T
+        }
+
+        @JvmOverloads
+        fun neutral(@StringRes button: Int, callback: (View) -> Unit = {}): T  = neutral(context.getString(button), callback)
+
         protected open fun onPreBuild() {
             val config = Config.of(context)
             val neg = arguments.getSerializable(ARG_BUTTON_CONFIG_NEGATIVE) as? Config
             val pos = arguments.getSerializable(ARG_BUTTON_CONFIG_POSITIVE) as? Config
+            val neu = arguments.getSerializable(ARG_BUTTON_CONFIG_NEUTRAL) as? Config
             arguments.putSerializable(
                 ARG_BUTTON_CONFIG, Config(
                     neg?.cancel.takeIf { !it.isNullOrBlank() } ?: config.cancel,
                     pos?.ok.takeIf { !it.isNullOrBlank() } ?: config.ok,
+                    neu?.neutral.takeIf { !it.isNullOrBlank() },
                     actionOk = pos?.actionOk ?: Action.RECOMMENDED, // TODO only positive supported
                     cancelCallback = neg?.cancelCallback ?: {},
-                    okCallback = pos?.okCallback ?: {}
+                    okCallback = pos?.okCallback ?: {},
+                    neutralCallback = neu?.neutralCallback ?: {}
                 ))
         }
 
@@ -237,6 +244,7 @@ abstract class BaseCommonDialog : BaseDialog() {
         private const val ARG_BUTTON_LAYOUT = "button_layout"
         private const val ARG_BUTTON_CONFIG_NEGATIVE = "button_config_negative"
         private const val ARG_BUTTON_CONFIG_POSITIVE = "button_config_positive"
+        private const val ARG_BUTTON_CONFIG_NEUTRAL = "button_config_neutral"
         private const val ARG_CANCELLABLE = "cancellable"
         private const val ARG_STYLE = "style"
 

@@ -11,10 +11,13 @@ import java.io.Serializable
 internal data class Config(
     val cancel: CharSequence,
     val ok: CharSequence,
+    val neutral: CharSequence? = null,
     val actionCancel: Action? = null,
     val actionOk: Action? = null,
+    val actionNeutral: Action? = null,
     val cancelCallback: (View) -> Unit = {},
-    val okCallback: (View) -> Unit = {}
+    val okCallback: (View) -> Unit = {},
+    val neutralCallback: (View) -> Unit = {}
 ) : Serializable {
 
     companion object {
@@ -27,6 +30,9 @@ internal data class Config(
 
         fun negative(context: Context, cancel: CharSequence?, cancelCallback: (View) -> Unit) =
             Config(cancel ?: context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok), cancelCallback = cancelCallback)
+
+        fun neutral(context: Context, neutral: CharSequence?, neutralCallback: (View) -> Unit) =
+            Config(context.getString(R.string.dialog_btn_cancel), context.getString(R.string.dialog_btn_ok), neutral, neutralCallback = neutralCallback)
 
     }
 

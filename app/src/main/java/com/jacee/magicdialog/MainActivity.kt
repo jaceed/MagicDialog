@@ -234,6 +234,20 @@ class MainActivity : AppCompatActivity() {
                     .build()
             )
         }
+
+        binding.neutral.setOnClickListener {
+            show(
+                PromptBuilder
+                    .title("中间按键")
+                    .type(ButtonType.TRIPLE)
+                    .negative("不要")
+                    .positive("好吧")
+                    .neutral("中间") {
+                        Toast.makeText(this, "中间", Toast.LENGTH_SHORT).show()
+                    }
+                    .build()
+            )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

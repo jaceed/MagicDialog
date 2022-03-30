@@ -113,6 +113,12 @@
             android:layout_height="wrap_content"
             android:text="lambda callback" />
 
+        <Button
+            android:id="@+id/neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="neutral" />
+
     </LinearLayout>
 
 

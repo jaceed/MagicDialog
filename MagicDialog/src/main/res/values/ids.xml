@@ -5,9 +5,9 @@
 
     <item name="magic_button_negative" type="id" />
     <item name="magic_button_positive" type="id" />
+    <item name="magic_button_neutral" type="id" />
     <item name="magic_buttons_gap_top" type="id" />
     <item name="magic_buttons_gap_bottom" type="id" />
-    <item name="magic_buttons_gap_between" type="id" />
 
     <item name="magic_prompt_pic" type="id" />
     <item name="magic_prompt_title" type="id" />
