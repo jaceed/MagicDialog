@@ -30,7 +30,7 @@ class PromptDialog private constructor(): BaseContentDialog() {
     override val appearanceAttribute = R.attr.magicPromptAppearance
     override val facade: Int
         get() = ((arguments?.getSerializable(ARG_LOCATION) as? Location) ?: Location.values()[enumOf(R.attr.magicLocation, Location.BOTTOM.ordinal)]) facade
-                ((arguments?.getSerializable(ARG_MATCH_STATE) as? State) ?: State.EXPANDED)
+                ((arguments?.getSerializable(ARG_MATCH_STATE) as? State) ?: State.values()[enumOf(R.attr.magicState, State.EXPANDED.ordinal)])
     override val animationRes: Int
         get() = arguments.intResAvailable(ARG_ANIMATION) ?: styleOf(R.attr.magicAnimation) ?: R.style.PromptDialogAnimation
 
