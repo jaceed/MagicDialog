@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.baicizhan.framework.common.magicdialog.*
+import com.baicizhan.framework.common.magicdialog.utils.PromptBuilder
 import com.baicizhan.framework.common.magicdialog.utils.dismiss
 import com.baicizhan.framework.common.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityMainBinding
@@ -217,6 +218,20 @@ class MainActivity : AppCompatActivity() {
                     .animation(R.style.CustomPromptDialogAnimation)
                     .location(Location.BOTTOM)
                     .build(), "layout"
+            )
+        }
+
+        binding.callback.setOnClickListener {
+            show(
+                PromptBuilder
+                    .title("callback")
+                    .negative("不要") {
+                        Toast.makeText(this, "不要", Toast.LENGTH_SHORT).show()
+                    }
+                    .positive("好吧") {
+                        Toast.makeText(this, "好吧好吧", Toast.LENGTH_SHORT).show()
+                    }
+                    .build()
             )
         }
     }

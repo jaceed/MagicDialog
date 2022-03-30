@@ -69,14 +69,30 @@
     </style>
 
 
+    <style name="Promp2Anim">
+        <item name="android:windowEnterAnimation">@anim/prompt_in</item>
+        <item name="android:windowExitAnimation">@anim/prompt_out</item>
+    </style>
+
+    <style name="Options2Anim">
+        <item name="android:windowEnterAnimation">@anim/options_in</item>
+        <item name="android:windowExitAnimation">@anim/options_out</item>
+    </style>
+
     <style name="Prompt2">
         <item name="magicLocation">center</item>
         <item name="magicPromptLayout">@layout/layout_custom_prompt</item>
+        <item name="magicAnimation">@style/Promp2Anim</item>
+    </style>
+
+    <style name="Options2">
+        <item name="magicAnimation">@style/Options2Anim</item>
     </style>
 
     <style name="Theme.MagicDialog.Custom2">
         <item name="magicAppearance">@style/Base2</item>
         <item name="magicPromptAppearance">@style/Prompt2</item>
+        <item name="magicOptionsAppearance">@style/Options2</item>
     </style>
 
 </resources>

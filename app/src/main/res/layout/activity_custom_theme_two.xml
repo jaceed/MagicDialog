@@ -7,12 +7,35 @@
     android:padding="16dp"
     tools:context=".CustomThemeTwoActivity">
 
-    <Button
-        android:id="@+id/first"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="first"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="first"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/promp_anim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="custom anim prompt" />
+
+        <Button
+            android:id="@+id/options_anim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="custom anim options" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

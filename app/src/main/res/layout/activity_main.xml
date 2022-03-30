@@ -107,6 +107,12 @@
             android:layout_height="wrap_content"
             android:text="custom anim" />
 
+        <Button
+            android:id="@+id/callback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lambda callback" />
+
     </LinearLayout>
 
 
