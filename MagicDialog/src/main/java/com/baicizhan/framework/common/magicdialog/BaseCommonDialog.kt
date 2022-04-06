@@ -158,15 +158,21 @@ abstract class BaseCommonDialog : BaseDialog() {
 
     }
 
+    @Deprecated("Use setter in builder instead")
     fun setOnDialogFragmentInteraction(listener: OnDialogFragmentInteraction): BaseCommonDialog {
         listenerExcluded = listener
         return this
+    }
+
+    private fun setInteraction(listener: OnDialogFragmentInteraction?) {
+        listenerExcluded = listener
     }
 
 
     abstract class Builder<T : Builder<T, R>, R: BaseCommonDialog>(protected val context: Context) {
 
         protected val arguments = Bundle()
+        private var interaction: OnDialogFragmentInteraction? = null
 
         fun style(@StyleRes resId: Int): T {
             arguments.putInt(ARG_STYLE, resId)
@@ -210,6 +216,15 @@ abstract class BaseCommonDialog : BaseDialog() {
         @JvmOverloads
         fun neutral(@StringRes button: Int, callback: (View) -> Unit = {}): T  = neutral(context.getString(button), callback)
 
+        /**
+         * OnDialogFragmentInteraction's callback is prior to the individual callback of negative, positive or neutral buttons if both exist.
+         * And if so, individual ones will be shadowed.
+         */
+        fun interaction(interaction: OnDialogFragmentInteraction): T {
+            this.interaction = interaction
+            return this as T
+        }
+
         protected open fun onPreBuild() {
             val config = Config.of(context)
             val neg = arguments.getSerializable(ARG_BUTTON_CONFIG_NEGATIVE) as? Config
@@ -233,6 +248,7 @@ abstract class BaseCommonDialog : BaseDialog() {
             onPreBuild()
             return create().apply {
                 this.arguments = this@Builder.arguments
+                this.setInteraction(this@Builder.interaction ?: return@apply)
             }
         }
 

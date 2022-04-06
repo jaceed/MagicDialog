@@ -44,8 +44,7 @@ class MainActivity : AppCompatActivity() {
                     .negative("Cancel掉")
                     .positive("O了")
                     .cancellable(true)
-                    .build()
-                    .setOnDialogFragmentInteraction(object : OnDialogFragmentInteraction {
+                    .interaction(object : OnDialogFragmentInteraction {
                         override fun onDialogNegativeClick(v: View) {
                             Toast.makeText(this@MainActivity, "取消", Toast.LENGTH_SHORT).show()
                         }
@@ -54,7 +53,8 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(this@MainActivity, "确定", Toast.LENGTH_SHORT).show()
                         }
 
-                    }), "prompt"
+                    })
+                    .build(), "prompt"
             )
         }
 
