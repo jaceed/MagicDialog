@@ -10,8 +10,4 @@ open class OnDialogFragmentInteractionAdapter : OnDialogFragmentInteraction {
     override fun onDialogPositiveClick(v: View) {
     }
 
-    override fun onDialogNeutralClick(v: View) {
-
-    }
-
 }

@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MagicDialog">
         <activity
+            android:name=".TestJavaActivity"
+            android:exported="false" />
+        <activity
             android:name=".CustomThemeTwoActivity"
             android:exported="false"
-            android:theme="@style/Theme.MagicDialog.Custom2"/>
+            android:theme="@style/Theme.MagicDialog.Custom2" />
         <activity android:name=".OptionsActivity" />
         <activity
             android:name=".CustomThemeActivity"
