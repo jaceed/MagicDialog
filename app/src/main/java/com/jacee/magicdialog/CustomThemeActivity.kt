@@ -4,9 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.baicizhan.framework.common.magicdialog.*
-import com.baicizhan.framework.common.magicdialog.utils.show
+import com.jaceed.android.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityCustomBinding
+import com.jaceed.android.magicdialog.Action
+import com.jaceed.android.magicdialog.DatePickerDialog
+import com.jaceed.android.magicdialog.Location
+import com.jaceed.android.magicdialog.OnDialogFragmentInteraction
+import com.jaceed.android.magicdialog.OptionListDialog
+import com.jaceed.android.magicdialog.PromptDialog
+import com.jaceed.android.magicdialog.WheelPickerDialog
 
 class CustomThemeActivity : AppCompatActivity(), OnDialogFragmentInteraction {
     override fun onCreate(savedInstanceState: Bundle?) {

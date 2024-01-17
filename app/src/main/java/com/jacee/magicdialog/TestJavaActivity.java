@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.baicizhan.framework.common.magicdialog.OnDialogFragmentInteraction;
-import com.baicizhan.framework.common.magicdialog.PromptDialog;
-import com.baicizhan.framework.common.magicdialog.utils.Magics;
+import com.jaceed.android.magicdialog.OnDialogFragmentInteraction;
+import com.jaceed.android.magicdialog.PromptDialog;
+import com.jaceed.android.magicdialog.utils.Magics;
 
 public class TestJavaActivity extends AppCompatActivity {
 

@@ -12,12 +12,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.baicizhan.framework.common.magicdialog.*
-import com.baicizhan.framework.common.magicdialog.utils.PromptBuilder
-import com.baicizhan.framework.common.magicdialog.utils.dismiss
-import com.baicizhan.framework.common.magicdialog.utils.prompt
-import com.baicizhan.framework.common.magicdialog.utils.show
+import com.jaceed.android.magicdialog.utils.PromptBuilder
+import com.jaceed.android.magicdialog.utils.dismiss
+import com.jaceed.android.magicdialog.utils.prompt
+import com.jaceed.android.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityMainBinding
+import com.jaceed.android.magicdialog.ButtonType
+import com.jaceed.android.magicdialog.LoadingDialog
+import com.jaceed.android.magicdialog.Location
+import com.jaceed.android.magicdialog.OnDialogFragmentInteraction
+import com.jaceed.android.magicdialog.PromptDialog
+import com.jaceed.android.magicdialog.State
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.baicizhan.framework.common.magicdialog.ButtonType
-import com.baicizhan.framework.common.magicdialog.DatePickerDialog
-import com.baicizhan.framework.common.magicdialog.OptionListDialog
-import com.baicizhan.framework.common.magicdialog.WheelPickerDialog
+import com.jaceed.android.magicdialog.ButtonType
+import com.jaceed.android.magicdialog.DatePickerDialog
+import com.jaceed.android.magicdialog.OptionListDialog
+import com.jaceed.android.magicdialog.WheelPickerDialog
 
 class OptionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

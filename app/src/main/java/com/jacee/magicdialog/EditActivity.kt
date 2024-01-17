@@ -3,8 +3,8 @@ package com.jacee.magicdialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.baicizhan.framework.common.magicdialog.EditDialog
-import com.baicizhan.framework.common.magicdialog.utils.show
+import com.jaceed.android.magicdialog.EditDialog
+import com.jaceed.android.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityEditBinding
 
 class EditActivity : AppCompatActivity() {
