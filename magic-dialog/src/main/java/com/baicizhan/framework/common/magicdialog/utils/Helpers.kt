@@ -27,11 +27,16 @@ fun FragmentActivity.dismiss(tag: String = DEFAULT_DIALOG_TAG) {
 }
 
 @JvmOverloads
-fun Fragment.show(dialog: BaseDialogFragment, tag: String = DEFAULT_DIALOG_TAG) {
+fun Fragment.show(dialog: BaseDialogFragment, tag: String = DEFAULT_DIALOG_TAG): Result<Boolean> {
+    if (!isAdded)
+        return Result.failure(Throwable("Not added yet!"))
     dialog.show(childFragmentManager, tag)
+    return Result.success(true)
 }
 
 fun Fragment.dismiss(tag: String = DEFAULT_DIALOG_TAG) {
+    if (!isAdded)
+        return
     childFragmentManager.findFragmentByTag(tag)?.let {
         childFragmentManager.beginTransaction()
             .remove(it)
@@ -44,5 +49,18 @@ val Fragment.PromptBuilder: PromptDialog.Builder
 
 val FragmentActivity.PromptBuilder: PromptDialog.Builder
     get() = PromptDialog.Builder(this)
+
+fun Fragment.prompt(tag: String = DEFAULT_DIALOG_TAG, onReference: ((PromptDialog) -> Unit)? = null, builder: PromptDialog.Builder.() -> Unit) = show(
+    PromptBuilder.apply {
+        builder()
+    }.build().also { onReference?.invoke(it) }, tag
+)
+
+fun FragmentActivity.prompt(tag: String = DEFAULT_DIALOG_TAG, onReference: ((PromptDialog) -> Unit)? = null, builder: PromptDialog.Builder.() -> Unit) = show(
+    PromptBuilder.apply {
+        builder()
+    }.build().also { onReference?.invoke(it) }, tag
+)
+
 
 

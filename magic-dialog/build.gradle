@@ -43,9 +43,11 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
-    implementation 'com.github.jaceed:extender:1.0.3-SNAPSHOT'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version"
     implementation "io.coil-kt:coil:1.4.0"
-    implementation "com.baicizhan.framework.common:wheel-picker:$wheelPickerVersion"
+    implementation 'com.github.jaceed:extender:1.0.3'
+    implementation 'com.github.JaceeDai:WheelPicker:539171959a'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

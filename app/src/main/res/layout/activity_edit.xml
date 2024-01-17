@@ -4,38 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".OptionsActivity">
+    android:orientation="vertical"
+    tools:context=".EditActivity">
 
     <Button
+        android:id="@+id/default_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="options"
-        android:onClick="options"/>
+        android:text="default" />
 
     <Button
+        android:id="@+id/no_ime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="options_checked"
-        android:onClick="optionsChecked"/>
+        android:text="no ime" />
 
     <Button
+        android:id="@+id/get_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="date_picker"
-        android:onClick="datePicker"/>
+        android:text="confirm message" />
 
     <Button
+        android:id="@+id/limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="normal_picker"
-        android:onClick="wheelPicker"/>
+        android:text="limit size 10" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="max width"
-        android:onClick="maxWidth"/>
 
 </LinearLayout>

@@ -50,6 +50,14 @@
         <item name="magicOptionItemCycledColor">@color/gray_05</item>
     </style>
 
+    <style name="MagicDefault.Edit">
+        <item name="magicTitleColor">@color/gray_01</item>
+        <item name="magicTitleSize">@dimen/ts_05</item>
+        <item name="magicBackgroundMargin">36dp</item>
+        <item name="magicEditClear">@android:drawable/ic_menu_close_clear_cancel</item>
+        <item name="magicEditCursorColor">?attr/colorPrimary</item>
+    </style>
+
     <!--============ Animations ==============-->
     <style name="OptionDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/anim_bottom_in_dialog</item>
@@ -60,5 +68,7 @@
         <item name="android:windowEnterAnimation">@anim/anim_bottom_in_dialog_offset</item>
         <item name="android:windowExitAnimation">@anim/anim_bottom_out_dialog_offset</item>
     </style>
+
+    <style name="EditDialogAnimation" parent="PromptDialogAnimation" />
 
 </resources>

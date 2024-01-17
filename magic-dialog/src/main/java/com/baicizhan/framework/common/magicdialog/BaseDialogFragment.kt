@@ -1,13 +1,28 @@
 package com.baicizhan.framework.common.magicdialog
 
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.StyleRes
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks
 import com.baicizhan.framework.common.magicdialog.utils.styleOf
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withTimeout
+import java.io.Closeable
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.resume
 
 /**
  * Created by Jacee.
@@ -43,12 +58,11 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun show(manager: FragmentManager, tag: String?) {
         try {
-            if (manager.findFragmentByTag(tag) != null) {
-                Log.d(TAG, "show: already added")
-                return
+            manager.magicDialogScope.launch {
+                lock.withLock {
+                    actuallyShow(manager, tag)
+                }
             }
-            manager.beginTransaction().remove(this).commitAllowingStateLoss()
-            manager.beginTransaction().add(this, tag).commitAllowingStateLoss()
         } catch (e: Exception) {
             Log.e(TAG, "show: $e")
         }
@@ -67,6 +81,26 @@ abstract class BaseDialogFragment : DialogFragment() {
         dismissListener?.onDismiss(dialog)
     }
 
+    private suspend fun actuallyShow(manager: FragmentManager, tag: String?) = withTimeout(100) {
+        suspendCancellableCoroutine<Boolean> { c ->
+            if (manager.findFragmentByTag(tag) != null) {
+                Log.d(TAG, "actuallyShow: already added")
+                c.resume(false)
+                return@suspendCancellableCoroutine
+            }
+            val cb = object : FragmentLifecycleCallbacks() {
+                override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
+                    super.onFragmentAttached(fm, f, context)
+                     Log.d(TAG, "$f attached")
+                    c.resume(this@BaseDialogFragment == f)
+                    manager.unregisterFragmentLifecycleCallbacks(this)
+                }
+            }
+            manager.registerFragmentLifecycleCallbacks(cb, false)
+            manager.beginTransaction().add(this@BaseDialogFragment, tag).commitAllowingStateLoss()
+        }
+    }
+
     protected open fun onCancelable(): Boolean = true
 
     fun setOnDismissListener(l: DialogInterface.OnDismissListener): BaseDialogFragment {
@@ -75,7 +109,21 @@ abstract class BaseDialogFragment : DialogFragment() {
     }
 
     companion object {
-        private val TAG = BaseDialogFragment::class.java.simpleName
+        private const val TAG = "BaseDialogFragment"
+        private val lock = Mutex()
+    }
+
+
+    private val FragmentManager.magicDialogScope: CoroutineScope by lazy {
+        CloseableCoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    }
+
+    private class CloseableCoroutineScope(context: CoroutineContext) : Closeable, CoroutineScope {
+        override val coroutineContext: CoroutineContext = context
+
+        override fun close() {
+            coroutineContext.cancel()
+        }
     }
 
 }

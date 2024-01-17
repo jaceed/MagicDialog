@@ -6,6 +6,14 @@
         <item name="magicBackgroundCorner">32dp</item>
     </style>
 
+    <style name="BuilderPromptStyleMaxWidth">
+        <item name="magicMaxWidth">200dp</item>
+    </style>
+
+    <style name="BuilderOptionStyleMaxWidth">
+        <item name="magicMaxWidth">200dp</item>
+    </style>
+
     <style name="CustomPromptDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/anim_in</item>
         <item name="android:windowExitAnimation">@anim/anim_out</item>

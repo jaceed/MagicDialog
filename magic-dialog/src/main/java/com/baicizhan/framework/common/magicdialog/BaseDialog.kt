@@ -2,7 +2,9 @@ package com.baicizhan.framework.common.magicdialog
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Point
 import android.graphics.drawable.InsetDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
@@ -60,21 +62,38 @@ abstract class BaseDialog : BaseDialogFragment() {
                 backgroundDrawable
             }
             State.EXPANDED -> {
-                attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
+                attrs.width = calculateWidth()
                 val margin = dimenOf(R.attr.magicBackgroundMargin)
                 val marginBottom = dimenOf(R.attr.magicBackgroundMarginBottom)
-                if (margin == 0 && marginBottom == 0)
+                if (margin == 0 && marginBottom == 0 || attrs.width > 0) {
                     backgroundDrawable
-                else
+                } else {
                     InsetDrawable(backgroundDrawable, margin, 0, margin, marginBottom)
+                }
             }
             else -> {
-                attrs.width = ViewGroup.LayoutParams.MATCH_PARENT
+                attrs.width = calculateWidth()
                 if (location == Location.BOTTOM) backgroundDrawableBottom else backgroundDrawable
             }
         }
         window.attributes = attrs
         window.setBackgroundDrawable(bg)
+    }
+
+
+    private fun calculateWidth(): Int {
+        val screen = getScreenSize()
+        return with(dimenOf(R.attr.magicMaxWidth, 0)) {
+            if (this > 0 && this < screen.x) this else ViewGroup.LayoutParams.MATCH_PARENT
+        }
+    }
+
+    private fun getScreenSize() = Point().apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            context?.display?.getRealSize(this)
+        } else {
+            dialog?.window?.windowManager?.defaultDisplay?.getRealSize(this)
+        }
     }
 
 }

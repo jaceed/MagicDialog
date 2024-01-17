@@ -59,4 +59,13 @@ class OptionsActivity : AppCompatActivity() {
             .show(supportFragmentManager, "wheel")
     }
 
+    fun maxWidth(view: View) {
+        OptionListDialog.Builder(this)
+            .options(arrayOf("a", "b", "c", "d"))
+            .style(R.style.BuilderOptionStyleMaxWidth)
+            .title("选项")
+            .build()
+            .setInteraction { index -> Toast.makeText(this@OptionsActivity, "clicked $index", Toast.LENGTH_SHORT).show() }
+            .show(supportFragmentManager, "options_max_width")
+    }
 }

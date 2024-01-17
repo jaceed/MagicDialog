@@ -90,10 +90,22 @@
             android:text="picture only" />
 
         <Button
+            android:id="@+id/picture_only_max_width"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="picture only max width" />
+
+        <Button
             android:id="@+id/styled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="styled" />
+
+        <Button
+            android:id="@+id/styled_max_width"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="styled: maxWidth" />
 
         <Button
             android:id="@+id/custom_layout"
@@ -118,6 +130,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="neutral" />
+
+        <Button
+            android:id="@+id/pic_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pic error" />
+
+        <Button
+            android:id="@+id/many_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="many show request one time" />
 
     </LinearLayout>
 
