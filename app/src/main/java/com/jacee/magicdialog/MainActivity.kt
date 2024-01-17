@@ -11,11 +11,20 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.baicizhan.framework.common.magicdialog.*
-import com.baicizhan.framework.common.magicdialog.utils.PromptBuilder
-import com.baicizhan.framework.common.magicdialog.utils.dismiss
-import com.baicizhan.framework.common.magicdialog.utils.show
+import androidx.lifecycle.lifecycleScope
+import com.jaceed.android.magicdialog.utils.PromptBuilder
+import com.jaceed.android.magicdialog.utils.dismiss
+import com.jaceed.android.magicdialog.utils.prompt
+import com.jaceed.android.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityMainBinding
+import com.jaceed.android.magicdialog.ButtonType
+import com.jaceed.android.magicdialog.LoadingDialog
+import com.jaceed.android.magicdialog.Location
+import com.jaceed.android.magicdialog.OnDialogFragmentInteraction
+import com.jaceed.android.magicdialog.PromptDialog
+import com.jaceed.android.magicdialog.State
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -185,6 +194,15 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        binding.pictureOnlyMaxWidth.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .style(R.style.BuilderPromptStyleMaxWidth)
+                    .pic(R.drawable.test_bg_pic_top)
+                    .build()
+            )
+        }
+
         binding.styled.setOnClickListener {
             show(
                 PromptDialog.Builder(this)
@@ -192,6 +210,15 @@ class MainActivity : AppCompatActivity() {
                     .style(R.style.BuilderPromptStyle)
                     .cancellable(false)
                     .build(), "style"
+            )
+        }
+
+        binding.styledMaxWidth.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .message("最大宽度")
+                    .style(R.style.BuilderPromptStyleMaxWidth)
+                    .build(), "style2"
             )
         }
 
@@ -248,6 +275,36 @@ class MainActivity : AppCompatActivity() {
                     .build()
             )
         }
+
+        binding.picError.setOnClickListener {
+            show(
+                PromptDialog.Builder(this)
+                    .pic(Uri.parse("abc"))
+                    .message("图错了")
+                    .build()
+            )
+        }
+
+        binding.manyTest.setOnClickListener {
+            lifecycleScope.launch {
+                for (i in 1..10) {
+                    prompt {
+                        title("abc")
+                        message("abc message")
+                    }
+                    if (i == 9) {
+                        delay(500)
+                    } else {
+                        delay(30)
+                    }
+                }
+            }
+        }
+
+        prompt {
+            title("easy")
+            message("简单化")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -256,6 +313,7 @@ class MainActivity : AppCompatActivity() {
         menu?.add(0, 2, 0, "测试")
         menu?.add(0, 3, 0, "主题2")
         menu?.add(0, 4, 0, "java")
+        menu?.add(0, 5, 0, "编辑")
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -277,6 +335,9 @@ class MainActivity : AppCompatActivity() {
             }
             4 -> {
                 startActivity(Intent(this, TestJavaActivity::class.java))
+            }
+            5 -> {
+                startActivity(Intent(this, EditActivity::class.java))
             }
             else -> {
                 return false

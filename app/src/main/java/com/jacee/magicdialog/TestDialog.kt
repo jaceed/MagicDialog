@@ -3,7 +3,7 @@ package com.jacee.magicdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.baicizhan.framework.common.magicdialog.BaseCommonDialog
+import com.jaceed.android.magicdialog.BaseCommonDialog
 import com.jacee.magicdialog.databinding.FragmentDialogTestBinding
 
 /**

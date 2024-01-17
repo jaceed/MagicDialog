@@ -2,10 +2,10 @@ package com.jacee.magicdialog
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.baicizhan.framework.common.magicdialog.OptionListDialog
-import com.baicizhan.framework.common.magicdialog.PromptDialog
-import com.baicizhan.framework.common.magicdialog.State
-import com.baicizhan.framework.common.magicdialog.utils.show
+import com.jaceed.android.magicdialog.OptionListDialog
+import com.jaceed.android.magicdialog.PromptDialog
+import com.jaceed.android.magicdialog.State
+import com.jaceed.android.magicdialog.utils.show
 import com.jacee.magicdialog.databinding.ActivityCustomThemeTwoBinding
 
 class CustomThemeTwoActivity : AppCompatActivity() {

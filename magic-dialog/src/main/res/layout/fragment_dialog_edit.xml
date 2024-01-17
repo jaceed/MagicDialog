@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+    <Space
+        android:id="@+id/s1"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@id/magic_prompt_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="?attr/magicTitleColor"
+        android:textSize="?attr/magicTitleSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guide_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_left"
+        app:layout_constraintTop_toBottomOf="@id/s1"
+        tools:text="长相思·山一程，身向榆关那畔行，夜深千帐灯。"
+        tools:textColor="@android:color/black"
+        tools:visibility="visible" />
+
+    <Space
+        android:id="@+id/s2"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/magic_prompt_title" />
+
+
+    <View
+        android:id="@+id/magic_edit_background"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_frame_gray_small"
+        app:layout_constraintEnd_toStartOf="@+id/guide_right"
+        app:layout_constraintStart_toEndOf="@+id/guide_left"
+        app:layout_constraintTop_toBottomOf="@id/s2" />
+
+    <EditText
+        android:id="@id/magic_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        android:imeOptions="actionDone"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingTop="14dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="14dp"
+        android:singleLine="true"
+        android:textColor="@color/gray_01"
+        android:textColorHint="@color/gray_04"
+        android:textCursorDrawable="@drawable/fg_color_primary"
+        android:textSize="@dimen/ts_04"
+        app:layout_constraintBottom_toBottomOf="@+id/magic_edit_background"
+        app:layout_constraintEnd_toStartOf="@id/magic_edit_clear"
+        app:layout_constraintStart_toStartOf="@+id/guide_left"
+        app:layout_constraintTop_toTopOf="@+id/magic_edit_background"
+        tools:hint="提示"
+        tools:text="山一程，水一程"
+        tools:textColor="@android:color/black" />
+
+    <ImageView
+        android:id="@id/magic_edit_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:src="?attr/magicEditClear"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/magic_edit_background"
+        app:layout_constraintEnd_toEndOf="@id/magic_edit_background"
+        app:layout_constraintTop_toTopOf="@id/magic_edit_background" />
+
+    <Space
+        android:id="@+id/s3"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/magic_edit_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

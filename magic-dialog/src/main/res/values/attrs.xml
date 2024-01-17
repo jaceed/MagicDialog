@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="magicBackground" format="color|reference" />
+    <attr name="magicBackgroundCorner" format="dimension|reference" />
+    <attr name="magicBackgroundMargin" format="dimension|reference" />
+    <attr name="magicBackgroundMarginBottom" format="dimension|reference" />
+    <attr name="magicTitleColor" format="color|reference" />
+    <attr name="magicTitleSize" format="dimension|reference" />
+    <attr name="magicMinWidth" format="dimension|reference" />
+    <attr name="magicMaxWidth" format="dimension|reference" />
+    <attr name="magicAnimation" format="reference" />
+
+    <attr name="magicButtonsLayout" format="reference" />
+    <attr name="magicButtonActionNormalColor" format="color|reference" />
+    <attr name="magicButtonActionRecommendedColor" format="color|reference" />
+    <attr name="magicButtonActionAlertColor" format="color|reference" />
+
+    <declare-styleable name="PromptAppearance">
+        <attr name="magicPromptLayout" format="reference" />
+        <attr name="magicMessageColor" format="color|reference" />
+        <attr name="magicMessageSize" format="dimension|reference" />
+        <attr name="magicLocation">
+            <enum name="center" value="0" />
+            <enum name="bottom" value="1" />
+        </attr>
+        <attr name="magicState">
+            <enum name="wrap" value="0" />
+            <enum name="expanded" value="1" />
+            <enum name="full" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="OptionAppearance">
+        <attr name="magicOptionItemColor" format="color|reference" />
+        <attr name="magicOptionItemCheckColor" format="color|reference" />
+        <attr name="magicOptionItemCycledColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="EditAppearance">
+        <attr name="magicEditLayout" format="reference" />
+        <attr name="magicEditClear" format="reference" />
+        <attr name="magicEditCursorColor" format="color|reference" />
+        <attr name="magicButtonActionRecommendedColorDisabled" format="color|reference" />
+    </declare-styleable>
+
+    <!-- Public style attributes-->
+    <attr name="magicAppearance" format="reference" />
+    <attr name="magicPromptAppearance" format="reference" />
+    <attr name="magicOptionsAppearance" format="reference" />
+    <attr name="magicEditAppearance" format="reference" />
+    <attr name="magicNegativeAppearance" format="reference" />
+    <attr name="magicPositiveAppearance" format="reference" />
+
+</resources>
