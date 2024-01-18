@@ -301,10 +301,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        prompt {
-            title("easy")
-            message("简单化")
-        }
+//        prompt {
+//            title("easy")
+//            message("简单化")
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
