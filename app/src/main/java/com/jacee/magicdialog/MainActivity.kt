@@ -314,6 +314,7 @@ class MainActivity : AppCompatActivity() {
         menu?.add(0, 3, 0, "主题2")
         menu?.add(0, 4, 0, "java")
         menu?.add(0, 5, 0, "编辑")
+        menu?.add(0, 6, 0, "经典弹窗")
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -338,6 +339,9 @@ class MainActivity : AppCompatActivity() {
             }
             5 -> {
                 startActivity(Intent(this, EditActivity::class.java))
+            }
+            6 -> {
+                startActivity(Intent(this, ClassicDialogActivity::class.java))
             }
             else -> {
                 return false
