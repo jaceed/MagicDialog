@@ -24,7 +24,7 @@
         <item name="android:textColor">@color/primary_white</item>
     </style>
 
-    <style name="MagicDefault" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="MagicDefault" parent="Theme.Material3.DayNight.Dialog">
         <item name="android:textViewStyle">@style/MagicText</item>
         <item name="magicBackground">@color/primary_white</item>
         <item name="magicBackgroundCorner">@dimen/dialog_background_corner</item>

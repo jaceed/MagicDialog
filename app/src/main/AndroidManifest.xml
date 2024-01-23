@@ -23,7 +23,8 @@
             android:name=".CustomThemeActivity"
             android:label="Custom"
             android:theme="@style/Theme.MagicDialog.Custom" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
