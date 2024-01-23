@@ -20,8 +20,8 @@
     </style>
 
     <style name="MagicButton.DialogPositive">
-        <item name="android:background">@drawable/bg_button_corner_gray</item>
-        <item name="android:textColor">@color/primary_white</item>
+        <item name="android:background">@drawable/bg_button_corner_primary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="MagicDefault" parent="Theme.Material3.DayNight.Dialog">
