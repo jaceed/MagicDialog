@@ -3,6 +3,11 @@ plugins {
     id 'kotlin-android'
 }
 
+apply from : '../config/publisher.gradle'
+
+project.group = 'com.github.jaceed'
+project.version = "2.0.1"
+
 android {
     compileSdk 31
     buildToolsVersion '31.0.0'

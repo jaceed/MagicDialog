@@ -1,0 +1,39 @@
+apply plugin: 'maven-publish'
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            product(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = "${project.group}"
+                artifactId = "${project.name}"
+                version = "${project.version}"
+
+                artifact generateSourcesJar
+            }
+        }
+
+        repositories {
+            maven {
+//                def releasesRepoUrl = "https://packages.aliyun.com/maven/repository/122437-release-NC0rSX/"
+//                def snapshotsRepoUrl = "https://packages.aliyun.com/maven/repository/122437-snapshot-X0JlpX/"
+//                url = !version.endsWith('SNAPSHOT') ? releasesRepoUrl : snapshotsRepoUrl
+//                def cred = getCredentialsConfig()
+//                credentials {
+//                    username = cred["username"]
+//                    password = cred["password"]
+//                }
+            }
+        }
+    }
+}
