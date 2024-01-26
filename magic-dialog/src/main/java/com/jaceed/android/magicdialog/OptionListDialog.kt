@@ -2,6 +2,7 @@ package com.jaceed.android.magicdialog
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.jaceed.android.magicdialog.databinding.FragmentDialogCheckOptionBinding
-import com.jaceed.android.magicdialog.databinding.ItemDialogCheckOptionBinding
 import com.github.jaceed.extender.view.setOnProtectedClickListener
 import com.github.jaceed.extender.view.visible
+import com.jaceed.android.magicdialog.databinding.FragmentDialogCheckOptionBinding
+import com.jaceed.android.magicdialog.databinding.ItemDialogCheckOptionBinding
+import com.jaceed.android.magicdialog.utils.colorOf
 
 /**
  * Created by Jacee.
@@ -52,6 +54,9 @@ class OptionListDialog : BaseOptionDialog() {
             binding.root.setOnProtectedClickListener {
                 interaction?.onCheckOption(adapterPosition)
                 dismiss()
+            }
+            colorOf(R.attr.magicOptionItemCheckColor).takeIf { it != 0 }?.let {
+                checked.imageTintList = ColorStateList.valueOf(it)
             }
         }
     }
