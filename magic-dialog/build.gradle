@@ -6,7 +6,7 @@ plugins {
 apply from : '../config/publisher.gradle'
 
 project.group = 'com.github.jaceed'
-project.version = "2.0.1-SNAPSHOT"
+project.version = "2.0.1"
 
 android {
     compileSdk 31
